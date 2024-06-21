@@ -21,6 +21,7 @@ export class ButtonComponent {
   @Input({ required: false }) isCancel: boolean = false;
   @Input({ required: false }) isLoading!: boolean;
   @Input({ required: false }) isLarge!: boolean;
+  @Input({ required: false }) withIcon!: boolean;
   @Input() type = 'cancel' || 'save';
 
   @Output() clicked = new EventEmitter<void>();

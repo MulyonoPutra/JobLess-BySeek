@@ -26,11 +26,11 @@ export const MENU_ITEM: Menu = {
     },
     {
       label: 'Saved Jobs',
-      route: '/saved-jobs',
+      route: '/activity/saved-jobs',
     },
     {
       label: 'Applied Jobs',
-      route: '/applied-jobs',
+      route: '/activity/applied-jobs',
     },
     {
       label: 'Recommended Jobs',

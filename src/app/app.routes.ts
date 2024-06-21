@@ -12,6 +12,11 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/profiles/profile.routes').then((a) => a.PROFILE_ROUTES)
       },
+      {
+        path: 'activity',
+        loadChildren: () =>
+          import('./features/activity/activity.routes').then((a) => a.ACTIVITY_ROUTES)
+      },
     ]
   },
   {
