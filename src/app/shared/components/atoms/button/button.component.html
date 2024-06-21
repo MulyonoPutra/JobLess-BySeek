@@ -1,0 +1,9 @@
+<button type="button" (click)="onClick()" [disabled]="isDisabled" [ngClass]="getButtonClass()">
+  @if (isLoading) {
+    <svg-icon src="../../../../../assets/icons/loading.svg" svgClass="inline w-4 h-4 me-1 text-white animate-spin">
+    </svg-icon>
+    Loading...
+  } @else {
+    {{ label }}
+  }
+</button>
