@@ -7,6 +7,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./core/layout/main/main.component').then((c) => c.MainComponent),
     children: [
+      { path: '', redirectTo: '/jobs', pathMatch: 'full' },
       {
         path: 'profile',
         loadChildren: () =>

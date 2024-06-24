@@ -17,7 +17,6 @@ import { LogoComponent } from '../../atoms/logo/logo.component';
     DropdownHeaderComponent,
     LogoComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })

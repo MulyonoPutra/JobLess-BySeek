@@ -1,45 +1,28 @@
-<header
-  class="transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300  fixed top-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm"
->
+<header class="fixed top-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm">
   <nav
     class="shadow-lg mt-6 relative max-w-[85rem] w-full bg-white border border-gray-200 rounded-[36px] mx-2 py-3 px-4 md:flex md:items-center md:justify-between md:py-0 md:px-6 lg:px-8 xl:mx-auto dark:bg-neutral-800 dark:border-neutral-700"
-    aria-label="Global"
-  >
+    aria-label="Global">
     <div class="flex items-center justify-between md:my-4">
       <app-logo [style]="'w-22 h-10'"></app-logo>
       <div class="md:hidden">
-        <button
-          type="button"
+        <button type="button"
           class="hs-collapse-toggle size-8 flex justify-center items-center text-sm font-semibold rounded-full border border-gray-200 text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:border-neutral-700 dark:hover:bg-neutral-700"
-          data-hs-collapse="#navbar-collapse-with-animation"
-          aria-controls="navbar-collapse-with-animation"
-          aria-label="Toggle navigation"
-        >
-          <svg-icon
-            src="../../../../../assets/icons/hamburger.svg"
-            svgClass="hs-collapse-open:hidden flex-shrink-0 size-4"
-          ></svg-icon>
-          <svg-icon
-            src="../../../../../assets/icons/close.svg"
-            svgClass="hs-collapse-open:block hidden flex-shrink-0 size-4"
-          ></svg-icon>
+          data-hs-collapse="#navbar-collapse-with-animation" aria-controls="navbar-collapse-with-animation"
+          aria-label="Toggle navigation">
+          <svg-icon src="../../../../../assets/icons/hamburger.svg"
+            svgClass="hs-collapse-open:hidden flex-shrink-0 size-4"></svg-icon>
+          <svg-icon src="../../../../../assets/icons/close.svg"
+            svgClass="hs-collapse-open:block hidden flex-shrink-0 size-4"></svg-icon>
         </button>
       </div>
     </div>
-    <div
-      id="navbar-collapse-with-animation"
-      class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block"
-    >
-      <ul
-        class="flex flex-col md:flex-row md:items-center md:justify-start py-2 md:py-0 md:ps-7"
-      >
+    <div id="navbar-collapse-with-animation"
+      class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block">
+      <ul class="flex flex-col md:flex-row md:items-center md:justify-start py-2 md:py-0 md:ps-7">
         @for (item of menuItems.header; track $index) {
-        <li class="">
-          <a
-            class="border-hover py-3 ps-px sm:px-3 font-medium text-gray-500 hover:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500"
-            routerLink="{{ item.route }}"
-            routerLinkActive="router-link-active"
-          >
+        <li class="border-hover" routerLinkActive="router-link-active">
+          <a class="py-3 ps-px sm:px-3 font-medium text-primary2 hover:text-primary1"
+            routerLink="{{ item.route }}" >
             <span> {{ item.label }} </span>
           </a>
         </li>
@@ -48,27 +31,15 @@
       </ul>
     </div>
     <div>
-      <app-dropdown-header
-        [menu]="dropdownLangMenu"
-        [title]="'English'"
-      ></app-dropdown-header>
+      <app-dropdown-header [menu]="dropdownLangMenu" [title]="'English'"></app-dropdown-header>
     </div>
     <div>
-      <app-dropdown-header
-        [menu]="menuItems.profile"
-        [title]="'Mulyono'"
-      ></app-dropdown-header>
+      <app-dropdown-header [menu]="menuItems.profile" [title]="'Mulyono'"></app-dropdown-header>
     </div>
     <div>
-      <a
-        routerLink="auth/login"
-        class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 text-gray-500 hover:border-[#3C5B6F] hover:text-[#3C5B6F] disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-blue-500 dark:hover:border-[#3C5B6F]"
-
-      >
-        <svg-icon
-          src="../../../../../assets/icons/user.svg"
-          svgClass="flex-shrink-0 size-4"
-        ></svg-icon>
+      <a routerLink="auth/login"
+        class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 text-gray-500 hover:border-[#3C5B6F] hover:text-[#3C5B6F] disabled:opacity-50 disabled:pointer-events-none">
+        <svg-icon src="../../../../../assets/icons/user.svg" svgClass="flex-shrink-0 size-4"></svg-icon>
         Login
       </a>
     </div>

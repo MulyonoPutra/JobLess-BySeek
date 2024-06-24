@@ -12,7 +12,7 @@ export const JOBS_ROUTES: Routes = [
       import('./pages/job-search-result/job-search-result.component').then((a) => a.JobSearchResultComponent),
   },
   {
-    path: 'details',
+    path: 'details/:id',
     loadComponent: () =>
       import('./pages/job-details/job-details.component').then((a) => a.JobDetailsComponent),
   },

@@ -2,11 +2,7 @@
   display: block;
 }
 
-.router-link-active {
-  border-bottom: solid 3px;
-  border-image: linear-gradient(to right, #3C5B6F, #3e4a7662, #153448);
-  border-image-slice: 1;
-}
+
 
 .border-hover {
   @apply border-transparent border-b-2 hover:border-gray-600 hover:text-gray-800 px-3 py-2;

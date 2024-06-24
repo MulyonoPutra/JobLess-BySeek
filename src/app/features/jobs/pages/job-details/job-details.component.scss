@@ -1,3 +1,7 @@
 :host {
   display: block;
 }
+
+li {
+  @apply text-sm font-medium text-primary2;
+}
