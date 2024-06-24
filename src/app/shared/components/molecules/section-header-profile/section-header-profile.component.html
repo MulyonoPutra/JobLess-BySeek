@@ -1,0 +1,27 @@
+  <div class="flex justify-between py-4">
+    <div>
+      <h1 class="text-3xl font-semibold text-primary1 dark:text-white">
+        {{ title }}
+      </h1>
+    </div>
+    <div></div>
+    <div class="hs-tooltip">
+      <button
+        type="button" (click)="onClick()"
+        class="hs-tooltip-toggle text-primary1 border border-primary1 hover:bg-primary1 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+      >
+        <svg-icon
+          src="../../../../../assets/icons/add.svg"
+          svgClass="w-4 h-4 add-icon"
+        >
+        </svg-icon>
+        <span
+          class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700"
+          role="tooltip"
+        >
+          Add Work Experience
+        </span>
+        <span class="sr-only">Icon description</span>
+      </button>
+    </div>
+  </div>

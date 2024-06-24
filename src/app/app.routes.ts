@@ -17,6 +17,21 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/activity/activity.routes').then((a) => a.ACTIVITY_ROUTES)
       },
+      {
+        path: 'company',
+        loadChildren: () =>
+          import('./features/companies/company.routes').then((a) => a.COMPANY_ROUTES)
+      },
+      {
+        path: 'jobs',
+        loadChildren: () =>
+          import('./features/jobs/jobs.routes').then((a) => a.JOBS_ROUTES)
+      },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./features/settings/settings.routes').then((a) => a.SETTINGS_ROUTES)
+      },
     ]
   },
   {

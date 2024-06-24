@@ -3,8 +3,8 @@ import { Menu } from "../domain/menu-item";
 export const MENU_ITEM: Menu = {
   header: [
     {
-      label: 'Job Search',
-      route: '/job-search',
+      label: 'Jobs',
+      route: '/jobs',
     },
     {
       label: 'Profile',

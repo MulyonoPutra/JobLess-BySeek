@@ -17,6 +17,8 @@ import { ButtonComponent } from '../../atoms/button/button.component';
 export class CardActivityComponent implements OnInit {
 
   @Input() isLoading!: boolean;
+  @Input() borderColor!: string;
+  @Input({required: false}) isButtonHidden?: boolean;
   @Input() data!: any;
   @Output() clicked = new EventEmitter<void>();
   @Output() removed = new EventEmitter<string>();

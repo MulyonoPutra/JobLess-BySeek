@@ -1,4 +1,5 @@
 <div
+  [ngClass]="borderColor"
   class="mb-3 flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
   <div class="flex justify-between items-center border-b rounded-t-xl py-3 px-4 md:px-5 dark:border-neutral-700">
     <h3 class="text-lg font-semibold text-primary1 dark:text-white">
@@ -34,8 +35,10 @@
     <p class="mb-4 text-primary2 dark:text-neutral-400">
       With supporting text below as a natural lead-in to additional content.
     </p>
-    <app-button [withIcon]="true" [isLoading]="isLoading" (clicked)="onClick()" [label]="'Apply'" [isCancel]="false" [isLarge]="false"
-      [type]="'save'">
-    </app-button>
+    @if (isButtonHidden) {
+      <app-button [withIcon]="true" [isLoading]="isLoading" (clicked)="onClick()" [label]="'Apply'" [isCancel]="false" [isLarge]="false"
+        [type]="'save'">
+      </app-button>
+    }
   </div>
 </div>
