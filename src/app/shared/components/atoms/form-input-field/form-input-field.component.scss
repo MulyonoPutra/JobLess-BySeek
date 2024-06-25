@@ -1,37 +1,36 @@
 :host {
-  display: block;
+	display: block;
 }
 
-
 ::placeholder {
-  color: inherit;
-  opacity: 1;
+	color: inherit;
+	opacity: 1;
 }
 
 .invalid {
-  @apply py-3 px-4 block w-full border-red-500 rounded-full text-sm focus:border-red-500 focus:ring-red-500 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400;
+	@apply py-3 px-4 block w-full border-red-500 rounded-full text-sm focus:border-red-500 focus:ring-red-500 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-400;
 
-  &::placeholder {
-    @apply text-red-700;
-  }
+	&::placeholder {
+		@apply text-red-700;
+	}
 }
 
 .valid {
-  @apply py-3 px-5 block w-full rounded-full text-sm focus:border-elephant-900 focus:ring-elephant-900 border-elephant-900 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600;
+	@apply py-3 px-5 block w-full rounded-full text-sm focus:border-elephant-900 focus:ring-elephant-900 border-elephant-900 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600;
 }
 
 .errors {
-  &-message {
-    @apply blink absolute left-0 text-xs font-semibold text-red-700 ml-3;
-  }
+	&-message {
+		@apply blink absolute left-0 text-xs font-semibold text-red-700 ml-3;
+	}
 }
 
 .blink {
-  animation: blinker 1s linear infinite;
+	animation: blinker 1s linear infinite;
 }
 
 @keyframes blinker {
-  50% {
-    opacity: 0;
-  }
+	50% {
+		opacity: 0;
+	}
 }

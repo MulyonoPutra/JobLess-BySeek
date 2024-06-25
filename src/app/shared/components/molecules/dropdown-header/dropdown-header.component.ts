@@ -5,23 +5,19 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-dropdown-header',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    AngularSvgIconModule
-  ],
-  templateUrl: './dropdown-header.component.html',
-  styleUrls: ['./dropdown-header.component.scss'],
+	selector: 'app-dropdown-header',
+	standalone: true,
+	imports: [CommonModule, RouterModule, AngularSvgIconModule],
+	templateUrl: './dropdown-header.component.html',
+	styleUrls: ['./dropdown-header.component.scss'],
 })
 export class DropdownHeaderComponent {
-  @Input() title!: string;
-  @Input() menu!: any;
+	@Input() title!: string;
+	@Input() menu!: any;
 
-  @Output() clicked = new EventEmitter<void>();
+	@Output() clicked = new EventEmitter<void>();
 
-  onClick(): void {
-    this.clicked.emit();
-  }
+	onClick(): void {
+		this.clicked.emit();
+	}
 }

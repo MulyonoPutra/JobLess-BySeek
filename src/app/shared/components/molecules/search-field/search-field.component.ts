@@ -5,29 +5,25 @@ import { ButtonComponent } from '../../atoms/button/button.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-search-field',
-  standalone: true,
-  imports: [
-    CommonModule,
-    AngularSvgIconModule,
-    ButtonComponent
-  ],
-  templateUrl: './search-field.component.html',
-  styleUrls: ['./search-field.component.scss'],
+	selector: 'app-search-field',
+	standalone: true,
+	imports: [CommonModule, AngularSvgIconModule, ButtonComponent],
+	templateUrl: './search-field.component.html',
+	styleUrls: ['./search-field.component.scss'],
 })
 export class SearchFieldComponent implements OnInit {
-  isLoading = false;
+	isLoading = false;
 
-  ngOnInit(): void { }
+	ngOnInit(): void {}
 
-  applied(): void {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 3000);
-    this.isLoading = true;
-  }
+	applied(): void {
+		setTimeout(() => {
+			this.isLoading = false;
+		}, 3000);
+		this.isLoading = true;
+	}
 
-  onClick(): void {
-    console.log('removed');
-  }
+	onClick(): void {
+		console.log('removed');
+	}
 }

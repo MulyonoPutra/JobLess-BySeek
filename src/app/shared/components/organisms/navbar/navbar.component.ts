@@ -8,31 +8,29 @@ import { MENU_LANG } from '../../../../core/constants/dropdown-menu';
 import { LogoComponent } from '../../atoms/logo/logo.component';
 
 @Component({
-  selector: 'app-navbar',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    AngularSvgIconModule,
-    DropdownHeaderComponent,
-    LogoComponent,
-  ],
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+	selector: 'app-navbar',
+	standalone: true,
+	imports: [
+		CommonModule,
+		RouterModule,
+		AngularSvgIconModule,
+		DropdownHeaderComponent,
+		LogoComponent,
+	],
+	templateUrl: './navbar.component.html',
+	styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+	dropdownLangMenu = MENU_LANG;
+	menuItems = MENU_ITEM;
 
-  dropdownLangMenu = MENU_LANG;
-  menuItems = MENU_ITEM;
+	ngOnInit(): void {}
 
-  ngOnInit(): void { }
+	logout(): void {
+		console.log('logout');
+	}
 
-  logout(): void {
-    console.log('logout');
-  }
-
-  changeLanguage(): void {
-    console.log('change language');
-  }
-
+	changeLanguage(): void {
+		console.log('change language');
+	}
 }

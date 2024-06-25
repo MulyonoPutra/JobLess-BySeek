@@ -5,16 +5,12 @@ import { RouterModule } from '@angular/router';
 import { SvgIcons } from '../../constants/icons';
 
 @Component({
-  selector: 'app-page-not-found',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    AngularSvgIconModule
-  ],
-  templateUrl: './page-not-found.component.html',
-  styleUrls: ['./page-not-found.component.scss'],
+	selector: 'app-page-not-found',
+	standalone: true,
+	imports: [CommonModule, RouterModule, AngularSvgIconModule],
+	templateUrl: './page-not-found.component.html',
+	styleUrls: ['./page-not-found.component.scss'],
 })
 export class PageNotFoundComponent {
-  arrowLeftIcon = SvgIcons.arrowLeft;
+	arrowLeftIcon = SvgIcons.arrowLeft;
 }

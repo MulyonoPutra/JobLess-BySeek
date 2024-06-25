@@ -7,28 +7,31 @@ import { CardJobAdsComponent } from '../../../../shared/components/molecules/car
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-jobs',
-  standalone: true,
-  imports: [
-    CommonModule, OverlayImageContainerComponent, SearchFieldComponent, CardJobAdsComponent, AngularSvgIconModule
-  ],
-  templateUrl: './jobs.component.html',
-  styleUrls: ['./jobs.component.scss'],
+	selector: 'app-jobs',
+	standalone: true,
+	imports: [
+		CommonModule,
+		OverlayImageContainerComponent,
+		SearchFieldComponent,
+		CardJobAdsComponent,
+		AngularSvgIconModule,
+	],
+	templateUrl: './jobs.component.html',
+	styleUrls: ['./jobs.component.scss'],
 })
 export class JobsComponent implements OnInit {
+	overlayImage =
+		'https://res.cloudinary.com/damu971dt/image/upload/v1718958396/Projects/alex-kotliarskyi-QBpZGqEMsKg-unsplash_hv7ltq.jpg';
 
-  overlayImage = 'https://res.cloudinary.com/damu971dt/image/upload/v1718958396/Projects/alex-kotliarskyi-QBpZGqEMsKg-unsplash_hv7ltq.jpg';
+	constructor(private readonly router: Router) {}
 
-  constructor(private readonly router: Router){}
+	ngOnInit(): void {}
 
-  ngOnInit(): void { }
+	onDetails(id: string): void {
+		this.router.navigateByUrl(`/jobs/details/${id}`);
+	}
 
-  onDetails(id: string): void {
-    this.router.navigateByUrl(`/jobs/details/${id}`)
-  }
-
-  onBookmark(): void {
-    console.log('onBookmark');
-  }
-
+	onBookmark(): void {
+		console.log('onBookmark');
+	}
 }

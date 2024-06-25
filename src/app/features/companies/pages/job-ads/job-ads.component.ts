@@ -4,27 +4,23 @@ import { CardJobAdsComponent } from '../../../../shared/components/molecules/car
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-job-ads',
-  standalone: true,
-  imports: [
-    CommonModule, CardJobAdsComponent
-  ],
-  templateUrl: './job-ads.component.html',
-  styleUrls: ['./job-ads.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+	selector: 'app-job-ads',
+	standalone: true,
+	imports: [CommonModule, CardJobAdsComponent],
+	templateUrl: './job-ads.component.html',
+	styleUrls: ['./job-ads.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class JobAdsComponent implements OnInit {
+	constructor(private readonly router: Router) {}
 
-  constructor(private readonly router: Router) { }
-  
-  ngOnInit(): void { }
+	ngOnInit(): void {}
 
-  onDetails(id: string): void {
-    this.router.navigateByUrl(`/jobs/details/${id}`)
-  }
+	onDetails(id: string): void {
+		this.router.navigateByUrl(`/jobs/details/${id}`);
+	}
 
-  onBookmark(): void {
-    console.log('onBookmark');
-  }
-
+	onBookmark(): void {
+		console.log('onBookmark');
+	}
 }

@@ -1,17 +1,17 @@
 :host {
-  display: block;
+	display: block;
 }
 
 .border-hover {
-  @apply border-transparent border-b-2 hover:border-gray-600 hover:text-gray-800 px-3 py-2;
+	@apply border-transparent border-b-2 hover:border-gray-600 hover:text-gray-800 px-3 py-2;
 }
 
 @keyframes blink {
-  50% {
-    opacity: 0.0;
-  }
+	50% {
+		opacity: 0;
+	}
 }
 
 .blink {
-  animation: blink 1s step-start 0s infinite;
+	animation: blink 1s step-start 0s infinite;
 }
