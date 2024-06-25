@@ -1,5 +1,6 @@
 import { PageNotFoundComponent } from './core/layout/page-not-found/page-not-found.component';
 import { Routes } from '@angular/router';
+import { authenticationGuard } from './core/guards/authentication.guard';
 
 export const routes: Routes = [
   {
@@ -26,7 +27,8 @@ export const routes: Routes = [
       {
         path: 'jobs',
         loadChildren: () =>
-          import('./features/jobs/jobs.routes').then((a) => a.JOBS_ROUTES)
+          import('./features/jobs/jobs.routes').then((a) => a.JOBS_ROUTES),
+        // canActivate: [authenticationGuard]
       },
       {
         path: 'settings',
