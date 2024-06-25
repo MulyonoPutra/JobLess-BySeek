@@ -12,10 +12,10 @@ export enum AuthKey {
   providedIn: 'root',
 })
 export class StorageService {
-  private token!: string | null;
-  private role!: string | null;
-  private accessToken: string | null = null;
-  private refreshToken: string | null = null;
+  protected token!: string | null;
+  protected role!: string | null;
+  protected accessToken: string | null = null;
+  protected refreshToken: string | null = null;
 
   public setAccessToken(token: string): void {
     sessionStorage.removeItem(AuthKey.AccessToken);
