@@ -8,6 +8,9 @@ import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } 
 import { Router } from '@angular/router';
 import { timer, take } from 'rxjs';
 import { FormPasswordFieldComponent } from '../../../../shared/components/atoms/form-password-field/form-password-field.component';
+import { AuthenticationService } from '../../services/authentication.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ValidationService } from '../../../../shared/services/validation.service';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +28,7 @@ import { FormPasswordFieldComponent } from '../../../../shared/components/atoms/
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  providers: [AuthenticationService, ValidationService],
 })
 export class LoginComponent implements OnInit {
 
@@ -34,6 +38,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
+    private readonly authService: AuthenticationService,
+    private readonly validationService: ValidationService
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +60,23 @@ export class LoginComponent implements OnInit {
     };
   }
 
+  login(): void {
+    this.authService.login(this.formCtrlValue).subscribe({
+      next: () => {
+        // this.successMessage();
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
+      },
+      error: (error: HttpErrorResponse) => {
+        // this.errorMessage(error);
+      },
+      complete: () => {
+        this.navigateAfterSucceed();
+      },
+    });
+  }
+
   navigateAfterSucceed(): void {
     timer(1000)
       .pipe(take(1))
@@ -61,12 +84,12 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formCtrlValue);
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 3000);
     this.isLoading = true;
-    this.form.reset();
+    if (this.form.valid) {
+      this.login();
+    } else {
+      this.validationService.markAllFormControlsAsTouched(this.form);
+    }
   }
 
 }
