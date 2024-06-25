@@ -1,0 +1,8 @@
+@for (item of [0,1,2,3,4,5]; track $index) {
+  <div class="pb-2">
+    <app-card-job-ads
+      (details)="onDetails('1')"
+      (marked)="onBookmark()"
+    ></app-card-job-ads>
+  </div>
+}

@@ -31,15 +31,15 @@
       </ul>
     </div>
     <div>
-      <app-dropdown-header [menu]="dropdownLangMenu" [title]="'English'"></app-dropdown-header>
+      <app-dropdown-header [menu]="dropdownLangMenu" [title]="'English'" (clicked)="changeLanguage()"></app-dropdown-header>
     </div>
     <div>
-      <app-dropdown-header [menu]="menuItems.profile" [title]="'Mulyono'"></app-dropdown-header>
+      <app-dropdown-header [menu]="menuItems.profile" [title]="'Mulyono'" (clicked)="logout()"></app-dropdown-header>
     </div>
     <div>
       <a routerLink="auth/login"
         class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 text-gray-500 hover:border-[#3C5B6F] hover:text-[#3C5B6F] disabled:opacity-50 disabled:pointer-events-none">
-        <svg-icon src="../../../../../assets/icons/user.svg" svgClass="flex-shrink-0 size-4"></svg-icon>
+        <svg-icon src="../../../../../assets/icons/user-login.svg" svgClass="flex-shrink-0 size-4 icon-primary-1"></svg-icon>
         Login
       </a>
     </div>

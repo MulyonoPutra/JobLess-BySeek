@@ -4,18 +4,15 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @Component({
-  selector: 'app-activity',
+  selector: 'app-company-details',
   standalone: true,
   imports: [
-    CommonModule,
-    RouterOutlet,
-    RouterModule,
-    AngularSvgIconModule
+    CommonModule, AngularSvgIconModule, RouterOutlet, RouterModule
   ],
-  templateUrl: './activity.component.html',
-  styleUrls: ['./activity.component.scss'],
+  templateUrl: './company-details.component.html',
+  styleUrls: ['./company-details.component.scss'],
 })
-export class ActivityComponent implements OnInit {
+export class CompanyDetailsComponent implements OnInit {
 
   ngOnInit(): void { }
 

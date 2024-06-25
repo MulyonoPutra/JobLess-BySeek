@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CommonModule } from '@angular/common';
@@ -18,4 +18,10 @@ import { RouterModule } from '@angular/router';
 export class DropdownHeaderComponent {
   @Input() title!: string;
   @Input() menu!: any;
+
+  @Output() clicked = new EventEmitter<void>();
+
+  onClick(): void {
+    this.clicked.emit();
+  }
 }

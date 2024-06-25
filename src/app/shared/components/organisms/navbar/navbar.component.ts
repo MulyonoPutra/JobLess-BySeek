@@ -27,4 +27,12 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  logout(): void {
+    console.log('logout');
+  }
+
+  changeLanguage(): void {
+    console.log('change language');
+  }
+
 }

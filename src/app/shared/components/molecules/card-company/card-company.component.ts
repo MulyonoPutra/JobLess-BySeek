@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CommonModule } from '@angular/common';
@@ -13,4 +13,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './card-company.component.html',
   styleUrls: ['./card-company.component.scss'],
 })
-export class CardCompanyComponent { }
+export class CardCompanyComponent {
+  @Output() clicked = new EventEmitter<string>();
+
+  onClick(id: string): void {
+    this.clicked.emit(id);
+  }
+}
