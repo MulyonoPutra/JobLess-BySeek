@@ -7,7 +7,7 @@ export const PROFILE_ROUTES: Routes = [
       import('./pages/profile/profile.component').then((a) => a.ProfileComponent),
   },
   {
-    path: 'forms',
+    path: 'forms/:id',
     loadComponent: () =>
       import('./pages/profile-forms/profile-forms.component').then((a) => a.ProfileFormsComponent),
   },

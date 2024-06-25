@@ -17,7 +17,7 @@
 }
 
 .valid {
-  @apply py-3 px-5 block w-full rounded-full text-sm focus:border-primary1 focus:ring-primary1 border-primary1 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600;
+  @apply py-3 px-5 block w-full rounded-full text-sm focus:border-elephant-900 focus:ring-elephant-900 border-elephant-900 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600;
 }
 
 .errors {

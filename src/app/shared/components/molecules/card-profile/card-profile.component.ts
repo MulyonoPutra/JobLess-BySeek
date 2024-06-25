@@ -34,11 +34,10 @@ export class CardProfileComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     let currentHeight = this.elementRef.nativeElement.getElementsByTagName('div')[0].offsetHeight;
-    console.log(currentHeight)
     if (currentHeight > this.maxHeight) {
       this.isCollapsed = true;
       this.isCollapsable = true;
-      this.cdr.detectChanges(); 
+      this.cdr.detectChanges();
     }
   }
 

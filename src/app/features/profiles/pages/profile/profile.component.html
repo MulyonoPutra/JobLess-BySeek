@@ -1,7 +1,7 @@
 <div>
   <app-overlay-image-container [overlayImage]="overlayImage">
     <div class="md:p-5 text-start">
-      <h3 class="text-4xl font-bold text-primary5">Mulyono Putra</h3>
+      <h3 class="text-4xl font-bold text-stark-200">Mulyono Putra</h3>
       <div class="flex flex-col space-y-2">
         <div class="flex space-x-1">
           <div>
@@ -12,7 +12,7 @@
             </svg-icon>
           </div>
           <div>
-            <p class="text-primary5">West Java</p>
+            <p class="text-stark-200">West Java</p>
           </div>
         </div>
         <div class="flex space-x-1">
@@ -24,7 +24,7 @@
             </svg-icon>
           </div>
           <div>
-            <p class="text-primary5">mulyonoputra94&#64;gmail.com</p>
+            <p class="text-stark-200">mulyonoputra94&#64;gmail.com</p>
           </div>
         </div>
       </div>
@@ -32,7 +32,7 @@
         <div>
           <button
             type="button"
-            class="inline-flex items-center py-2.5 px-6 ms-2 text-sm font-medium text-primary5 bg-primary3 rounded-lg border border-primary5 hover:bg-primary1 hover:text-primary5 focus:ring-4 focus:outline-none focus:ring-blue-300"
+            class="inline-flex items-center py-2.5 px-6 ms-2 text-sm font-medium text-stark-200 bg-stonewall-400 rounded-lg border border-stark-200 hover:bg-elephant-950 hover:text-stark-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
           >
             Edit
           </button>
@@ -45,14 +45,11 @@
 <div class="mx-auto pt-4 pb-10 px-4 sm:px-6 lg:px-8 md:pt-10 max-w-[55rem]">
   <ng-container>
     <app-section-header-profile
-      (created)="onCreateExperience()"
+      (created)="onUpdateSummary('123')"
       [title]="'Personal Summary'"
     />
     @for (item of [0]; track $index) {
-    <app-card-summary
-      [summary]="details"
-      (edited)="onEdit('1')"
-    >
+    <app-card-summary [summary]="details" (edited)="onEdit('1')">
     </app-card-summary>
     }
   </ng-container>
