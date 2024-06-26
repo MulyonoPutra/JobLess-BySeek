@@ -6,6 +6,7 @@ import { SectionHeaderProfileComponent } from '../../../../shared/components/mol
 import { OverlayImageContainerComponent } from '../../../../shared/components/molecules/overlay-image-container/overlay-image-container.component';
 import { CardSummaryComponent } from '../../../../shared/components/molecules/card-summary/card-summary.component';
 import { Router } from '@angular/router';
+import { BadgeComponent } from '../../../../shared/components/atoms/badge/badge.component';
 
 @Component({
 	selector: 'app-profile',
@@ -17,11 +18,20 @@ import { Router } from '@angular/router';
 		SectionHeaderProfileComponent,
 		OverlayImageContainerComponent,
 		CardSummaryComponent,
+    BadgeComponent
 	],
 	templateUrl: './profile.component.html',
 	styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+
+  tags: string[] = [
+    'CSS', 'Angular', 'Front End Development', 'HTML', 'API Testing', 'Web Application Testing', 'Software Testing',
+    'Manual Testing', 'Testing', 'Pengujian API', 'Web Application Testing', 'Application Software Testing',
+    'Tailwind CSS', 'JavaScript', 'Postman', 'Git', 'Team Work', 'Communication Skills', 'Logical Thinking',
+    'Problem Solving', 'Willingness to Learn', 'Analytical Thinking', 'Typescript Programming', 'Angular 2+', 'NestJS'
+  ];
+  
 	overlayImage =
 		'https://res.cloudinary.com/damu971dt/image/upload/v1718977514/Projects/christina-wocintechchat-com-UTw3j_aoIKM-unsplash_ck21qn.jpg';
 

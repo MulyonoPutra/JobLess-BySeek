@@ -1,11 +1,8 @@
 <div class="relative overflow-hidden">
-  <div
-    class="mx-auto max-w-screen-md px-4 sm:px-6 md:max-w-screen-xl md:py-20 lg:py-28 max-h-screen md:px-8"
-  >
+  <div class="mx-auto max-w-screen-md px-4 sm:px-6 md:max-w-screen-xl md:py-20 lg:py-28 max-h-screen md:px-8">
     <div class="md:pe-8 md:w-1/2 xl:pe-0 xl:w-5/12">
       <h1
-        class="text-3xl text-bayoux-700 font-bold md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight dark:text-neutral-200"
-      >
+        class="text-3xl text-bayoux-700 font-bold md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight dark:text-neutral-200">
         Welcome to
         <span class="text-elephant-950 dark:text-blue-500">JobLess</span>
       </h1>
@@ -26,15 +23,13 @@
             <app-form-input-field
               [formGroup]="form"
               [label]="'Email'"
-              fieldName="email"
-            />
+              fieldName="email" />
           </div>
           <div class="mb-4">
-            <app-form-password-field
+           <app-form-password-field
               [formGroup]="form"
               [label]="'Password'"
-              fieldName="password"
-            />
+              fieldName="password" />
           </div>
         </div>
 
@@ -46,24 +41,20 @@
             [isCancel]="false"
             [isLarge]="true"
             [isDisabled]="form.invalid"
-            [type]="'save'"
-          >
+            [type]="'save'">
           </app-button>
         </div>
       </form>
     </div>
   </div>
 
-  <div
-    class="hidden md:block md:absolute md:top-0 md:start-1/2 md:end-0 h-full"
-  >
+  <div class="hidden md:block md:absolute md:top-0 md:start-1/2 md:end-0 h-full">
     <img
       height="100"
       width="100"
       priority
-      src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1981&q=80"
+      [src]="bgImage"
       class="w-full h-full object-cover object-center"
-      alt="Background Image"
-    />
+      alt="Background Image" />
   </div>
 </div>
