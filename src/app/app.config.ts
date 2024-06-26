@@ -2,7 +2,7 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 
-import { AuthInterceptorProvider } from './core/providers/auth-interceptor.provider';
+import { Providers } from './app.provider';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
 		provideHttpClient(),
 		provideAnimations(),
 		importProvidersFrom(BrowserAnimationsModule),
-		AuthInterceptorProvider,
+    ...Providers,
 		provideRouter(routes),
 
 		provideAngularSvgIcon(),
