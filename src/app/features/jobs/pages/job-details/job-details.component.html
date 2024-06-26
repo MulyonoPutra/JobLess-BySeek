@@ -1,19 +1,20 @@
-<div class="bg-white shadow-md rounded-lg p-4 w-full mx-auto">
+@if (jobAds) {
+  <div class="w-full p-4 mx-auto bg-white rounded-lg shadow-md">
   <div class="flex items-center mb-4">
-    <img src="https://via.placeholder.com/50" alt="Buana" class="w-12 h-12 rounded-full mr-4" />
-    <h2 class="text-lg font-semibold text-elephant-950">Front End Developer</h2>
+    <img [src]="jobAds.employer.company.logo" alt="Buana" class="w-12 h-12 mr-4 rounded-full" />
+    <h2 class="text-lg font-semibold text-elephant-950"> {{ jobAds.title }}</h2>
   </div>
-  <div class="text-sm mb-4">
+  <div class="mb-4 text-sm">
     <div class="flex space-x-4">
       <div>
-        <h3 class="text-md font-medium text-bayoux-700">
-          PT Buana Varia Komputama
+        <h3 class="font-medium text-md text-bayoux-700">
+          {{ jobAds.employer.company.name }}
         </h3>
       </div>
       <div class="flex flex-1">
         <div class="inline-block h-full min-h-[1em] w-0.5 bg-bayoux-700"></div>
         <p
-          class="text-elephant-950 underline underline-offset-2 font-semibold ml-4 hover:text-bayoux-700 cursor-pointer">
+          class="ml-4 font-semibold underline cursor-pointer text-elephant-950 underline-offset-2 hover:text-bayoux-700">
           View all jobs
         </p>
       </div>
@@ -24,38 +25,38 @@
       <svg-icon src="../../../../../assets/icons/map-pin-line.svg" svgClass="mt-2 icon-primary-4">
       </svg-icon>
       <p class="mt-2 text-stonewall-400 hover:text-stark-400">
-        South Jakarta, Jakarta
+        {{ jobAds.employer.company.location }}
       </p>
     </div>
-    <div class="mt-2 flex space-x-2">
+    <div class="flex mt-2 space-x-2">
       <svg-icon src="../../../../../assets/icons/building-line.svg" svgClass="mt-3 icon-primary-4">
       </svg-icon>
-      <p class="mt-2 text-stonewall-400 text-sm">
-        Developers/Programmers (Information & Communication Technology)
+      <p class="mt-2 text-sm text-stonewall-400">
+        {{ jobAds.employer.company.industry }}
       </p>
     </div>
-    <div class="mt-2 flex space-x-2">
+    <div class="flex mt-2 space-x-2">
       <svg-icon src="../../../../../assets/icons/money.svg" svgClass="mt-2 icon-primary-4">
       </svg-icon>
-      <p class="mt-2 text-stonewall-400 text-sm">Negotiable</p>
+      <p class="mt-2 text-sm text-stonewall-400">{{ jobAds.salary | rupiah }}</p>
     </div>
-    <a class="mt-3 inline-flex items-center gap-x-1 text-xs font-light rounded-lg border border-transparent text-stark-400"
-      href="#">
-      2 days ago
-    </a>
+    <span class="inline-flex items-center mt-3 text-xs font-light border border-transparent rounded-lg gap-x-1 text-stark-400"
+      >
+      {{ jobAds.createdAt | timeAgo }}
+    </span>
   </div>
   <div class="flex space-x-2">
-    <button class="bg-elephant-950 border-stark-400 text-white px-4 py-2 font-semibold rounded-lg mb-4 text-sm">
+    <button class="px-4 py-2 mb-4 text-sm font-semibold text-white rounded-lg bg-elephant-950 border-stark-400">
       Quick apply
     </button>
     <button type="button"
-      class="bg-bayoux-200 px-4 py-2 font-semibold mb-4 text-sm rounded-lg border border-gray-200 text-elephant-950 hover:border-elephant-950 hover:text-elephant-950 disabled:opacity-50 disabled:pointer-events-none">
-      Cancel
+      class="px-4 py-2 mb-4 text-sm font-semibold border border-gray-200 rounded-lg bg-bayoux-200 text-elephant-950 hover:border-elephant-950 hover:text-elephant-950 disabled:opacity-50 disabled:pointer-events-none">
+      Saved Jobs
     </button>
   </div>
 
-  <h2 class="text-md font-medium text-elephant-950 mb-2">Responsibilities:</h2>
-  <ul class="list-disc list-inside mb-4">
+  <h2 class="mb-2 font-medium text-md text-elephant-950">Responsibilities:</h2>
+  <ul class="mb-4 list-disc list-inside">
     <li class="list">
       Develop and enhance features for apps written in ReactJS.
     </li>
@@ -70,8 +71,8 @@
     </li>
   </ul>
 
-  <h2 class="text-md font-medium text-elephant-950 mb-2">Qualifications:</h2>
-  <ul class="list-disc list-inside mb-4">
+  <h2 class="mb-2 font-medium text-md text-elephant-950">Qualifications:</h2>
+  <ul class="mb-4 list-disc list-inside">
     <li>3+ years of experience in front-end development with ReactJS.</li>
     <li>
       Strong understanding of web technologies: HTML5, CSS3, ES6, TypeScript.
@@ -87,8 +88,8 @@
     <li>Ability to write clean, well-documented, and maintainable code.</li>
   </ul>
 
-  <h2 class="text-lg font-semibold text-elephant-950 mb-2">Benefits:</h2>
-  <ul class="list-disc list-inside mb-4">
+  <h2 class="mb-2 text-lg font-semibold text-elephant-950">Benefits:</h2>
+  <ul class="mb-4 list-disc list-inside">
     <li>BPJS TK</li>
     <li>BPJS Kesehatan</li>
     <li>THR</li>
@@ -97,3 +98,5 @@
     <li>Meal</li>
   </ul>
 </div>
+
+}
