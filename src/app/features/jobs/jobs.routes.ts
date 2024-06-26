@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const JOBS_ROUTES: Routes = [
 	{
 		path: '',
-		loadComponent: () => import('./pages/jobs/jobs.component').then((a) => a.JobsComponent),
+		loadComponent: () => import('./pages/job-ads/job-ads.component').then((a) => a.JobAdsComponent),
 	},
 	{
 		path: 'results',
