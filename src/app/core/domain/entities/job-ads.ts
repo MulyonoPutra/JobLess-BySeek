@@ -1,4 +1,4 @@
-import { Employer } from "../../../../shared/domain/entities/employer"
+import { Employer } from "./employer"
 
 export interface JobAds {
   id: string

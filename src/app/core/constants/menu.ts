@@ -1,4 +1,4 @@
-import { Menu } from '../domain/menu-item';
+import { Menu } from '../domain/entities/menu-item';
 
 export const MENU_ITEM: Menu = {
 	header: [

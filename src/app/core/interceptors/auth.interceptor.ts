@@ -9,8 +9,8 @@ import {
 } from '@angular/common/http';
 
 import { AuthenticationService } from '../../features/authentication/services/authentication.service';
-import { Credentials } from '../../features/authentication/domain/entities/credentials';
-import { HttpResponseEntity } from '../domain/http-response-entity';
+import { Credentials } from '../domain/entities/credentials';
+import { HttpResponseEntity } from '../domain/entities/http-response-entity';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../services/storage.service';
@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
 		private storageService: StorageService,
 		private authService: AuthenticationService,
 		private router: Router,
-	) {}
+	) { }
 
 	private isRefreshing = false;
 	private refreshTokenSubject: BehaviorSubject<unknown> = new BehaviorSubject<unknown>(null);

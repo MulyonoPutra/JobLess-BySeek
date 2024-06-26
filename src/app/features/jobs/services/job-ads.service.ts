@@ -1,7 +1,7 @@
 import { Observable, map } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
-import { HttpResponseEntity } from '../../../core/domain/http-response-entity';
+import { HttpResponseEntity } from '../../../core/domain/entities/http-response-entity';
 import { Injectable } from '@angular/core';
 import { JobAds } from '../domain/entities/job-ads';
 import { environment } from '../../../../environments/environment.development';
@@ -24,7 +24,7 @@ export class JobAdsService {
 
   findById(id: string): Observable<JobAds> {
     return this.http.get<HttpResponseEntity<JobAds>>(`${this.endpoint}/job-ads/${id}`)
-    .pipe(map(response => response.data))
+      .pipe(map(response => response.data))
   }
 
 }

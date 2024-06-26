@@ -1,12 +1,12 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 
-import { Credentials } from '../domain/entities/credentials';
-import { HttpResponseEntity } from '../../../core/domain/http-response-entity';
+import { Credentials } from '../../../core/domain/entities/credentials';
+import { HttpResponseEntity } from '../../../core/domain/entities/http-response-entity';
 import { Injectable } from '@angular/core';
 import { JWTDecoded } from '../../../core/domain/entities/jwt-decoded';
-import { LoginDto } from '../domain/dto/login.dto';
-import { RegisterDto } from '../domain/dto/register.dto';
+import { LoginDto } from '../../../core/domain/dto/login.dto';
+import { RegisterDto } from '../../../core/domain/dto/register.dto';
 import { StorageService } from '../../../core/services/storage.service';
 import { environment } from '../../../../environments/environment.development';
 import { handlerHttpError } from '../../../core/utility/http-handle-error';
