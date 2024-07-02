@@ -1,16 +1,21 @@
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { FooterComponent } from '../../../shared/components/organisms/footer/footer.component';
+import { HttpErrorResponse } from '@angular/common/http';
 import { NavbarComponent } from '../../../shared/components/organisms/navbar/navbar.component';
+import { StorageService } from '../../services/storage.service';
+import { User } from '../../domain/entities/user';
+import { UserService } from '../../services/user.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
 	selector: 'app-main',
 	standalone: true,
 	imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent],
 	template: `
-		<app-navbar></app-navbar>
+		<app-navbar [user]="user"></app-navbar>
 		<main>
 			<div
 				[ngClass]="{
@@ -23,17 +28,48 @@ import { NavbarComponent } from '../../../shared/components/organisms/navbar/nav
 		</main>
 		<app-footer></app-footer>
 	`,
+	providers: [UserService],
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
 	private currentRoute!: string;
 	private fullWidthRoutes: string[] = ['/company', '/profile', '/jobs'];
+	user!: User;
 
-	constructor(private router: Router) {
+	constructor(
+		private readonly router: Router,
+		private readonly destroyRef: DestroyRef,
+		private readonly userService: UserService,
+		private readonly storageService: StorageService,
+	) {
+		this.trackRouteChanges();
+	}
+
+	ngOnInit(): void {
+		this.findUser();
+	}
+
+	trackRouteChanges(): void {
 		this.router.events.subscribe((event) => {
 			if (event instanceof NavigationEnd) {
 				this.currentRoute = event.urlAfterRedirects;
 			}
 		});
+	}
+
+	findUser(): void {
+		this.userService
+			.findUser()
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: (user: User) => {
+					this.user = user;
+					this.storageService.setSeekerIdentity(this.user.seeker?.id!);
+				},
+				error: (error: HttpErrorResponse) => {
+					console.error(error.message);
+				},
+				complete: () => {},
+			});
 	}
 
 	get isFullWidthRoute(): boolean {

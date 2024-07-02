@@ -2,11 +2,12 @@ import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/cor
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CommonModule } from '@angular/common';
+import { EmptyStateComponent } from '../../atoms/empty-state/empty-state.component';
 
 @Component({
 	selector: 'app-card-summary',
 	standalone: true,
-	imports: [CommonModule, AngularSvgIconModule],
+	imports: [CommonModule, AngularSvgIconModule, EmptyStateComponent],
 	templateUrl: './card-summary.component.html',
 	styleUrls: ['./card-summary.component.scss'],
 })

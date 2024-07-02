@@ -4,7 +4,8 @@ export enum AuthKey {
 	AccessToken = 'ACCESS_TOKEN',
 	RefreshToken = 'REFRESH_TOKEN',
 	Role = 'ROLE',
-	UserId = 'AuthKey.UserId',
+	UserId = 'USER_ID',
+	SeekerId = 'SEEKER_ID',
 	Username = 'USERNAME',
 }
 
@@ -14,6 +15,7 @@ export enum AuthKey {
 export class StorageService {
 	protected token!: string | null;
 	protected role!: string | null;
+	protected seekerId!: string | null;
 	protected accessToken: string | null = null;
 	protected refreshToken: string | null = null;
 
@@ -67,6 +69,16 @@ export class StorageService {
 
 	public getUserIdentity(): string {
 		return sessionStorage.getItem(AuthKey.UserId)!;
+	}
+
+	public setSeekerIdentity(id: string): void {
+		this.seekerId = id;
+		sessionStorage.removeItem(AuthKey.SeekerId);
+		sessionStorage.setItem(AuthKey.SeekerId, id);
+	}
+
+	public getSeekerIdentity(): string {
+		return sessionStorage.getItem(AuthKey.SeekerId)!;
 	}
 
 	public clear() {

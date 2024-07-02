@@ -1,0 +1,19 @@
+<div [ngClass]="borderColor"
+  class="flex flex-col mb-3 bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+  <div class="flex items-center justify-between px-4 py-3 border-b rounded-t-xl md:px-5 dark:border-neutral-700">
+    <h3 class="text-lg font-semibold text-elephant-950 dark:text-white">
+      {{ data.jobAds.title }}
+    </h3>
+  </div>
+  <div class="p-4 md:p-5">
+    <p class="mt-2 text-bayoux-700">
+      {{ data.jobAds.employer.company?.name }}
+    </p>
+    <p class="mt-2 text-xs font-light border border-transparent rounded-lg text-bayoux-700 gap-x-1">
+      {{ data.jobAds.createdAt | timeAgo }}</p>
+    <p class="mt-2 text-bayoux-700">{{ data.jobAds.employer.company?.location }}</p>
+    <p class="mb-4 text-bayoux-700">
+      {{ data.jobAds.requirements }}
+    </p>
+  </div>
+</div>

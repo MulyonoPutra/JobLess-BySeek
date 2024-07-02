@@ -1,18 +1,21 @@
 <div class="relative overflow-hidden">
-  <div class="mx-auto max-w-screen-md px-4 sm:px-6 md:max-w-screen-xl md:py-20 lg:py-28 max-h-screen md:px-8">
+  <div class="max-w-screen-md max-h-screen px-4 mx-auto sm:px-6 md:max-w-screen-xl md:py-20 lg:py-28 md:px-8">
     <div class="md:pe-8 md:w-1/2 xl:pe-0 xl:w-5/12">
       <h1
-        class="text-3xl text-bayoux-700 font-bold md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight dark:text-neutral-200">
+        class="text-3xl font-bold text-bayoux-700 md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight dark:text-neutral-200">
         Welcome to
         <span class="text-elephant-950 dark:text-blue-500">JobLess</span>
       </h1>
       <p class="mt-3 text-base text-bayoux-700 dark:text-neutral-500">
         Your Gateway to a Brighter Career - Log in to access thousands of job
         opportunities, connect with top employers, and take the next step in
-        your professional journey. Don't have an account? Sign up now and start
+        your professional journey. Don't have an account?
+        <a [routerLink]="['/auth/register']" class="font-semibold underline cursor-pointer text-elephant underline-offset-2">
+          Sign up
+        </a> now and start
         your path to success!
       </p>
-      <div class="mt-8 grid">
+      <div class="grid mt-8">
         <app-google-button></app-google-button>
       </div>
 
@@ -20,41 +23,24 @@
       <form [formGroup]="form">
         <div class="flex flex-col space-y-1">
           <div class="mb-4">
-            <app-form-input-field
-              [formGroup]="form"
-              [label]="'Email'"
-              fieldName="email" />
+            <app-form-input-field [formGroup]="form" [label]="'Email'" fieldName="email" />
           </div>
           <div class="mb-4">
-           <app-form-password-field
-              [formGroup]="form"
-              [label]="'Password'"
-              fieldName="password" />
+            <app-form-password-field [formGroup]="form" [label]="'Password'" fieldName="password" />
           </div>
         </div>
 
         <div class="grid pt-4">
-          <app-button
-            [isLoading]="isLoading"
-            (clicked)="onSubmit()"
-            [label]="'Save'"
-            [isCancel]="false"
-            [isLarge]="true"
-            [isDisabled]="form.invalid"
-            [type]="'save'">
+          <app-button [isLoading]="isLoading" (clicked)="onSubmit()" [label]="'Save'" [isCancel]="false"
+            [isLarge]="true" [isDisabled]="form.invalid" [type]="'save'">
           </app-button>
         </div>
       </form>
     </div>
   </div>
 
-  <div class="hidden md:block md:absolute md:top-0 md:start-1/2 md:end-0 h-full">
-    <img
-      height="100"
-      width="100"
-      priority
-      [src]="bgImage"
-      class="w-full h-full object-cover object-center"
+  <div class="hidden h-full md:block md:absolute md:top-0 md:start-1/2 md:end-0">
+    <img height="100" width="100" priority [src]="bgImage" class="object-cover object-center w-full h-full"
       alt="Background Image" />
   </div>
 </div>

@@ -1,76 +1,54 @@
+@if (company) {
 <div class="max-w-4xl mx-auto">
   <div class="flex items-center mb-4">
-    <img
-      src="https://via.placeholder.com/50"
-      alt="PT Freeport Indonesia"
-      class="w-12 h-12 rounded-full mr-4"
-    />
+    <img src="https://via.placeholder.com/50" alt="PT Freeport Indonesia" class="w-12 h-12 mr-4 rounded-full" />
     <div>
-      <h1 class="text-2xl font-bold">PT Freeport Indonesia</h1>
+      <h1 class="text-2xl font-bold">{{ company.name }}</h1>
     </div>
   </div>
 
   <ng-container>
     <div class="flex flex-row">
       <div class="basis-1/4">
-        <p class="font-medium text-sm text-bayoux-700">Website</p>
+        <p class="text-sm font-medium text-bayoux-700">Website</p>
       </div>
       <div class="basis-1/4">
-        <a
-          href="javascript:void(0)"
-          class="text-elephant-950 font-semibold text-sm"
-          >PT Freeport Indonesia</a
-        >
+        <a href="javascript:void(0)" class="text-sm font-semibold text-elephant-950">{{ company.website }}</a>
       </div>
       <div class="basis-1/2"></div>
     </div>
     <div class="flex flex-row">
       <div class="basis-1/4">
-        <p class="font-medium text-sm text-bayoux-700">Industry</p>
+        <p class="text-sm font-medium text-bayoux-700">Industry</p>
       </div>
       <div class="basis-1/4">
-        <a
-          href="javascript:void(0)"
-          class="text-elephant-950 font-semibold text-sm"
-          >Mining, Minerals & Metals</a
-        >
+        <a href="javascript:void(0)" class="text-sm font-semibold text-elephant-950">{{ company.industry }}</a>
       </div>
       <div class="basis-1/2"></div>
     </div>
     <div class="flex flex-row">
       <div class="basis-1/4">
-        <p class="font-medium text-sm text-bayoux-700">Company size</p>
+        <p class="text-sm font-medium text-bayoux-700">Company size</p>
       </div>
       <div class="basis-1/4">
-        <a
-          href="javascript:void(0)"
-          class="text-elephant-950 font-semibold text-sm"
-          >More than 10,000 employees</a
-        >
+        <a href="javascript:void(0)" class="text-sm font-semibold text-elephant-950">More than 10,000 employees</a>
       </div>
       <div class="basis-1/2"></div>
     </div>
     <div class="flex flex-row">
       <div class="basis-1/4">
-        <p class="font-medium text-sm text-bayoux-700">Location</p>
+        <p class="text-sm font-medium text-bayoux-700">Location</p>
       </div>
       <div class="basis-2/3">
-        <a
-          href="javascript:void(0)"
-          class="text-elephant-950 font-semibold text-sm"
-          >PT. Freeport Indonesia, South Jakarta, Special Capital Region of
-          Jakarta, Republic of Indonesia</a
-        >
+        <a href="javascript:void(0)" class="text-sm font-semibold text-elephant-950">{{ company.location }}</a>
       </div>
     </div>
   </ng-container>
   <div class="flex flex-row mt-3">
-    <p class="text-elephant-950 font-semibold text-sm">
-      Merupakan perusahaan afiliasi dari Freeport-McMoRan. PTFI menambang,
-      memproses dan melakukan eksplorasi terhadap bijih yang mengandung tembaga,
-      emas dan perak. Beroperasi di daerah dataran tinggi di Kabupaten Mimika
-      Provinsi Papua, Indonesia. Kami memasarkan konsentrat yang mengandung
-      tembaga, emas dan perak ke seluruh penjuru dunia.
+    <p class="text-sm font-semibold text-elephant-950">
+      {{ company.description }}
     </p>
   </div>
 </div>
+
+}

@@ -1,9 +1,10 @@
-<div
-  class="cursor-pointer group flex flex-col bg-white border shadow-sm rounded-xl hover-animation dark:bg-neutral-900 dark:border-neutral-800"
-  (click)="onClick('1')"
+@if (company) {
+  <div
+  class="flex flex-col bg-white border shadow-sm cursor-pointer group rounded-xl hover-animation dark:bg-neutral-900 dark:border-neutral-800"
+  (click)="onClick(company.id)"
 >
   <div class="p-4 md:p-5">
-    <div class="flex justify-between items-center">
+    <div class="flex items-center justify-between">
       <div class="flex items-center">
         <img
           class="size-[38px] rounded-full"
@@ -12,14 +13,14 @@
         />
         <div class="ms-3">
           <h3
-            class="group-hover:text-bayoux-700 font-semibold text-elephant-950 dark:group-hover:text-neutral-400 dark:text-neutral-200"
+            class="font-semibold group-hover:text-bayoux-700 text-elephant-950 dark:group-hover:text-neutral-400 dark:text-neutral-200"
           >
-            London, UK
+            {{ company.name }}
           </h3>
           <p
-            class="group-hover:text-bayoux-700 font-medium text-sm text-bayoux-700 dark:group-hover:text-neutral-400 dark:text-neutral-200"
+            class="text-sm font-medium group-hover:text-bayoux-700 text-bayoux-700 dark:group-hover:text-neutral-400 dark:text-neutral-200"
           >
-            37 Job Positions
+            {{company.employer?.jobAds?.length}} Job Positions
           </p>
         </div>
       </div>
@@ -33,3 +34,5 @@
     </div>
   </div>
 </div>
+
+}

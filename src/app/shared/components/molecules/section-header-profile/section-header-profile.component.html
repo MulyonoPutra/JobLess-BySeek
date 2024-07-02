@@ -6,21 +6,14 @@
   </div>
   <div></div>
   <div class="hs-tooltip">
-    <button
-      type="button"
-      (click)="onClick()"
-      class="hs-tooltip-toggle text-elephant-950 border border-elephant-950 hover:bg-elephant-950 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-    >
-      <svg-icon
-        src="../../../../../assets/icons/add.svg"
-        svgClass="w-4 h-4 add-icon"
-      >
+    <button type="button" (click)="onClick()"
+      class="hs-tooltip-toggle text-elephant-950 border border-elephant-950 hover:bg-elephant-950 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center">
+      <svg-icon src="../../../../../assets/icons/add.svg" svgClass="w-4 h-4 add-icon">
       </svg-icon>
       <span
-        class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded shadow-sm dark:bg-neutral-700"
-        role="tooltip"
-      >
-        Add Work Experience
+        class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible dark:bg-neutral-700"
+        role="tooltip">
+        Add {{ title }}
       </span>
       <span class="sr-only">Icon description</span>
     </button>

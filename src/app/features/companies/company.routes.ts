@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { companyResolver } from './resolver/company.resolver';
 
 export const COMPANY_ROUTES: Routes = [
 	{
@@ -12,6 +13,9 @@ export const COMPANY_ROUTES: Routes = [
 			import('./pages/company-details/company-details.component').then(
 				(a) => a.CompanyDetailsComponent,
 			),
+		resolve: {
+			data: companyResolver,
+		},
 		children: [
 			{
 				path: '',
@@ -28,7 +32,9 @@ export const COMPANY_ROUTES: Routes = [
 			{
 				path: 'job-ads',
 				loadComponent: () =>
-					import('./pages/job-ads/job-ads.component').then((a) => a.JobAdsComponent),
+					import('./pages/job-ads-by-company/job-ads-by-company.component').then(
+						(a) => a.JobAdsByCompanyComponent,
+					),
 			},
 		],
 	},

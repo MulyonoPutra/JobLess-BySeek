@@ -1,6 +1,7 @@
 import { PageNotFoundComponent } from './core/layout/page-not-found/page-not-found.component';
 import { Routes } from '@angular/router';
 import { authenticationGuard } from './core/guards/authentication.guard';
+import { seekerGuard } from './core/guards/seeker.guard';
 
 export const routes: Routes = [
 	{
@@ -13,6 +14,9 @@ export const routes: Routes = [
 				path: 'profile',
 				loadChildren: () =>
 					import('./features/profiles/profile.routes').then((a) => a.PROFILE_ROUTES),
+				data: {
+					role: 'seeker',
+				},
 			},
 			{
 				path: 'activity',
@@ -34,8 +38,12 @@ export const routes: Routes = [
 				path: 'settings',
 				loadChildren: () =>
 					import('./features/settings/settings.routes').then((a) => a.SETTINGS_ROUTES),
+				data: {
+					role: 'seeker',
+				},
 			},
 		],
+		canActivate: [authenticationGuard],
 	},
 	{
 		path: 'auth',

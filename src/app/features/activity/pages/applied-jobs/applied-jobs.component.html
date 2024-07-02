@@ -1,9 +1,4 @@
-@for (item of [0,1,2,3,4]; track $index) {
-<app-card-activity
-  (clicked)="applied()"
-  (removed)="onRemove()"
-  [isLoading]="isLoading"
-  [isButtonHidden]="false"
-  [borderColor]="'border-t-4 border-t-bayoux-700'"
-/>
+@for (application of applications; track $index) {
+<app-card-application [data]="application" (clicked)="applied()" (removed)="onRemove()" [isLoading]="isLoading"
+  [borderColor]="'border-t-4 border-t-bayoux-700'" />
 }

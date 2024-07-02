@@ -1,6 +1,6 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { Providers } from './app.provider';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
@@ -9,13 +9,13 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
+		Providers,
 		HttpClientModule,
 		provideHttpClient(),
 		provideAnimations(),
 		importProvidersFrom(BrowserAnimationsModule),
-    ...Providers,
 		provideRouter(routes),
-
+		provideHttpClient(withInterceptorsFromDi()),
 		provideAngularSvgIcon(),
 	],
 };

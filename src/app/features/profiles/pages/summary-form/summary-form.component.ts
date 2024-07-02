@@ -1,24 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, type OnInit } from '@angular/core';
-import { FormInputFieldComponent } from '../../../../shared/components/atoms/form-input-field/form-input-field.component';
 import {
-	FormBuilder,
-	FormGroup,
 	FormsModule,
 	ReactiveFormsModule,
+	FormGroup,
+	FormBuilder,
 	Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { timer, take } from 'rxjs';
+import { FormInputFieldComponent } from '../../../../shared/components/atoms/form-input-field/form-input-field.component';
 
 @Component({
-	selector: 'app-profile-forms',
+	selector: 'app-summary-form',
 	standalone: true,
 	imports: [CommonModule, FormInputFieldComponent, FormsModule, ReactiveFormsModule],
-	templateUrl: './profile-forms.component.html',
-	styleUrls: ['./profile-forms.component.scss'],
+	templateUrl: './summary-form.component.html',
+	styleUrls: ['./summary-form.component.scss'],
 })
-export class ProfileFormsComponent implements OnInit {
+export class SummaryFormComponent implements OnInit {
 	form!: FormGroup;
 	isLoading: boolean = false;
 

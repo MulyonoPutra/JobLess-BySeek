@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, type OnInit } from '@angular/core';
+import { CompanyService } from '../../services/company.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { StorageService } from '../../../../core/services/storage.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Company } from '../../../../core/domain/entities/company';
 
 @Component({
 	selector: 'app-company-overview',
@@ -7,8 +13,26 @@ import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
 	imports: [CommonModule],
 	templateUrl: './company-overview.component.html',
 	styleUrls: ['./company-overview.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [CompanyService],
 })
 export class CompanyOverviewComponent implements OnInit {
-	ngOnInit(): void {}
+	company!: Company;
+	companyId!: string;
+	visible = false;
+
+	constructor(
+		private readonly router: Router,
+		private readonly route: ActivatedRoute,
+		private readonly destroyRef: DestroyRef,
+		private readonly companyService: CompanyService,
+		private readonly storageService: StorageService,
+	) {}
+
+	ngOnInit(): void {
+		this.route.parent?.data.subscribe({
+			next: (response) => {
+				this.company = response['data'];
+			},
+		});
+	}
 }

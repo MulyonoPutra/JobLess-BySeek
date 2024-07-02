@@ -1,30 +1,18 @@
-<div
-  [ngClass]="borderColor"
-  class="mb-3 flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70"
->
-  <div
-    class="flex justify-between items-center border-b rounded-t-xl py-3 px-4 md:px-5 dark:border-neutral-700"
-  >
+<div [ngClass]="borderColor"
+  class="flex flex-col mb-3 bg-white border shadow-sm rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+  <div class="flex items-center justify-between px-4 py-3 border-b rounded-t-xl md:px-5 dark:border-neutral-700">
     <h3 class="text-lg font-semibold text-elephant-950 dark:text-white">
-      Frontend Developer
+      {{ data.title }}
     </h3>
 
     <div class="flex items-center gap-x-1">
-      <div class="hs-tooltip inline-block">
-        <button
-          (click)="onRemove()"
-          type="button"
-          class="hs-tooltip-toggle size-8 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:bg-neutral-700"
-        >
-          <svg-icon
-            src="../../../../../assets/icons/close.svg"
-            svgClass="flex-shrink-0 size-4"
-          >
+      <div class="inline-block hs-tooltip">
+        <button (click)="onRemove()" type="button"
+          class="inline-flex items-center justify-center text-sm font-semibold text-gray-500 border border-transparent rounded-full hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-neutral-700">
+          <svg-icon src="../../../../../assets/icons/close.svg" svgClass="flex-shrink-0 size-4">
           </svg-icon>
-          <span
-            class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible tooltip-wrap"
-            role="tooltip"
-          >
+          <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible tooltip-wrap"
+            role="tooltip">
             Delete
           </span>
         </button>
@@ -32,24 +20,18 @@
     </div>
   </div>
   <div class="p-4 md:p-5">
-    <p class="mt-2 text-bayoux-700 dark:text-neutral-400">
-      PT Tera Multi Wahana
+    <p class="mt-2 text-bayoux-700">
+      {{ data.employer.company?.name }}
     </p>
-    <p class="mt-2 text-bayoux-700 dark:text-neutral-400">Posted 30d+ ago</p>
-    <p class="mt-2 text-bayoux-700 dark:text-neutral-400">Jakarta</p>
-    <p class="mb-4 text-bayoux-700 dark:text-neutral-400">
-      With supporting text below as a natural lead-in to additional content.
+    <p class="mt-2 text-xs font-light border border-transparent rounded-lg text-bayoux-700 gap-x-1">
+      {{ data.createdAt | timeAgo }}</p>
+    <p class="mt-2 text-bayoux-700">{{ data.employer.company?.location }}</p>
+    <p class="mb-4 text-bayoux-700">
+      {{ data.requirements }}
     </p>
     @if (isButtonHidden) {
-    <app-button
-      [withIcon]="true"
-      [isLoading]="isLoading"
-      (clicked)="onClick()"
-      [label]="'Apply'"
-      [isCancel]="false"
-      [isLarge]="false"
-      [type]="'save'"
-    >
+    <app-button [withIcon]="true" [isLoading]="isLoading" (clicked)="onClick()" [label]="'Apply'" [isCancel]="false"
+      [isLarge]="false" [type]="'save'">
     </app-button>
     }
   </div>

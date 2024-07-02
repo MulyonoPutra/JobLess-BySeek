@@ -5,3 +5,9 @@
 li {
 	@apply text-sm font-medium text-bayoux-700;
 }
+
+::ng-deep {
+	.p-dialog-title {
+		@apply text-elephant-800 font-semibold text-lg;
+	}
+}

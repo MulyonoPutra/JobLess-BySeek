@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
 		private storageService: StorageService,
 		private authService: AuthenticationService,
 		private router: Router,
-	) { }
+	) {}
 
 	private isRefreshing = false;
 	private refreshTokenSubject: BehaviorSubject<unknown> = new BehaviorSubject<unknown>(null);
@@ -104,7 +104,7 @@ export class AuthInterceptor implements HttpInterceptor {
 		alert('refresh token is expired, please login again.');
 
 		this.storageService.clear();
-		this.router.navigate(['/auth/sign-in']);
+		this.router.navigate(['/auth/login']);
 	}
 
 	private setCredentials(newToken: HttpResponseEntity<Credentials>) {

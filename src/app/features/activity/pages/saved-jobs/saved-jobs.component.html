@@ -1,9 +1,13 @@
-@for (item of [0, 1,2,3,4]; track $index) {
-<app-card-activity
-  (clicked)="applied()"
-  (removed)="onRemove()"
-  [isLoading]="isLoading"
-  [isButtonHidden]="true"
-  [borderColor]="'border-t-4 border-t-stonewall-400'"
-/>
+@if (jobAds) {
+  @for (item of jobAds; track $index) {
+    <app-card-activity
+      [data]="item"
+      (clicked)="applied()"
+      (removed)="onRemove()"
+      [isLoading]="isLoading"
+      [isButtonHidden]="true"
+      [borderColor]="'border-t-4 border-t-stonewall-400'"
+    />
+  }
 }
+
