@@ -1,4 +1,4 @@
-@for (job of company.employer?.jobAds; track $index) {
+@for (job of jobAds; track $index) {
 <div class="pb-2">
   <div class="flex flex-col bg-white border shadow-sm cursor-pointer hover-animation rounded-xl">
     <div class="relative flex items-center gap-x-1">
@@ -22,9 +22,11 @@
           <h2 class="text-lg font-semibold text-elephant-950">
             {{ job.title }}
           </h2>
-          <h3 class="font-medium text-md text-bayoux-700">
-            {{ job.employer.company!.name }}
-          </h3>
+          @if (job.employer.company!) {
+            <h3 class="font-medium text-md text-bayoux-700">
+              {{ job.employer.company!.name }}
+            </h3>
+          }
         </div>
       </div>
       <div class="flex space-x-2">

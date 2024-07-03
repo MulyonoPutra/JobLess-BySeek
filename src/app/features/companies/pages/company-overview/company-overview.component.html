@@ -1,7 +1,7 @@
 @if (company) {
 <div class="max-w-4xl mx-auto">
   <div class="flex items-center mb-4">
-    <img src="https://via.placeholder.com/50" alt="PT Freeport Indonesia" class="w-12 h-12 mr-4 rounded-full" />
+    <img [src]="company.logo" alt="PT Freeport Indonesia" class="w-12 h-12 mr-4 rounded-full" />
     <div>
       <h1 class="text-2xl font-bold">{{ company.name }}</h1>
     </div>
