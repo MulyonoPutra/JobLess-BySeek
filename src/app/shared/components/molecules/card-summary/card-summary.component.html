@@ -1,13 +1,17 @@
 @if (summary) {
 <div class="flex flex-col mb-4 bg-white border shadow-sm hover-animation rounded-xl">
-  <div class="flex items-center justify-between px-4 py-0 rounded-t-xl md:px-5">
-    <div></div>
+  <div class="flex items-center justify-between px-4 py-3 rounded-t-xl md:px-5">
+    <p class="flex-grow text-sm text-bayoux-700">
+      {{ summary | slice : 0 : textLimit }}
+      @if (isExpanded) {
+        <span>{{ summary | slice : textLimit }}</span>
+      }
+    </p>
     <div class="flex items-center gap-x-1">
       <div class="inline-block hs-tooltip">
         <button type="button" (click)="onClick('1')"
           class="inline-flex items-center justify-center text-sm font-semibold text-gray-500 border border-transparent rounded-full hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
-          <svg-icon src="../../../../../assets/icons/edit-box.svg" svgClass="">
-          </svg-icon>
+          <svg-icon src="../../../../../assets/icons/edit-box.svg" svgClass=""></svg-icon>
           <span
             class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible"
             role="tooltip">
@@ -18,12 +22,6 @@
     </div>
   </div>
   <div class="px-5 pb-4">
-    <p class="text-sm text-bayoux-700">
-      {{ summary | slice : 0 : textLimit }}
-      @if (isExpanded) {
-        <span>{{ summary | slice : textLimit }}</span>
-      }
-    </p>
     @if (summary.length >= textLimit) {
     <button (click)="toggleReadMore()">
       <div class="flex space-x-2">
@@ -42,7 +40,6 @@
     }
   </div>
 </div>
-
 } @else {
 <app-empty-state></app-empty-state>
 }

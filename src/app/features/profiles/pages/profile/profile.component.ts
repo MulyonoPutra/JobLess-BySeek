@@ -12,6 +12,9 @@ import { StorageService } from '../../../../core/services/storage.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Seeker } from '../../../../core/domain/entities/seeker';
 import { HttpErrorResponse } from '@angular/common/http';
+import { OVERLAY_IMAGES } from '../../../../core/constants/overlay-images';
+import { User } from '../../../../core/domain/entities/user';
+import { MonthYearPipe } from '../../../../shared/pipes/month-year.pipe';
 
 @Component({
 	selector: 'app-profile',
@@ -27,19 +30,20 @@ import { HttpErrorResponse } from '@angular/common/http';
 	],
 	templateUrl: './profile.component.html',
 	styleUrls: ['./profile.component.scss'],
-	providers: [ProfileService],
+	providers: [ProfileService, MonthYearPipe],
 })
 export class ProfileComponent implements OnInit {
 	seeker!: Seeker;
+  user!: User;
 
-	overlayImage =
-		'https://res.cloudinary.com/damu971dt/image/upload/v1718977514/Projects/christina-wocintechchat-com-UTw3j_aoIKM-unsplash_ck21qn.jpg';
+  overlayImage = OVERLAY_IMAGES.profile;
 
 	constructor(
 		private readonly router: Router,
 		private readonly destroyRef: DestroyRef,
 		private readonly profileService: ProfileService,
 		private readonly storageService: StorageService,
+    private readonly monthYearPipe: MonthYearPipe
 	) {}
 
 	ngOnInit(): void {
@@ -54,6 +58,8 @@ export class ProfileComponent implements OnInit {
 			.subscribe({
 				next: (seeker: Seeker) => {
 					this.seeker = seeker;
+          console.log(this.seeker)
+          this.user = this.seeker?.user;
 				},
 				error: (error: HttpErrorResponse) => {
 					console.error(error);
@@ -63,7 +69,7 @@ export class ProfileComponent implements OnInit {
 	}
 
 	duration(startDate: string, endDate: string): string {
-		return `${startDate} - ${endDate}`;
+    return `${this.monthYearPipe.transform(startDate)} - ${this.monthYearPipe.transform(endDate)}`;
 	}
 
 	onEdit(id: string): void {

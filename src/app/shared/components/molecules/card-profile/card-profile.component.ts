@@ -10,11 +10,12 @@ import {
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CommonModule } from '@angular/common';
+import { MonthYearPipe } from '../../../pipes/month-year.pipe';
 
 @Component({
 	selector: 'app-card-profile',
 	standalone: true,
-	imports: [CommonModule, AngularSvgIconModule],
+  imports: [CommonModule, AngularSvgIconModule],
 	templateUrl: './card-profile.component.html',
 	styleUrls: ['./card-profile.component.scss'],
 })

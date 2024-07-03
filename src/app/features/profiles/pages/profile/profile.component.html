@@ -1,16 +1,18 @@
+@if (seeker) {
 <div>
   <app-overlay-image-container [overlayImage]="overlayImage">
+    @if (user) {
     <div class="md:p-5 text-start">
-      <h3 class="text-4xl font-bold text-stark-200">Mulyono Putra</h3>
+      <h3 class="text-4xl font-bold text-stark-200"> {{ user.name }}</h3>
       <div class="flex flex-col space-y-2">
         <div class="flex space-x-1">
           <div>
             <svg-icon src="../../../../../assets/icons/maps.svg" svgClass="mt-1">
             </svg-icon>
           </div>
-          <div>
+          <!-- <div>
             <p class="text-stark-200">West Java</p>
-          </div>
+          </div> -->
         </div>
         <div class="flex space-x-1">
           <div>
@@ -18,7 +20,7 @@
             </svg-icon>
           </div>
           <div>
-            <p class="text-stark-200">mulyonoputra94&#64;gmail.com</p>
+            <p class="text-stark-200">{{ user.email }}</p>
           </div>
         </div>
       </div>
@@ -31,6 +33,7 @@
         </div>
       </div>
     </div>
+    }
   </app-overlay-image-container>
 </div>
 
@@ -39,14 +42,11 @@
     <app-section-header-profile (created)="onCreateSummary()" [title]="'Personal Summary'" />
     <app-card-summary
       [summary]="seeker.summary"
-      (edited)="onEdit('1')">
-    </app-card-summary>
+      (edited)="onEdit('1')" />
   </ng-container>
 
   <ng-container>
-    <app-section-header-profile
-      (created)="onCreateExperience()"
-      [title]="'Career History'" />
+    <app-section-header-profile (created)="onCreateExperience()" [title]="'Career History'" />
     @for (item of seeker.experience; track $index) {
     <app-card-profile
       [title]="item.position"
@@ -72,27 +72,25 @@
   </ng-container>
   <ng-container>
     <app-section-header-profile (created)="onUpdateSummary('123')" [title]="'Skills'" />
-    <div class="flex flex-col bg-white border shadow-sm rounded-xl">
-      <div class="flex items-center justify-between px-4 py-1 rounded-t-xl md:px-5">
-        <div></div>
-        <div class="flex items-center gap-x-1">
-          <div class="inline-block hs-tooltip"> <button type="button" (click)="onEdit('1')"
-              class="inline-flex items-center justify-center text-sm font-semibold border border-transparent rounded-full text-stark-500 hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
-              <svg-icon src="../../../../../assets/icons/edit-box.svg" svgClass=""> </svg-icon>
-              <span
-                class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity rounded shadow-sm opacity-0 bg-elephant-900 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible"
-                role="tooltip"> Edit </span>
-            </button> </div>
+      <div class="relative mx-auto overflow-hidden bg-white border shadow-lg rounded-xl">
+        <div class="px-6 py-4">
+          <div class="flex items-start justify-between">
+            <div class="flex flex-wrap gap-2">
+              @for (item of seeker.skills; track $index) {
+              <app-badge [skill]="item.name"></app-badge>
+              }
+            </div>
+            <div class="hs-tooltip">
+              <button class="flex-shrink-0 ml-2 focus:outline-none hs-tooltip-toggle">
+                <svg-icon src="../../../../../assets/icons/edit-box.svg"> </svg-icon>
+                <span
+                  class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity rounded shadow-sm opacity-0 bg-elephant-900 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible">Edit</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="p-4 md:p-5">
-        <div class="flex flex-wrap gap-2">
-          @for (item of seeker.skills; track $index) {
-          <app-badge [skill]="item.name"></app-badge>
-          }
-        </div>
-      </div>
-    </div>
   </ng-container>
-
 </div>
+
+}
