@@ -14,7 +14,7 @@
   </app-overlay-image-container>
   <div class="grid grid-cols-3 gap-4 mt-4">
     @for (job of jobAds; track $index) {
-    <app-card-job-ads [job]="job" (details)="onDetails(job.id)" (marked)="onBookmark()"></app-card-job-ads>
+      <app-card-job-ads [job]="job" (details)="onDetails(job.id)" (marked)="onBookmark()" />
     }
   </div>
 </div>

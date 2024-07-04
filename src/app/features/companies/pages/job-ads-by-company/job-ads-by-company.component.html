@@ -1,12 +1,11 @@
-@for (job of jobAds; track $index) {
+@for (job of jobAds; track job.id) {
 <div class="pb-2">
   <div class="flex flex-col bg-white border shadow-sm cursor-pointer hover-animation rounded-xl">
     <div class="relative flex items-center gap-x-1">
       <div class="inline-block hs-tooltip">
         <button (click)="onMark()" type="button"
           class="absolute right-0 inline-flex items-center justify-center text-sm font-semibold text-gray-500 border border-transparent rounded-full hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:bg-neutral-700">
-          <svg-icon src="../../../../../assets/icons/mark.svg" svgClass="flex-shrink-0 size-4">
-          </svg-icon>
+          <svg-icon src="../../../../../assets/icons/mark.svg" svgClass="flex-shrink-0 size-4" />
           <span
             class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible dark:bg-neutral-700"
             role="tooltip">
@@ -30,22 +29,19 @@
         </div>
       </div>
       <div class="flex space-x-2">
-        <svg-icon src="../../../../../assets/icons/map-pin-line.svg" svgClass="mt-3 icon-primary-4">
-        </svg-icon>
+        <svg-icon src="../../../../../assets/icons/map-pin-line.svg" svgClass="mt-3 icon-primary-4" />
         <p class="mt-2 text-stonewall-400">{{ job.employer.company!.location }} </p>
       </div>
 
       <div class="flex mt-2 space-x-2">
-        <svg-icon src="../../../../../assets/icons/building-line.svg" svgClass="mt-3 icon-primary-4">
-        </svg-icon>
+        <svg-icon src="../../../../../assets/icons/building-line.svg" svgClass="mt-3 icon-primary-4" />
         <p class="mt-2 text-sm text-stonewall-400">
           {{job.employer.company!.industry }}
         </p>
       </div>
 
       <div class="flex mt-2 space-x-2">
-        <svg-icon src="../../../../../assets/icons/money.svg" svgClass="mt-2 icon-primary-4">
-        </svg-icon>
+        <svg-icon src="../../../../../assets/icons/money.svg" svgClass="mt-2 icon-primary-4" />
         <p class="mt-2 text-sm text-stonewall-400">{{ job.salary | rupiah }}</p>
       </div>
 

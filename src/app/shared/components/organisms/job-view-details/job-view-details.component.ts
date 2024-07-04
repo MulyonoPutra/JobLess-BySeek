@@ -1,21 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, type OnInit } from '@angular/core';
-import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { AngularSvgIconModule } from 'angular-svg-icon';
-import { JobAdsService } from '../../services/job-ads.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RupiahPipe } from '../../../../shared/pipes/rupiah.pipe';
-import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
-import { JobAds } from '../../../../core/domain/entities/job-ads';
+import { Component, DestroyRef, Input, type OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 import { DialogModule } from 'primeng/dialog';
-import { ProfilePromptComponent } from '../../../../shared/components/molecules/profile-prompt/profile-prompt.component';
-import { AuthKey, StorageService } from '../../../../core/services/storage.service';
+import { take, timer } from 'rxjs';
 import { SavedJobAdsDto } from '../../../../core/domain/dto/saved-job-ads.dto';
-import { timer, take } from 'rxjs';
+import { JobAds } from '../../../../core/domain/entities/job-ads';
+import { StorageService } from '../../../../core/services/storage.service';
+import { JobAdsService } from '../../../../features/jobs/services/job-ads.service';
+import { RupiahPipe } from '../../../pipes/rupiah.pipe';
+import { TimeAgoPipe } from '../../../pipes/time-ago.pipe';
+import { ProfilePromptComponent } from '../../molecules/profile-prompt/profile-prompt.component';
 
 @Component({
-	selector: 'app-job-details',
+	selector: 'app-job-view-details',
 	standalone: true,
 	imports: [
 		CommonModule,
@@ -26,12 +26,11 @@ import { timer, take } from 'rxjs';
 		DialogModule,
 		ProfilePromptComponent,
 	],
-	templateUrl: './job-details.component.html',
-	styleUrls: ['./job-details.component.scss'],
-	providers: [JobAdsService],
+	templateUrl: './job-view-details.component.html',
+	styleUrls: ['./job-view-details.component.scss'],
 })
-export class JobDetailsComponent implements OnInit {
-	jobId!: string;
+export class JobViewDetailsComponent implements OnInit {
+	@Input() jobAdsId!: string;
 	companyId!: string;
 	jobAds!: JobAds;
 	visible = false;
@@ -43,7 +42,7 @@ export class JobDetailsComponent implements OnInit {
 		private readonly jobAdsService: JobAdsService,
 		private readonly storageService: StorageService,
 	) {
-		this.jobId = this.route.snapshot.paramMap.get('id')!;
+		this.jobAdsId = this.route.snapshot.paramMap.get('id')!;
 	}
 
 	ngOnInit(): void {
@@ -87,7 +86,7 @@ export class JobDetailsComponent implements OnInit {
 
 	findById(): void {
 		this.jobAdsService
-			.findById(this.jobId)
+			.findById(this.jobAdsId)
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: (response: JobAds) => {

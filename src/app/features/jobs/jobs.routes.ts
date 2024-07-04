@@ -18,4 +18,9 @@ export const JOBS_ROUTES: Routes = [
 		loadComponent: () =>
 			import('./pages/job-details/job-details.component').then((a) => a.JobDetailsComponent),
 	},
+	{
+		path: 'views',
+		loadComponent: () =>
+			import('./pages/job-views/job-views.component').then((a) => a.JobViewsComponent),
+	},
 ];

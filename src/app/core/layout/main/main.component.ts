@@ -32,7 +32,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class MainComponent implements OnInit {
 	private currentRoute!: string;
-	private fullWidthRoutes: string[] = ['/company', '/profile', '/jobs'];
+	private fullWidthRoutes: string[] = ['/company', '/profile', '/jobs', '/jobs/views'];
 	user!: User;
 
 	constructor(

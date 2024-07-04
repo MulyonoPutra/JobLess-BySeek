@@ -34,16 +34,16 @@ import { MonthYearPipe } from '../../../../shared/pipes/month-year.pipe';
 })
 export class ProfileComponent implements OnInit {
 	seeker!: Seeker;
-  user!: User;
+	user!: User;
 
-  overlayImage = OVERLAY_IMAGES.profile;
+	overlayImage = OVERLAY_IMAGES.profile;
 
 	constructor(
 		private readonly router: Router,
 		private readonly destroyRef: DestroyRef,
 		private readonly profileService: ProfileService,
 		private readonly storageService: StorageService,
-    private readonly monthYearPipe: MonthYearPipe
+		private readonly monthYearPipe: MonthYearPipe,
 	) {}
 
 	ngOnInit(): void {
@@ -58,8 +58,8 @@ export class ProfileComponent implements OnInit {
 			.subscribe({
 				next: (seeker: Seeker) => {
 					this.seeker = seeker;
-          console.log(this.seeker)
-          this.user = this.seeker?.user;
+					console.log(this.seeker);
+					this.user = this.seeker?.user;
 				},
 				error: (error: HttpErrorResponse) => {
 					console.error(error);
@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
 	}
 
 	duration(startDate: string, endDate: string): string {
-    return `${this.monthYearPipe.transform(startDate)} - ${this.monthYearPipe.transform(endDate)}`;
+		return `${this.monthYearPipe.transform(startDate)} - ${this.monthYearPipe.transform(endDate)}`;
 	}
 
 	onEdit(id: string): void {

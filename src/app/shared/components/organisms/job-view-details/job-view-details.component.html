@@ -1,5 +1,5 @@
 @if (jobAds) {
-<div class="w-full p-4 mx-auto bg-white rounded-lg shadow-md">
+<div class="w-full p-4 mx-auto bg-white rounded-lg">
   <div class="flex items-center mb-4">
     <img [src]="jobAds.employer.company?.logo" alt="Buana" class="w-12 h-12 mr-4 rounded-full" />
     <h2 class="text-lg font-semibold text-elephant-950"> {{ jobAds.title }}</h2>
@@ -10,13 +10,6 @@
         <h3 class="font-medium text-md text-bayoux-700">
           {{ jobAds.employer.company?.name }}
         </h3>
-      </div>
-      <div class="flex flex-1">
-        <div class="inline-block h-full min-h-[1em] w-0.5 bg-bayoux-700"></div>
-        <button type="button" (click)="viewAllJobs(jobAds.employer.company?.id!)"
-          class="ml-4 font-semibold underline cursor-pointer text-elephant-950 underline-offset-2 hover:text-bayoux-700">
-          View all jobs
-        </button>
       </div>
       <div></div>
     </div>
@@ -72,16 +65,3 @@
 </div>
 
 }
-
-<div class="flex card justify-content-center">
-  <p-dialog
-    header="Complete Your Profile"
-    [(visible)]="visible"
-    [modal]="true"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-    [style]="{ width: '50vw' }"
-    [draggable]="false"
-    [resizable]="false">
-    <app-profile-prompt (navigate)="navigate()"></app-profile-prompt>
-    </p-dialog>
-</div>

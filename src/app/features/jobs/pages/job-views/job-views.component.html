@@ -1,0 +1,86 @@
+<div class="grid min-h-screen grid-flow-row-dense grid-cols-3 gap-4">
+  <div class="flex flex-col overflow-y-scroll overflow-x-hidden bg-white max-h-[500px] rounded-xl">
+    @for (job of jobAds; track $index) {
+    <div (click)="onDetails(job.id)"
+      class="flex flex-col bg-white border shadow-sm cursor-pointer hover-animation rounded-xl">
+      <div class="relative flex items-center gap-x-1">
+        <div class="inline-block hs-tooltip">
+          <button (click)="onMark()" type="button"
+            class="absolute right-0 inline-flex items-center justify-center text-sm font-semibold text-gray-500 border border-transparent rounded-full hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:bg-neutral-700">
+            <svg-icon src="../../../../../assets/icons/mark.svg" svgClass="flex-shrink-0 size-4" />
+            <span
+              class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible dark:bg-neutral-700"
+              role="tooltip">
+              Bookmark
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="p-4 md:p-5" (click)="onDetails(job.id)">
+        <div class="flex items-center">
+          <img src="https://via.placeholder.com/50" alt="Company Logo" class="w-12 h-12 mr-4 rounded-full" />
+          <div>
+            <h2 class="text-lg font-semibold text-elephant-950">
+              {{ job.title }}
+            </h2>
+            <h3 class="font-medium text-md text-bayoux-700">
+              {{ job.employer.company!.name }}
+            </h3>
+          </div>
+        </div>
+        <div class="flex space-x-2">
+          <svg-icon src="../../../../../assets/icons/map-pin-line.svg" svgClass="mt-3 icon-primary-4" />
+          <p class="mt-2 text-stonewall-400">{{ job.employer.company!.location }} </p>
+        </div>
+
+        <div class="flex mt-2 space-x-2">
+          <svg-icon src="../../../../../assets/icons/building-line.svg" svgClass="mt-3 icon-primary-4" />
+          <p class="mt-2 text-sm text-stonewall-400">
+            {{job.employer.company!.industry }}
+          </p>
+        </div>
+
+        <div class="flex mt-2 space-x-2">
+          <svg-icon src="../../../../../assets/icons/money.svg" svgClass="mt-2 icon-primary-4" />
+          <p class="mt-2 text-sm text-stonewall-400">{{ job.salary | rupiah }}</p>
+        </div>
+
+        <span
+          class="inline-flex items-center mt-3 text-xs font-light border border-transparent rounded-lg gap-x-1 text-stark-400">
+          {{ job.createdAt | timeAgo }}
+        </span>
+      </div>
+    </div>
+    }
+  </div>
+
+  <!-- Card large -->
+  <div class="col-span-2">
+    <div
+      class="flex flex-col p-4 overflow-y-scroll bg-white border-dashed border border-gray-200 shadow-sm h-[500px] rounded-xl md:p-5">
+
+      @if (jobAdsId) {
+      <app-job-view-details [jobAdsId]="jobAdsId" />
+      } @else {
+      <div class="flex space-x-4">
+        <div>
+          <svg-icon src="../../../../../assets/icons/arrow-right-lg.svg" svgClass="icon-primary-1" />
+        </div>
+        <div class="flex flex-col space-y-1">
+          <div class="text-lg font-semibold text-elephant">Select a Job</div>
+          <div class="text-sm font-medium text-elephant">Display details here</div>
+        </div>
+
+      </div>
+      <div class="flex flex-col min-h-60 rounded-xl">
+        <div class="flex flex-col items-center justify-center flex-auto p-4 md:p-5">
+          <svg-icon src="../../../../../assets/icons/empty-state.svg" svgClass="mt-3 icon-primary-1 h-20 w-20" />
+          <p class="mt-2 text-sm text-elephant-800">
+            No data to show
+          </p>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

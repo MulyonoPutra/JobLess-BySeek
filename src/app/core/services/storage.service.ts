@@ -6,6 +6,7 @@ export enum AuthKey {
 	Role = 'ROLE',
 	UserId = 'USER_ID',
 	SeekerId = 'SEEKER_ID',
+	CompanyId = 'COMPANY_ID',
 	Username = 'USERNAME',
 }
 
@@ -16,6 +17,7 @@ export class StorageService {
 	protected token!: string | null;
 	protected role!: string | null;
 	protected seekerId!: string | null;
+	protected companyId!: string | null;
 	protected accessToken: string | null = null;
 	protected refreshToken: string | null = null;
 
@@ -79,6 +81,16 @@ export class StorageService {
 
 	public getSeekerIdentity(): string {
 		return sessionStorage.getItem(AuthKey.SeekerId)!;
+	}
+
+	public setCompanyIdentity(id: string): void {
+		this.companyId = id;
+		sessionStorage.removeItem(AuthKey.CompanyId);
+		sessionStorage.setItem(AuthKey.CompanyId, id);
+	}
+
+	public getCompanyIdentity(): string {
+		return sessionStorage.getItem(AuthKey.CompanyId)!;
 	}
 
 	public clear() {

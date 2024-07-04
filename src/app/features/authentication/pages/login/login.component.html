@@ -2,15 +2,16 @@
   <div class="max-w-screen-md max-h-screen px-4 mx-auto sm:px-6 md:max-w-screen-xl md:py-20 lg:py-28 md:px-8">
     <div class="md:pe-8 md:w-1/2 xl:pe-0 xl:w-5/12">
       <h1
-        class="text-3xl font-bold text-bayoux-700 md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight dark:text-neutral-200">
+        class="text-3xl font-bold text-bayoux-700 md:text-4xl md:leading-tight lg:text-5xl lg:leading-tight">
         Welcome to
-        <span class="text-elephant-950 dark:text-blue-500">JobLess</span>
+        <span class="text-elephant-950">JobLess</span>
       </h1>
       <p class="mt-3 text-base text-bayoux-700 dark:text-neutral-500">
         Your Gateway to a Brighter Career - Log in to access thousands of job
         opportunities, connect with top employers, and take the next step in
         your professional journey. Don't have an account?
-        <a [routerLink]="['/auth/register']" class="font-semibold underline cursor-pointer text-elephant underline-offset-2">
+        <a [routerLink]="['/auth/register']"
+          class="font-semibold underline cursor-pointer text-elephant underline-offset-2">
           Sign up
         </a> now and start
         your path to success!
@@ -32,8 +33,7 @@
 
         <div class="grid pt-4">
           <app-button [isLoading]="isLoading" (clicked)="onSubmit()" [label]="'Save'" [isCancel]="false"
-            [isLarge]="true" [isDisabled]="form.invalid" [type]="'save'">
-          </app-button>
+            [isLarge]="true" [isDisabled]="form.invalid" [type]="'save'" />
         </div>
       </form>
     </div>
