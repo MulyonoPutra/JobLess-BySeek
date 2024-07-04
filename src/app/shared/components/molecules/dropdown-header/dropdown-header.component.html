@@ -3,7 +3,7 @@
 >
   <button
     type="button"
-    class="flex items-center w-full text-bayoux-700 hover:text-elephant-950 font-medium dark:text-neutral-400 dark:hover:text-neutral-500"
+    class="flex items-center w-full font-medium text-bayoux-700 hover:text-elephant-950 dark:text-neutral-400 dark:hover:text-neutral-500"
   >
     {{ title }}
     <svg-icon
@@ -20,7 +20,7 @@
       class="flex space-x-0 items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-bayoux-700 hover:bg-bayoux-700 hover:text-stark-400 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 cursor-pointer"
     >
       @if (item.flag) {
-      <img [src]="item.flag" class="h-5 w-5 rounded-full" alt="Flag" />
+      <img [src]="item.flag" class="w-5 h-5 rounded-full" alt="Flag" />
       }
       <div>
         <a class="" [routerLink]="item.route">
@@ -30,9 +30,9 @@
     </div>
     }
     <div
-      class="py-2 px-3 text-sm text-bayoux-700 hover:bg-bayoux-700 hover:text-stark-400 rounded-lg cursor-pointer"
+      class="px-3 py-2 text-sm rounded-lg cursor-pointer text-bayoux-700 hover:bg-bayoux-700 hover:text-stark-400"
     >
-      <button type="button" (click)="onClick()">Logout</button>
+      <button type="button" (click)="onLogout()">Logout</button>
     </div>
   </div>
 </div>

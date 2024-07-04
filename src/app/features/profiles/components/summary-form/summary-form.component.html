@@ -13,12 +13,14 @@
     </form>
   </div>
   <div class="flex p-4 space-x-2">
-    <button class="px-4 py-2 mb-4 text-sm font-semibold text-white rounded-lg bg-elephant-950 border-stark-400">
-      Update
-    </button>
-    <button type="button"
-      class="px-4 py-2 mb-4 text-sm font-semibold border border-gray-200 rounded-lg bg-bayoux-200 text-elephant-950 hover:border-elephant-950 hover:text-elephant-950 disabled:opacity-50 disabled:pointer-events-none">
-      Cancel
-    </button>
+    <app-button
+      [isLoading]="isLoading"
+      (clicked)="onSubmit()"
+      [label]="'Save'"
+      [isCancel]="false"
+      [isLarge]="false"
+      [isDisabled]="form.invalid!"
+      [type]="'save'">
+      </app-button>
   </div>
 </div>

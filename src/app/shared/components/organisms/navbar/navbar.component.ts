@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, type OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, type OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { MENU_LANG } from '../../../../core/constants/dropdown-menu';
@@ -23,6 +23,7 @@ import { DropdownHeaderComponent } from '../../molecules/dropdown-header/dropdow
 })
 export class NavbarComponent implements OnInit {
 	@Input() user!: User;
+  @Output() logout = new EventEmitter<void>();
 
 	dropdownLangMenu = MENU_LANG;
 	menuItems = MENU_ITEM;
@@ -34,11 +35,11 @@ export class NavbarComponent implements OnInit {
 		return name;
 	}
 
-	logout(): void {
-		console.log('logout');
-	}
-
 	changeLanguage(): void {
 		console.log('change language');
 	}
+
+  onLogout(): void {
+    this.logout.emit();
+  }
 }

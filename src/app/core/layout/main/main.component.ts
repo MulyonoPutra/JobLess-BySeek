@@ -1,6 +1,7 @@
 import { Component, DestroyRef, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 
+import { AuthenticationService } from '../../../features/authentication/services/authentication.service';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../../shared/components/organisms/footer/footer.component';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -15,7 +16,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 	standalone: true,
 	imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent],
 	template: `
-		<app-navbar [user]="user"></app-navbar>
+		<app-navbar [user]="user" (logout)="logout()"></app-navbar>
 		<main>
 			<div
 				[ngClass]="{
@@ -40,6 +41,7 @@ export class MainComponent implements OnInit {
 		private readonly destroyRef: DestroyRef,
 		private readonly userService: UserService,
 		private readonly storageService: StorageService,
+		private readonly authService: AuthenticationService,
 	) {
 		this.trackRouteChanges();
 	}
@@ -75,4 +77,20 @@ export class MainComponent implements OnInit {
 	get isFullWidthRoute(): boolean {
 		return this.fullWidthRoutes.includes(this.currentRoute);
 	}
+
+  logout(): void {
+    const token = this.storageService.getAccessToken();
+    this.authService.logout(token).subscribe({
+      next: () => {
+        // TODO: Show success message toast here
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error.message);
+      },
+      complete: () => {
+        this.router.navigateByUrl('/auth/login').then(() => window.location.reload());
+      },
+    });
+  }
+
 }

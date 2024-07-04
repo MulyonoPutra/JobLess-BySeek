@@ -15,6 +15,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { OVERLAY_IMAGES } from '../../../../core/constants/overlay-images';
 import { User } from '../../../../core/domain/entities/user';
 import { MonthYearPipe } from '../../../../shared/pipes/month-year.pipe';
+import { DialogComponent } from '../../../../shared/components/molecules/dialog/dialog.component';
+import { SummaryFormComponent } from '../../components/summary-form/summary-form.component';
+import { UpdateSummaryDto } from '../../../../core/domain/dto/update-summary.dto';
 
 @Component({
 	selector: 'app-profile',
@@ -27,6 +30,8 @@ import { MonthYearPipe } from '../../../../shared/pipes/month-year.pipe';
 		OverlayImageContainerComponent,
 		CardSummaryComponent,
 		BadgeComponent,
+    DialogComponent,
+    SummaryFormComponent
 	],
 	templateUrl: './profile.component.html',
 	styleUrls: ['./profile.component.scss'],
@@ -35,6 +40,9 @@ import { MonthYearPipe } from '../../../../shared/pipes/month-year.pipe';
 export class ProfileComponent implements OnInit {
 	seeker!: Seeker;
 	user!: User;
+  updateSummaryDto!: UpdateSummaryDto;
+
+  isVisible!: boolean;
 
 	overlayImage = OVERLAY_IMAGES.profile;
 
@@ -44,7 +52,8 @@ export class ProfileComponent implements OnInit {
 		private readonly profileService: ProfileService,
 		private readonly storageService: StorageService,
 		private readonly monthYearPipe: MonthYearPipe,
-	) {}
+	) {
+  }
 
 	ngOnInit(): void {
 		this.findOne();
@@ -58,8 +67,11 @@ export class ProfileComponent implements OnInit {
 			.subscribe({
 				next: (seeker: Seeker) => {
 					this.seeker = seeker;
-					console.log(this.seeker);
 					this.user = this.seeker?.user;
+          this.updateSummaryDto = {
+            id: this.seeker.id,
+            summary: this.seeker?.summary
+          }
 				},
 				error: (error: HttpErrorResponse) => {
 					console.error(error);
@@ -76,13 +88,19 @@ export class ProfileComponent implements OnInit {
 		console.log(id);
 	}
 
-	onUpdateSummary(id: string): void {
-		this.router.navigateByUrl(`/profile/forms/${id}`);
+	onUpdateSummary(): void {
+		// this.router.navigateByUrl(`/profile/forms/${id}`);
+    this.isVisible = true;
 	}
 
 	onCreateSummary(): void {
-		this.router.navigate(['/profile/summary']);
+		// this.router.navigate(['/profile/summary']);
+    this.isVisible = true;
 	}
+
+  onHide() {
+    this.isVisible = !this.isVisible;
+  }
 
 	onCreateExperience(): void {
 		console.log('create new experience');

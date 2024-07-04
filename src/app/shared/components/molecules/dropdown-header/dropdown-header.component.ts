@@ -15,9 +15,9 @@ export class DropdownHeaderComponent {
 	@Input() title!: string;
 	@Input() menu!: any;
 
-	@Output() clicked = new EventEmitter<void>();
+	@Output() logout = new EventEmitter<void>();
 
-	onClick(): void {
-		this.clicked.emit();
+	onLogout(): void {
+		this.logout.emit();
 	}
 }

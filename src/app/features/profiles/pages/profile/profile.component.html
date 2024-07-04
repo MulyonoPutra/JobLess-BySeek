@@ -38,7 +38,10 @@
 <div class="mx-auto pt-4 pb-10 px-4 sm:px-6 lg:px-8 md:pt-10 max-w-[55rem]">
   <ng-container>
     <app-section-header-profile (created)="onCreateSummary()" [title]="'Personal Summary'" />
-    <app-card-summary [summary]="seeker.summary" (edited)="onEdit('1')" />
+    <app-card-summary [summary]="seeker.summary" (edited)="onUpdateSummary()" />
+    <app-dialog [visible]="isVisible" (hide)="onHide()">
+      <app-summary-form [data]="updateSummaryDto" />
+    </app-dialog>
   </ng-container>
 
   <ng-container>
@@ -67,7 +70,7 @@
     }
   </ng-container>
   <ng-container>
-    <app-section-header-profile (created)="onUpdateSummary('123')" [title]="'Skills'" />
+    <app-section-header-profile (created)="onEdit('123')" [title]="'Skills'" />
     <div class="relative mx-auto overflow-hidden bg-white border shadow-lg rounded-xl">
       <div class="px-6 py-4">
         <div class="flex items-start justify-between">

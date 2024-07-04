@@ -10,14 +10,14 @@ export const PROFILE_ROUTES: Routes = [
 	{
 		path: 'summary',
 		loadComponent: () =>
-			import('./pages/summary-form/summary-form.component').then(
+			import('./components/summary-form/summary-form.component').then(
 				(a) => a.SummaryFormComponent,
 			),
 	},
 	{
 		path: 'summary/:id',
 		loadComponent: () =>
-			import('./pages/summary-form/summary-form.component').then(
+			import('./components/summary-form/summary-form.component').then(
 				(a) => a.SummaryFormComponent,
 			),
 	},
