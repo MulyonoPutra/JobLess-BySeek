@@ -1,0 +1,28 @@
+<ng-container>
+  <div class="flex flex-col w-full bg-white border border-t-4 shadow-sm border-t-elephant-900 rounded-xl">
+  <div class="p-4 md:p-5">
+    <h1 class="text-2xl font-semibold text-elephant-950">Summary</h1>
+    <p class="mt-2 text-sm text-elephant-700">
+      Please provide details of your work experience below.
+    </p>
+    <form [formGroup]="form">
+        <div class="flex flex-col space-y-1">
+            <app-form-input-field [formGroup]="form" [label]="'Position'" fieldName="position" />
+            <app-form-input-field [formGroup]="form" [label]="'Location'" fieldName="location" />
+        </div>
+    </form>
+  </div>
+  <div class="flex p-4 space-x-2">
+    <app-button
+      [isLoading]="isLoading"
+      (clicked)="onSubmit()"
+      [label]="'Save'"
+      [isCancel]="false"
+      [isLarge]="false"
+      [isDisabled]="form.invalid!"
+      [type]="'save'">
+      </app-button>
+  </div>
+</div>
+
+</ng-container>

@@ -53,7 +53,10 @@
         [duration]="duration(item.startDate, item.endDate)"
         [description]="item.responsibilities"
         [maxHeight]="18"
-        (edited)="onEdit(item.id)" />
+        (edited)="onUpdateExperience(item.id)" />
+        <app-dialog [visible]="isExperienceVisible" (hide)="onHideWorkHistory()">
+          <app-work-history-form [data]="updateWorkHistoryDto" />
+        </app-dialog>
     }
   </ng-container>
   <ng-container>
