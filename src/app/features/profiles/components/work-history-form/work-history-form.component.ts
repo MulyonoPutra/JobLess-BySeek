@@ -6,7 +6,6 @@ import { FormInputFieldComponent } from '../../../../shared/components/atoms/for
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { timer, take } from 'rxjs';
-import { UpdateSummaryDto } from '../../../../core/domain/dto/update-summary.dto';
 import { ProfileService } from '../../services/profile.service';
 import { WorkHistoryDto } from '../../../../core/domain/dto/work-history.dto';
 
