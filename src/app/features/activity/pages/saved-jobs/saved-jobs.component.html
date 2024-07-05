@@ -1,13 +1,15 @@
-@if (jobAds) {
-  @for (item of jobAds; track $index) {
+@if (jobAds.length > 0) {
+  @for (job of jobAds; track $index) {
     <app-card-activity
-      [data]="item"
+      [data]="job"
       (clicked)="applied()"
-      (removed)="onRemove()"
+      (removed)="onRemove(job.id)"
       [isLoading]="isLoading"
       [isButtonHidden]="true"
       [borderColor]="'border-t-4 border-t-stonewall-400'"
     />
   }
+} @else {
+  <app-empty-state />
 }
 

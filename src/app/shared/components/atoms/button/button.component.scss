@@ -1,7 +1,3 @@
-:host {
-	display: block;
-}
-
 .save {
 	@apply py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-elephant-950 text-stark-400 hover:bg-bayoux-700 disabled:opacity-50 disabled:pointer-events-none;
 
@@ -11,5 +7,5 @@
 }
 
 .cancel {
-	@apply flex-none rounded-md border bg-white px-4 py-2.5 text-xs font-semibold text-gray-500 hover:text-bayoux-700;
+	@apply py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-stark-100 text-elephant hover:text-stark-400 hover:bg-bayoux-700 disabled:opacity-50 disabled:pointer-events-none;
 }

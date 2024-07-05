@@ -13,6 +13,7 @@ import { take, timer } from 'rxjs';
 
 import { IStaticMethods } from 'preline/preline';
 import { LoadingIndicatorComponent } from './shared/components/atoms/loading-indicator/loading-indicator.component';
+import { ToastModule } from 'primeng/toast';
 
 declare global {
 	interface Window {
@@ -23,7 +24,7 @@ declare global {
 @Component({
 	selector: 'app-root',
 	standalone: true,
-	imports: [CommonModule, RouterOutlet, LoadingIndicatorComponent],
+  imports: [CommonModule, RouterOutlet, ToastModule, LoadingIndicatorComponent],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.scss',
 })

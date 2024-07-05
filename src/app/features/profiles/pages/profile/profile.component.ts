@@ -20,6 +20,8 @@ import { SummaryFormComponent } from '../../components/summary-form/summary-form
 import { WorkHistoryFormComponent } from '../../components/work-history-form/work-history-form.component';
 import { ProfileService } from '../../services/profile.service';
 import { WorkHistoryDto } from '../../../../core/domain/dto/work-history.dto';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { EmptyStateComponent } from '../../../../shared/components/atoms/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +36,8 @@ import { WorkHistoryDto } from '../../../../core/domain/dto/work-history.dto';
     BadgeComponent,
     DialogComponent,
     SummaryFormComponent,
-    WorkHistoryFormComponent
+    WorkHistoryFormComponent,
+    EmptyStateComponent
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
@@ -58,12 +61,21 @@ export class ProfileComponent implements OnInit {
     private readonly profileService: ProfileService,
     private readonly storageService: StorageService,
     private readonly monthYearPipe: MonthYearPipe,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly toastService: ToastService,
   ) {
   }
 
   ngOnInit(): void {
     this.findOne();
+  }
+
+  viewDetail() {
+    this.toastService.showErrorToast('Info', 'View detail clicked.');
+  }
+
+  errorMessage(message: string) {
+    this.toastService.showErrorToast('Info', message);
   }
 
   findOne(): void {
@@ -97,7 +109,6 @@ export class ProfileComponent implements OnInit {
 
 
   onUpdateExperience(experienceId: string): void {
-
     this.profileService
       .findExperienceById(experienceId)
       .subscribe({

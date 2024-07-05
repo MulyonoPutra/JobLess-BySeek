@@ -18,6 +18,7 @@ import { OrDividerComponent } from '../../../../shared/components/atoms/or-divid
 import { ValidationService } from '../../../../shared/services/validation.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { OVERLAY_IMAGES } from '../../../../core/constants/overlay-images';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
 	selector: 'app-login',
@@ -49,6 +50,7 @@ export class LoginComponent implements OnInit {
 		private readonly router: Router,
 		private readonly authService: AuthenticationService,
 		private readonly validationService: ValidationService,
+    private readonly toastService: ToastService,
 	) {}
 
 	ngOnInit(): void {
@@ -56,10 +58,6 @@ export class LoginComponent implements OnInit {
 			email: ['', [Validators.required, Validators.email]],
 			password: ['', Validators.required],
 		});
-	}
-
-	get f() {
-		return this.form.controls;
 	}
 
 	get formCtrlValue() {
@@ -72,13 +70,12 @@ export class LoginComponent implements OnInit {
 	login(): void {
 		this.authService.login(this.formCtrlValue).subscribe({
 			next: () => {
-				// TODO: Success message should be displayed here
-				setTimeout(() => {
-					this.isLoading = false;
-				}, 2000);
+				this.successMessage();
+        this.setLoading();
 			},
 			error: (error: HttpErrorResponse) => {
-				console.error(error);
+        this.setLoading();
+				this.errorMessage(error.message);
 			},
 			complete: () => {
 				this.navigateAfterSucceed();
@@ -86,8 +83,14 @@ export class LoginComponent implements OnInit {
 		});
 	}
 
+  private setLoading() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
+  }
+
 	navigateAfterSucceed(): void {
-		timer(1000)
+		timer(2000)
 			.pipe(take(1))
 			.subscribe(() => this.router.navigateByUrl('/'));
 	}
@@ -100,4 +103,12 @@ export class LoginComponent implements OnInit {
 			this.validationService.markAllFormControlsAsTouched(this.form);
 		}
 	}
+
+  successMessage() {
+    this.toastService.showSuccessToast('Success', 'Login Successfully!');
+  }
+
+  errorMessage(message: string) {
+    this.toastService.showErrorToast('Error', message);
+  }
 }

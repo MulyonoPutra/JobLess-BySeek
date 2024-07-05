@@ -6,25 +6,29 @@ import { Router } from '@angular/router';
 import { StorageService } from '../../../../core/services/storage.service';
 import { CardActivityComponent } from '../../../../shared/components/molecules/card-activity/card-activity.component';
 import { ActivityService } from '../../services/activity.service';
-import { JobAds } from '../../../../core/domain/entities/job-ads';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { timer, take } from 'rxjs';
+import { SavedJobs } from '../../../../core/domain/entities/saved-jobs';
+import { EmptyStateComponent } from '../../../../shared/components/atoms/empty-state/empty-state.component';
 
 @Component({
 	selector: 'app-saved-jobs',
 	standalone: true,
-	imports: [CommonModule, CardActivityComponent],
+	imports: [CommonModule, CardActivityComponent, EmptyStateComponent],
 	templateUrl: './saved-jobs.component.html',
 	styleUrls: ['./saved-jobs.component.scss'],
 	providers: [ActivityService],
 })
 export class SavedJobsComponent implements OnInit {
 	isLoading = false;
-	jobAds!: JobAds[];
+	jobAds!: SavedJobs[];
 
 	constructor(
 		private readonly router: Router,
 		private readonly destroyRef: DestroyRef,
 		private readonly activityService: ActivityService,
 		private readonly storageService: StorageService,
+    private readonly toastService: ToastService,
 	) {}
 
 	ngOnInit(): void {
@@ -37,11 +41,11 @@ export class SavedJobsComponent implements OnInit {
 			.findSavedJobsBySeekerId(seekerId)
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
-				next: (response: JobAds[]) => {
+				next: (response) => {
 					this.jobAds = response;
 				},
 				error: (error: HttpErrorResponse) => {
-					console.error(error);
+					this.errorMessage(error.message);
 				},
 				complete: () => {},
 			});
@@ -54,7 +58,29 @@ export class SavedJobsComponent implements OnInit {
 		this.isLoading = true;
 	}
 
-	onRemove(): void {
-		console.log('removed');
+	onRemove(id: string): void {
+		this.activityService.removeSavedJobsById(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.toastService.showSuccessToast('Success', 'Sucessfully removed');
+        },
+        error: (error: HttpErrorResponse) => {
+          this.errorMessage(error.message);
+        },
+        complete: () => {
+          this.reloadAfterSuccess();
+        },
+      });
 	}
+
+  reloadAfterSuccess(): void {
+    timer(2000)
+      .pipe(take(1))
+      .subscribe(() => window.location.reload());
+  }
+
+  errorMessage(message: string) {
+    this.toastService.showErrorToast('Error', message);
+  }
 }

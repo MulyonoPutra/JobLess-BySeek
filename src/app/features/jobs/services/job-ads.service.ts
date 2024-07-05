@@ -1,5 +1,6 @@
 import { Observable, map } from 'rxjs';
 
+import { CreateApplicationDto } from '../../../core/domain/dto/create-application.dto';
 import { HttpClient } from '@angular/common/http';
 import { HttpResponseEntity } from '../../../core/domain/entities/http-response-entity';
 import { Injectable } from '@angular/core';
@@ -32,4 +33,11 @@ export class JobAdsService {
 			.post(`${this.endpoint}/seeker/saved-jobs`, body)
 			.pipe(map((response) => response));
 	}
+
+  appliedJobs(body: CreateApplicationDto): Observable<unknown> {
+    return this.http
+      .post(`${this.endpoint}/seeker/application`, body)
+      .pipe(map((response) => response));
+  }
+
 }
