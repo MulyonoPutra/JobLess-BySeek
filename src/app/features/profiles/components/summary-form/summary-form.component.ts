@@ -15,6 +15,8 @@ import { UpdateSummaryDto } from '../../../../core/domain/dto/update-summary.dto
 import { ProfileService } from '../../services/profile.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ButtonComponent } from '../../../../shared/components/atoms/button/button.component';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
 	selector: 'app-summary-form',
@@ -33,20 +35,23 @@ export class SummaryFormComponent implements OnInit {
 	form!: FormGroup;
 	isLoading: boolean = false;
 	label!: string;
-
+  summary!: string;
 	updateSummaryDto!: UpdateSummaryDto;
 
-	@Input() data!: any;
-
-	constructor(
-		private readonly formBuilder: FormBuilder,
-		private readonly router: Router,
-		private readonly profileService: ProfileService,
-	) {}
+  constructor(
+    private readonly formBuilder: FormBuilder,
+    private readonly router: Router,
+    private readonly profileService: ProfileService,
+    private readonly toastService: ToastService,
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
+  ) {
+    this.updateSummaryDto = this.config.data;
+  }
 
 	ngOnInit(): void {
 		this.formInitialized();
-		this.prepopulateForm(this.data);
+    this.prepopulateForm(this.updateSummaryDto);
 	}
 
 	formInitialized(): void {
@@ -72,15 +77,17 @@ export class SummaryFormComponent implements OnInit {
 	}
 
 	onUpdate(): void {
-		this.updateSummaryDto = this.data;
+    this.updateSummaryDto = this.config.data;
 		this.profileService.updateSummary(this.updateSummaryDto.id!, this.formCtrlValue).subscribe({
 			next: () => {
-				setTimeout(() => {
-					this.isLoading = false;
-				}, 2000);
+        this.toastService.showSuccessToast('Success', 'Updated...');
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
 			},
 			error: (error: HttpErrorResponse) => {
-				console.error(error.message);
+        this.isLoading = false;
+        this.toastService.showErrorToast('Error', error.message);
 			},
 			complete: () => {
 				this.navigateAfterSucceed();
@@ -88,20 +95,28 @@ export class SummaryFormComponent implements OnInit {
 		});
 	}
 
-	navigateAfterSucceed(): void {
-		timer(1000)
-			.pipe(take(1))
-			.subscribe(() => this.router.navigateByUrl('/profile'));
-	}
+  navigateAfterSucceed(): void {
+    timer(3000)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.router.navigateByUrl('/profile').then(() => {
+          window.location.reload();
+        });
+      });
+  }
 
 	onSubmit() {
-		console.log(this.formCtrlValue);
-		setTimeout(() => {
-			this.isLoading = false;
-		}, 3000);
-		this.isLoading = true;
+    this.isLoading = true;
+    if (this.updateSummaryDto.id) {
+      this.onUpdate();
+    } else {
+      this.onCreate();
+    }
 		this.form.reset();
 	}
+  onCreate() {
+    throw new Error('Method not implemented.');
+  }
 
 	get submitButtonLabel(): string {
 		return this.label;

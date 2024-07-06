@@ -35,7 +35,7 @@ type DialogConfig = {
 		'960px': string;
 		'640px': string;
 	};
-	data?: { id: string };
+	data?: { id: string } | any;
 };
 
 @Component({
@@ -67,8 +67,6 @@ export class ProfileComponent implements OnInit {
 	updateSummaryDto!: UpdateSummaryDto;
 	updateWorkHistoryDto!: WorkHistoryDto;
 
-	isVisible!: boolean;
-
 	overlayImage = OVERLAY_IMAGES.profile;
 
 	ref: DynamicDialogRef | undefined;
@@ -90,10 +88,6 @@ export class ProfileComponent implements OnInit {
 
 	viewDetail() {
 		this.toastService.showErrorToast('Info', 'View detail clicked.');
-	}
-
-	errorMessage(message: string) {
-		this.toastService.showErrorToast('Info', message);
 	}
 
 	findOne(): void {
@@ -125,18 +119,6 @@ export class ProfileComponent implements OnInit {
 		console.log(id);
 	}
 
-	onUpdateSummary(): void {
-		this.isVisible = true;
-	}
-
-	onCreateSummary(): void {
-		this.isVisible = true;
-	}
-
-	onHide() {
-		this.isVisible = !this.isVisible;
-	}
-
   onRemoveExperience(id: string): void {
     this.profileService.removeExperienceById(id)
       .subscribe({
@@ -161,7 +143,7 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
-  
+
 	openWorkHistoryDialog(id?: string): void {
 		const config: DialogConfig = {
 			header: id ? 'Update Work History' : 'Add Work History',
@@ -180,6 +162,22 @@ export class ProfileComponent implements OnInit {
 		this.ref = this.dialogService.open(WorkHistoryFormComponent, config);
 	}
 
+  openSummaryDialog(seeker?: Seeker): void {
+    this.ref = this.dialogService.open(SummaryFormComponent, {
+      header: seeker?.id ? 'Update Summary' : 'Add Summary',
+      width: '50vw',
+      modal: true,
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw',
+      },
+      data: {
+        id: seeker?.id,
+        summary: seeker?.summary
+      }
+    });
+  }
+
 	onCreateEducation(): void {}
 
   navigateAfterSucceed(): void {
@@ -190,5 +188,9 @@ export class ProfileComponent implements OnInit {
           window.location.reload();
         });
       });
+  }
+
+  errorMessage(message: string) {
+    this.toastService.showErrorToast('Info', message);
   }
 }

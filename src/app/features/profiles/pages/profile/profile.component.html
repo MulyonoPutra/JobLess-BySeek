@@ -29,11 +29,8 @@
 
 <div class="mx-auto pt-4 pb-10 px-4 sm:px-6 lg:px-8 md:pt-10 max-w-[55rem]">
   <ng-container>
-    <app-section-header-profile (created)="onCreateSummary()" [title]="'Personal Summary'" />
-    <app-card-summary [summary]="seeker.summary" (edited)="onUpdateSummary()" />
-    <app-dialog [visible]="isVisible" (hide)="onHide()">
-      <app-summary-form [data]="updateSummaryDto" />
-    </app-dialog>
+    <app-section-header-profile (created)="openSummaryDialog()" [title]="'Personal Summary'" />
+    <app-card-summary [summary]="seeker.summary" (edited)="openSummaryDialog(seeker)" />
   </ng-container>
 
   <!-- Work History Section -->
@@ -56,8 +53,8 @@
        <app-empty-state />
       }
   </ng-container>
+  
   <!-- Work History Section -->
-
   <ng-container>
     <app-section-header-profile (created)="onCreateEducation()" [title]="'Education'" />
     @for (item of seeker.education; track $index) {
