@@ -26,7 +26,15 @@
   }
 }
 
-input {
-  font-size: 12px;
-  font-weight: 700;
+::ng-deep {
+  .p-float-label label {
+    font-size: 12px !important;
+    font-weight: 600;
+  }
+
+  .p-component {
+    font-size: 12px;
+    font-weight: 700;
+    @apply border-elephant-200 rounded-lg;
+  }
 }

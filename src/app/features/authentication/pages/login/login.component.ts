@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 		private readonly router: Router,
 		private readonly authService: AuthenticationService,
 		private readonly validationService: ValidationService,
-    private readonly toastService: ToastService,
+		private readonly toastService: ToastService,
 	) {}
 
 	ngOnInit(): void {
@@ -71,10 +71,10 @@ export class LoginComponent implements OnInit {
 		this.authService.login(this.formCtrlValue).subscribe({
 			next: () => {
 				this.successMessage();
-        this.setLoading();
+				this.setLoading();
 			},
 			error: (error: HttpErrorResponse) => {
-        this.setLoading();
+				this.setLoading();
 				this.errorMessage(error.message);
 			},
 			complete: () => {
@@ -83,11 +83,11 @@ export class LoginComponent implements OnInit {
 		});
 	}
 
-  private setLoading() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 2000);
-  }
+	private setLoading() {
+		setTimeout(() => {
+			this.isLoading = false;
+		}, 2000);
+	}
 
 	navigateAfterSucceed(): void {
 		timer(2000)
@@ -104,11 +104,11 @@ export class LoginComponent implements OnInit {
 		}
 	}
 
-  successMessage() {
-    this.toastService.showSuccessToast('Success', 'Login Successfully!');
-  }
+	successMessage() {
+		this.toastService.showSuccessToast('Success', 'Login Successfully!');
+	}
 
-  errorMessage(message: string) {
-    this.toastService.showErrorToast('Error', message);
-  }
+	errorMessage(message: string) {
+		this.toastService.showErrorToast('Error', message);
+	}
 }

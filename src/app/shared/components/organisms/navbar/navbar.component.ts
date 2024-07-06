@@ -23,7 +23,7 @@ import { DropdownHeaderComponent } from '../../molecules/dropdown-header/dropdow
 })
 export class NavbarComponent implements OnInit {
 	@Input() user!: User;
-  @Output() logout = new EventEmitter<void>();
+	@Output() logout = new EventEmitter<void>();
 
 	dropdownLangMenu = MENU_LANG;
 	menuItems = MENU_ITEM;
@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
 		console.log('change language');
 	}
 
-  onLogout(): void {
-    this.logout.emit();
-  }
+	onLogout(): void {
+		this.logout.emit();
+	}
 }

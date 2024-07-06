@@ -28,7 +28,7 @@ export class SavedJobsComponent implements OnInit {
 		private readonly destroyRef: DestroyRef,
 		private readonly activityService: ActivityService,
 		private readonly storageService: StorageService,
-    private readonly toastService: ToastService,
+		private readonly toastService: ToastService,
 	) {}
 
 	ngOnInit(): void {
@@ -59,28 +59,29 @@ export class SavedJobsComponent implements OnInit {
 	}
 
 	onRemove(id: string): void {
-		this.activityService.removeSavedJobsById(id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.toastService.showSuccessToast('Success', 'Sucessfully removed');
-        },
-        error: (error: HttpErrorResponse) => {
-          this.errorMessage(error.message);
-        },
-        complete: () => {
-          this.reloadAfterSuccess();
-        },
-      });
+		this.activityService
+			.removeSavedJobsById(id)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.toastService.showSuccessToast('Success', 'Sucessfully removed');
+				},
+				error: (error: HttpErrorResponse) => {
+					this.errorMessage(error.message);
+				},
+				complete: () => {
+					this.reloadAfterSuccess();
+				},
+			});
 	}
 
-  reloadAfterSuccess(): void {
-    timer(2000)
-      .pipe(take(1))
-      .subscribe(() => window.location.reload());
-  }
+	reloadAfterSuccess(): void {
+		timer(2000)
+			.pipe(take(1))
+			.subscribe(() => window.location.reload());
+	}
 
-  errorMessage(message: string) {
-    this.toastService.showErrorToast('Error', message);
-  }
+	errorMessage(message: string) {
+		this.toastService.showErrorToast('Error', message);
+	}
 }

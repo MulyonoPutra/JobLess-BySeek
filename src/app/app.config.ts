@@ -10,7 +10,7 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
-    MessageService,
+		MessageService,
 		Providers,
 		HttpClientModule,
 		provideHttpClient(),

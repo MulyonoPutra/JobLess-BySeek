@@ -1,5 +1,5 @@
 export interface RemoveSavedJobsResponseEntity {
-  id: string;
-  seekerId: string;
-  jobAdsId: string;
+	id: string;
+	seekerId: string;
+	jobAdsId: string;
 }

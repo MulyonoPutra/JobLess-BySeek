@@ -24,7 +24,7 @@ declare global {
 @Component({
 	selector: 'app-root',
 	standalone: true,
-  imports: [CommonModule, RouterOutlet, ToastModule, LoadingIndicatorComponent],
+	imports: [CommonModule, RouterOutlet, ToastModule, LoadingIndicatorComponent],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.scss',
 })

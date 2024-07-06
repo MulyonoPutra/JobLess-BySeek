@@ -18,146 +18,147 @@ import { ToastService } from '../../../../shared/services/toast.service';
 import { JobAdsService } from '../../services/job-ads.service';
 
 @Component({
-  selector: 'app-job-details',
-  standalone: true,
-  imports: [
-    CommonModule,
-    AngularSvgIconModule,
-    RouterModule,
-    TimeAgoPipe,
-    RupiahPipe,
-    DialogModule,
-    ProfilePromptComponent,
-    ButtonComponent
-  ],
-  templateUrl: './job-details.component.html',
-  styleUrls: ['./job-details.component.scss'],
-  providers: [JobAdsService],
+	selector: 'app-job-details',
+	standalone: true,
+	imports: [
+		CommonModule,
+		AngularSvgIconModule,
+		RouterModule,
+		TimeAgoPipe,
+		RupiahPipe,
+		DialogModule,
+		ProfilePromptComponent,
+		ButtonComponent,
+	],
+	templateUrl: './job-details.component.html',
+	styleUrls: ['./job-details.component.scss'],
+	providers: [JobAdsService],
 })
 export class JobDetailsComponent implements OnInit {
-  jobId!: string;
-  companyId!: string;
-  jobAds!: JobAds;
-  visible = false;
+	jobId!: string;
+	companyId!: string;
+	jobAds!: JobAds;
+	visible = false;
 
-  isLoading = false;
-  isSavedJobSubmitted = false;
+	isLoading = false;
+	isSavedJobSubmitted = false;
 
-  constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute,
-    private readonly destroyRef: DestroyRef,
-    private readonly jobAdsService: JobAdsService,
-    private readonly storageService: StorageService,
-    private readonly toastService: ToastService,
-  ) {
-    this.jobId = this.route.snapshot.paramMap.get('id')!;
-  }
+	constructor(
+		private readonly router: Router,
+		private readonly route: ActivatedRoute,
+		private readonly destroyRef: DestroyRef,
+		private readonly jobAdsService: JobAdsService,
+		private readonly storageService: StorageService,
+		private readonly toastService: ToastService,
+	) {
+		this.jobId = this.route.snapshot.paramMap.get('id')!;
+	}
 
-  ngOnInit(): void {
-    this.findById();
-  }
+	ngOnInit(): void {
+		this.findById();
+	}
 
-  showDialog() {
-    this.visible = true;
-  }
+	showDialog() {
+		this.visible = true;
+	}
 
-  navigate(): void {
-    this.router.navigate(['/profile']);
-  }
+	navigate(): void {
+		this.router.navigate(['/profile']);
+	}
 
-  savedJobs(): void {
-    this.isSavedJobSubmitted = true;
-    const payload: SavedJobAdsDto = {
-      seekerId: this.storageService.getSeekerIdentity(),
-      jobAdsId: this.jobAds.id,
-    };
-    this.jobAdsService
-      .savedJobAds(payload)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.successMessage('Successfully saved!')
-          setTimeout(() => {
-            this.isSavedJobSubmitted = false;
-          }, 2000);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.setLoading();
-          this.errorMessage(error.message);
-        },
-        complete: () => {
-          this.navigateAfterSucceed('saved-jobs');
-        },
-      });
-  }
+	savedJobs(): void {
+		this.isSavedJobSubmitted = true;
+		const payload: SavedJobAdsDto = {
+			seekerId: this.storageService.getSeekerIdentity(),
+			jobAdsId: this.jobAds.id,
+		};
+		this.jobAdsService
+			.savedJobAds(payload)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.successMessage('Successfully saved!');
+					setTimeout(() => {
+						this.isSavedJobSubmitted = false;
+					}, 2000);
+				},
+				error: (error: HttpErrorResponse) => {
+					this.setLoading();
+					this.errorMessage(error.message);
+				},
+				complete: () => {
+					this.navigateAfterSucceed('saved-jobs');
+				},
+			});
+	}
 
-  applied() {
-    const seekerId = this.storageService.getSeekerIdentity();
-    const application: CreateApplicationDto = {
-      seekerId: seekerId,
-      jobAdsId: this.jobAds.id,
-      status: 'Applied'
-    }
-    this.jobAdsService.appliedJobs(application)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.successMessage('Applied!')
-        },
-        error: (error: HttpErrorResponse) => {
-          this.setLoading();
-          this.errorMessage(error.message);
-        },
-        complete: () => {
-          this.navigateAfterSucceed('applied-jobs');
-        },
-      })
-  }
+	applied() {
+		const seekerId = this.storageService.getSeekerIdentity();
+		const application: CreateApplicationDto = {
+			seekerId: seekerId,
+			jobAdsId: this.jobAds.id,
+			status: 'Applied',
+		};
+		this.jobAdsService
+			.appliedJobs(application)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.successMessage('Applied!');
+				},
+				error: (error: HttpErrorResponse) => {
+					this.setLoading();
+					this.errorMessage(error.message);
+				},
+				complete: () => {
+					this.navigateAfterSucceed('applied-jobs');
+				},
+			});
+	}
 
-  private setLoading() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 2000);
-  }
+	private setLoading() {
+		setTimeout(() => {
+			this.isLoading = false;
+		}, 2000);
+	}
 
-  navigateAfterSucceed(route: string): void {
-    timer(1000)
-      .pipe(take(1))
-      .subscribe(() => this.router.navigateByUrl(`/activity/${route}`));
-  }
+	navigateAfterSucceed(route: string): void {
+		timer(1000)
+			.pipe(take(1))
+			.subscribe(() => this.router.navigateByUrl(`/activity/${route}`));
+	}
 
-  findById(): void {
-    this.jobAdsService
-      .findById(this.jobId)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (response: JobAds) => {
-          this.jobAds = response;
-          this.companyId = this.jobAds.employer.company?.id!;
-        },
-        error: (error: HttpErrorResponse) => {
-          this.errorMessage(error.message);
-        },
-        complete: () => { },
-      });
-  }
+	findById(): void {
+		this.jobAdsService
+			.findById(this.jobId)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: (response: JobAds) => {
+					this.jobAds = response;
+					this.companyId = this.jobAds.employer.company?.id!;
+				},
+				error: (error: HttpErrorResponse) => {
+					this.errorMessage(error.message);
+				},
+				complete: () => {},
+			});
+	}
 
-  setCompanyId(id: string): void {
-    this.companyId = id;
-    this.storageService.setCompanyIdentity(this.companyId);
-  }
+	setCompanyId(id: string): void {
+		this.companyId = id;
+		this.storageService.setCompanyIdentity(this.companyId);
+	}
 
-  viewAllJobs(id: string): void {
-    this.setCompanyId(id);
-    this.router.navigateByUrl(`/jobs/views`, { state: { id: this.companyId } });
-  }
+	viewAllJobs(id: string): void {
+		this.setCompanyId(id);
+		this.router.navigateByUrl(`/jobs/views`, { state: { id: this.companyId } });
+	}
 
-  successMessage(message: string): void {
-    this.toastService.showSuccessToast('Success', message);
-  }
+	successMessage(message: string): void {
+		this.toastService.showSuccessToast('Success', message);
+	}
 
-  errorMessage(message: string) {
-    this.toastService.showErrorToast('Error', message);
-  }
+	errorMessage(message: string) {
+		this.toastService.showErrorToast('Error', message);
+	}
 }

@@ -19,18 +19,24 @@ import { ButtonComponent } from '../../../../shared/components/atoms/button/butt
 @Component({
 	selector: 'app-summary-form',
 	standalone: true,
-	imports: [CommonModule, FormInputFieldComponent, FormsModule, ReactiveFormsModule, ButtonComponent],
+	imports: [
+		CommonModule,
+		FormInputFieldComponent,
+		FormsModule,
+		ReactiveFormsModule,
+		ButtonComponent,
+	],
 	templateUrl: './summary-form.component.html',
 	styleUrls: ['./summary-form.component.scss'],
 })
 export class SummaryFormComponent implements OnInit {
 	form!: FormGroup;
 	isLoading: boolean = false;
-  label!: string;
+	label!: string;
 
-  updateSummaryDto!: UpdateSummaryDto;
+	updateSummaryDto!: UpdateSummaryDto;
 
-  @Input() data!: any;
+	@Input() data!: any;
 
 	constructor(
 		private readonly formBuilder: FormBuilder,
@@ -39,15 +45,15 @@ export class SummaryFormComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-    this.formInitialized();
-    this.prepopulateForm(this.data)
+		this.formInitialized();
+		this.prepopulateForm(this.data);
 	}
 
-  formInitialized(): void {
-    this.form = this.formBuilder.group({
-      summary: ['', Validators.required],
-    });
-  }
+	formInitialized(): void {
+		this.form = this.formBuilder.group({
+			summary: ['', Validators.required],
+		});
+	}
 
 	get f() {
 		return this.form.controls;
@@ -59,28 +65,28 @@ export class SummaryFormComponent implements OnInit {
 		};
 	}
 
-  prepopulateForm(dto: UpdateSummaryDto): void {
-    this.form.patchValue({
-      summary: dto.summary,
-    });
-  }
+	prepopulateForm(dto: UpdateSummaryDto): void {
+		this.form.patchValue({
+			summary: dto.summary,
+		});
+	}
 
-  onUpdate(): void {
-    this.updateSummaryDto = this.data;
-    this.profileService.updateSummary(this.updateSummaryDto.id!, this.formCtrlValue).subscribe({
-      next: () => {
-        setTimeout(() => {
-          this.isLoading = false;
-        }, 2000);
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error(error.message);
-      },
-      complete: () => {
-        this.navigateAfterSucceed();
-      },
-    });
-  }
+	onUpdate(): void {
+		this.updateSummaryDto = this.data;
+		this.profileService.updateSummary(this.updateSummaryDto.id!, this.formCtrlValue).subscribe({
+			next: () => {
+				setTimeout(() => {
+					this.isLoading = false;
+				}, 2000);
+			},
+			error: (error: HttpErrorResponse) => {
+				console.error(error.message);
+			},
+			complete: () => {
+				this.navigateAfterSucceed();
+			},
+		});
+	}
 
 	navigateAfterSucceed(): void {
 		timer(1000)
@@ -97,11 +103,11 @@ export class SummaryFormComponent implements OnInit {
 		this.form.reset();
 	}
 
-  get submitButtonLabel(): string {
-    return this.label;
-  }
+	get submitButtonLabel(): string {
+		return this.label;
+	}
 
-  get cancelButtonLabel(): string {
-    return 'Cancel';
-  }
+	get cancelButtonLabel(): string {
+		return 'Cancel';
+	}
 }

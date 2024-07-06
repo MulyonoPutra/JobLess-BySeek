@@ -29,9 +29,11 @@ export class ActivityService {
 			.pipe(map((response) => response.data));
 	}
 
-  removeSavedJobsById(id: string): Observable<RemoveSavedJobsResponseEntity> {
-    return this.http
-      .delete<HttpResponseEntity<RemoveSavedJobsResponseEntity>>(`${this.endpoint}/seeker/saved-jobs/${id}`)
-      .pipe(map((response) => response.data));
-  }
+	removeSavedJobsById(id: string): Observable<RemoveSavedJobsResponseEntity> {
+		return this.http
+			.delete<
+				HttpResponseEntity<RemoveSavedJobsResponseEntity>
+			>(`${this.endpoint}/seeker/saved-jobs/${id}`)
+			.pipe(map((response) => response.data));
+	}
 }

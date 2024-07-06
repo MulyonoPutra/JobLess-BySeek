@@ -1,5 +1,5 @@
 export interface CreateApplicationDto {
-  status: 'Applied',
-  seekerId: string
-  jobAdsId: string
+	status: 'Applied';
+	seekerId: string;
+	jobAdsId: string;
 }

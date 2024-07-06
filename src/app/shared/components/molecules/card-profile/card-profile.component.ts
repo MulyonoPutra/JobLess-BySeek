@@ -31,6 +31,7 @@ export class CardProfileComponent implements AfterViewInit {
 	@Input() maxHeight: number = 10;
 
 	@Output() edited = new EventEmitter<string>();
+	@Output() removed = new EventEmitter<string>();
 
 	public isCollapsed: boolean = false;
 	public isCollapsable: boolean = false;
@@ -50,7 +51,11 @@ export class CardProfileComponent implements AfterViewInit {
 		}
 	}
 
-	onClick(id: string): void {
-		this.edited.emit(id);
+	onEdited(): void {
+		this.edited.emit();
+	}
+
+	onRemoved(): void {
+    this.removed.emit();
 	}
 }

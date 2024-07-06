@@ -1,7 +1,7 @@
-import { User } from "./user";
+import { User } from './user';
 
 export interface UpdateSummaryResponseEntity {
-  id: string;
-  summary: string;
-  user: User;
+	id: string;
+	summary: string;
+	user: User;
 }

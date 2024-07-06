@@ -1,4 +1,4 @@
 export interface UpdateSummaryDto {
-  id?: string;
-  summary: string;
+	id?: string;
+	summary: string;
 }

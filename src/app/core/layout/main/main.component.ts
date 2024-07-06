@@ -78,19 +78,18 @@ export class MainComponent implements OnInit {
 		return this.fullWidthRoutes.includes(this.currentRoute);
 	}
 
-  logout(): void {
-    const token = this.storageService.getAccessToken();
-    this.authService.logout(token).subscribe({
-      next: () => {
-        // TODO: Show success message toast here
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error(error.message);
-      },
-      complete: () => {
-        this.router.navigateByUrl('/auth/login').then(() => window.location.reload());
-      },
-    });
-  }
-
+	logout(): void {
+		const token = this.storageService.getAccessToken();
+		this.authService.logout(token).subscribe({
+			next: () => {
+				// TODO: Show success message toast here
+			},
+			error: (error: HttpErrorResponse) => {
+				console.error(error.message);
+			},
+			complete: () => {
+				this.router.navigateByUrl('/auth/login').then(() => window.location.reload());
+			},
+		});
+	}
 }

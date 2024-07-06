@@ -34,10 +34,9 @@ export class JobAdsService {
 			.pipe(map((response) => response));
 	}
 
-  appliedJobs(body: CreateApplicationDto): Observable<unknown> {
-    return this.http
-      .post(`${this.endpoint}/seeker/application`, body)
-      .pipe(map((response) => response));
-  }
-
+	appliedJobs(body: CreateApplicationDto): Observable<unknown> {
+		return this.http
+			.post(`${this.endpoint}/seeker/application`, body)
+			.pipe(map((response) => response));
+	}
 }

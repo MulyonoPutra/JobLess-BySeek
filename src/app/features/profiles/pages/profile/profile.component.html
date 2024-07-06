@@ -7,14 +7,6 @@
       <div class="flex flex-col space-y-2">
         <div class="flex space-x-1">
           <div>
-            <svg-icon src="../../../../../assets/icons/maps.svg" svgClass="mt-1" />
-          </div>
-          <!-- <div>
-            <p class="text-stark-200">West Java</p>
-          </div> -->
-        </div>
-        <div class="flex space-x-1">
-          <div>
             <svg-icon src="../../../../../assets/icons/mail.svg" svgClass="mt-1" />
           </div>
           <div>
@@ -44,25 +36,27 @@
     </app-dialog>
   </ng-container>
 
+  <!-- Work History Section -->
   <ng-container>
-    <app-section-header-profile (created)="onCreateExperience()" [title]="'Career History'" />
+    <app-section-header-profile (created)="openWorkHistoryDialog()" [title]="'Career History'" />
       @if (seeker.experience.length > 0) {
-        @for (item of seeker.experience; track $index) {
+        @for (exp of seeker.experience; track $index) {
           <app-card-profile
-            [title]="item.position"
-            [name]="item.companyName"
-            [duration]="duration(item.startDate, item.endDate)"
-            [description]="item.responsibilities"
+            [title]="exp.position"
+            [name]="exp.companyName"
+            [duration]="duration(exp.startDate, exp.endDate)"
+            [description]="exp.responsibilities"
             [maxHeight]="18"
-            (edited)="onUpdateExperience(item.id)" />
-            <app-dialog [visible]="isExperienceVisible" (hide)="onHideWorkHistory()">
-              <app-work-history-form [data]="updateWorkHistoryDto" />
-            </app-dialog>
+            (edited)="openWorkHistoryDialog(exp.id)"
+            (removed)="removeConfirmation(exp.id)"
+            />
+
         }
       } @else {
        <app-empty-state />
       }
   </ng-container>
+  <!-- Work History Section -->
 
   <ng-container>
     <app-section-header-profile (created)="onCreateEducation()" [title]="'Education'" />
@@ -100,5 +94,6 @@
     </div>
   </ng-container>
 </div>
-
 }
+
+<p-confirmDialog />
