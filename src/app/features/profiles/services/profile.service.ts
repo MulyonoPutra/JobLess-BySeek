@@ -1,5 +1,6 @@
 import { Observable, map } from 'rxjs';
 
+import { CreateSummaryDto } from '../../../core/domain/dto/create-summary.dto';
 import { CreateWorkHistoryDto } from '../../../core/domain/dto/create-work-history.dto';
 import { Education } from '../../../core/domain/entities/education';
 import { Experience } from '../../../core/domain/entities/experience';
@@ -32,6 +33,12 @@ export class ProfileService {
 			.get<HttpResponseEntity<Experience>>(`${this.endpoint}/seeker/experience/${id}`)
 			.pipe(map((response) => response.data));
 	}
+
+  createSummary(body: CreateSummaryDto): Observable<unknown> {
+    return this.http
+      .post<HttpResponseEntity<unknown>>(`${this.endpoint}/seeker`, body)
+      .pipe(map((response) => response.data));
+  }
 
 	updateSummary(id: string, body: UpdateSummaryDto): Observable<UpdateSummaryResponseEntity> {
 		return this.http

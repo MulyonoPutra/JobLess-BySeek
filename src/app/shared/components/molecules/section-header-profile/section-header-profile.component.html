@@ -5,16 +5,18 @@
     </h1>
   </div>
   <div></div>
-  <div class="hs-tooltip">
-    <button type="button" (click)="onClick()"
-      class="hs-tooltip-toggle text-elephant-950 border border-elephant-950 hover:bg-elephant-950 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center ">
-      <svg-icon src="../../../../../assets/icons/add.svg" svgClass="w-4 h-4 add-icon hover:icon-primary-4" />
-      <span
-        class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible dark:bg-neutral-700"
-        role="tooltip">
-        Add {{ title }}
-      </span>
-      <span class="sr-only">Icon description</span>
-    </button>
-  </div>
+  @if (!seekerId) {
+    <div class="hs-tooltip">
+      <button type="button" (click)="onClick()"
+        class="hs-tooltip-toggle text-elephant-950 border border-elephant-950 hover:bg-elephant-950 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center ">
+        <svg-icon src="../../../../../assets/icons/add.svg" svgClass="w-4 h-4 add-icon hover:icon-primary-4" />
+        <span
+          class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible dark:bg-neutral-700"
+          role="tooltip">
+          Add {{ title }}
+        </span>
+        <span class="sr-only">Icon description</span>
+      </button>
+    </div>
+  }
 </div>

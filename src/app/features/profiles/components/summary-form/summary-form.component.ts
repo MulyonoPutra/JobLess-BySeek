@@ -114,8 +114,23 @@ export class SummaryFormComponent implements OnInit {
     }
 		this.form.reset();
 	}
+
   onCreate() {
-    throw new Error('Method not implemented.');
+    this.profileService.createSummary(this.formCtrlValue).subscribe({
+      next: () => {
+        this.toastService.showSuccessToast('Success', 'Updated...');
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.isLoading = false;
+        this.toastService.showErrorToast('Error', error.message);
+      },
+      complete: () => {
+        this.navigateAfterSucceed();
+      },
+    });
   }
 
 	get submitButtonLabel(): string {

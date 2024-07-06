@@ -16,6 +16,9 @@ import { RupiahPipe } from '../../../../shared/pipes/rupiah.pipe';
 import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { JobAdsService } from '../../services/job-ads.service';
+import { ConfirmationService } from 'primeng/api';
+import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
 	selector: 'app-job-details',
@@ -29,10 +32,12 @@ import { JobAdsService } from '../../services/job-ads.service';
 		DialogModule,
 		ProfilePromptComponent,
 		ButtonComponent,
+    DynamicDialogModule,
+    ConfirmDialogModule
 	],
 	templateUrl: './job-details.component.html',
 	styleUrls: ['./job-details.component.scss'],
-	providers: [JobAdsService],
+  providers: [JobAdsService, DialogService, ConfirmationService],
 })
 export class JobDetailsComponent implements OnInit {
 	jobId!: string;
@@ -43,6 +48,8 @@ export class JobDetailsComponent implements OnInit {
 	isLoading = false;
 	isSavedJobSubmitted = false;
 
+  ref: DynamicDialogRef | undefined;
+
 	constructor(
 		private readonly router: Router,
 		private readonly route: ActivatedRoute,
@@ -50,6 +57,9 @@ export class JobDetailsComponent implements OnInit {
 		private readonly jobAdsService: JobAdsService,
 		private readonly storageService: StorageService,
 		private readonly toastService: ToastService,
+    public dialogService: DialogService,
+    private readonly confirmationService: ConfirmationService,
+
 	) {
 		this.jobId = this.route.snapshot.paramMap.get('id')!;
 	}
@@ -92,7 +102,26 @@ export class JobDetailsComponent implements OnInit {
 			});
 	}
 
-	applied() {
+  onSubmitted(): void {
+    const seekerId = this.storageService.getSeekerIdentity();
+    if(seekerId) {
+      this.applyConfirmation();
+    } else {
+      this.confirmDialog();
+    }
+  }
+
+  applyConfirmation(): void {
+    this.confirmationService.confirm({
+      header: 'Apply Confirmation',
+      message: 'Are you sure want to apply this job?',
+      accept: () => {
+        this.onApplied();
+      }
+    });
+  }
+
+	onApplied() {
 		const seekerId = this.storageService.getSeekerIdentity();
 		const application: CreateApplicationDto = {
 			seekerId: seekerId,
@@ -153,6 +182,15 @@ export class JobDetailsComponent implements OnInit {
 		this.setCompanyId(id);
 		this.router.navigateByUrl(`/jobs/views`, { state: { id: this.companyId } });
 	}
+
+  confirmDialog(): void {
+    this.ref = this.dialogService.open(ProfilePromptComponent, {
+      header: 'Complete Your Profile',
+      width: '50vw',
+      modal: true,
+      breakpoints: { '1199px': '75vw', '575px': '90vw' }
+    });
+  }
 
 	successMessage(message: string): void {
 		this.toastService.showSuccessToast('Success', message);

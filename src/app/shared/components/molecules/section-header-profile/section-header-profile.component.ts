@@ -11,6 +11,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 })
 export class SectionHeaderProfileComponent {
 	@Input() title!: string;
+	@Input({required: false}) seekerId?: string;
 	@Output() created = new EventEmitter<void>();
 
 	onClick(): void {

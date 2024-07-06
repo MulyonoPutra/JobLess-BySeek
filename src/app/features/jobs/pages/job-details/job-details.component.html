@@ -45,7 +45,7 @@
   <div class="flex mb-4 space-x-2">
     <app-button
       [isLoading]="isLoading"
-      (clicked)="applied()"
+      (clicked)="onSubmitted()"
       [label]="'Quick apply'"
       [isCancel]="false"
       [isLarge]="true"
@@ -74,15 +74,4 @@
 </div>
 }
 
-<div class="flex card justify-content-center">
-  <p-dialog
-    header="Complete Your Profile"
-    [(visible)]="visible"
-    [modal]="true"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-    [style]="{ width: '50vw' }"
-    [draggable]="false"
-    [resizable]="false">
-    <app-profile-prompt (navigate)="navigate()"></app-profile-prompt>
-  </p-dialog>
-</div>
+<p-confirmDialog />
