@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output, type OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Output, type OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-profile-prompt',
@@ -8,12 +9,11 @@ import { Component, EventEmitter, Output, type OnInit } from '@angular/core';
 	templateUrl: './profile-prompt.component.html',
 	styleUrls: ['./profile-prompt.component.scss'],
 })
-export class ProfilePromptComponent implements OnInit {
-	ngOnInit(): void {}
+export class ProfilePromptComponent {
 
-	@Output() navigate = new EventEmitter<void>();
+  router: Router = inject(Router);
 
-	onClick(): void {
-		this.navigate.emit();
-	}
+  navigate(): void {
+    this.router.navigate(['/profile']);
+  }
 }
