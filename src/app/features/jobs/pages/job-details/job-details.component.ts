@@ -68,14 +68,6 @@ export class JobDetailsComponent implements OnInit {
 		this.findById();
 	}
 
-	showDialog() {
-		this.visible = true;
-	}
-
-	navigate(): void {
-		this.router.navigate(['/profile']);
-	}
-
 	savedJobs(): void {
 		this.isSavedJobSubmitted = true;
 		const payload: SavedJobAdsDto = {
@@ -87,14 +79,14 @@ export class JobDetailsComponent implements OnInit {
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: () => {
-					this.successMessage('Successfully saved!');
+          this.toastService.showSuccessToast('Success', 'Saved!');
 					setTimeout(() => {
 						this.isSavedJobSubmitted = false;
 					}, 2000);
 				},
 				error: (error: HttpErrorResponse) => {
 					this.setLoading();
-					this.errorMessage(error.message);
+          this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {
 					this.navigateAfterSucceed('saved-jobs');
@@ -133,11 +125,11 @@ export class JobDetailsComponent implements OnInit {
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: () => {
-					this.successMessage('Applied!');
+          this.toastService.showSuccessToast('Success', 'Applied!');
 				},
 				error: (error: HttpErrorResponse) => {
 					this.setLoading();
-					this.errorMessage(error.message);
+          this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {
 					this.navigateAfterSucceed('applied-jobs');
@@ -167,7 +159,7 @@ export class JobDetailsComponent implements OnInit {
 					this.companyId = this.jobAds.employer.company?.id!;
 				},
 				error: (error: HttpErrorResponse) => {
-					this.errorMessage(error.message);
+          this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {},
 			});
@@ -191,12 +183,4 @@ export class JobDetailsComponent implements OnInit {
       breakpoints: { '1199px': '75vw', '575px': '90vw' }
     });
   }
-
-	successMessage(message: string): void {
-		this.toastService.showSuccessToast('Success', message);
-	}
-
-	errorMessage(message: string) {
-		this.toastService.showErrorToast('Error', message);
-	}
 }
