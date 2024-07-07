@@ -20,7 +20,7 @@
       class="flex space-x-0 items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-bayoux-700 hover:bg-bayoux-700 hover:text-stark-400 focus:ring-2 focus:ring-blue-500 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 cursor-pointer"
     >
       @if (item.flag) {
-      <img [src]="item.flag" class="w-5 h-5 rounded-full" alt="Flag" />
+      <img [src]="item.flag" class="w-5 h-5 rounded-full" alt="Flag" loading="lazy" />
       }
       <div>
         <a class="" [routerLink]="item.route">

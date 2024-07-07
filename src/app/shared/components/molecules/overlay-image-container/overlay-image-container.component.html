@@ -1,12 +1,13 @@
 <div>
   <div
-    class="w-full relative bg-white border shadow-sm rounded-xl"
+    class="relative w-full bg-white border shadow-sm rounded-xl"
   >
     <div class="w-full h-[300px] rounded-lg overflow-hidden relative">
       <img
-        class="w-full h-full object-cover"
+        class="object-cover w-full h-full"
         [src]="overlayImage"
         alt="Image Description"
+        loading="lazy"
       />
       <div class="absolute inset-0 bg-black bg-opacity-50 blur"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
