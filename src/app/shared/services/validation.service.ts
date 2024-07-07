@@ -106,6 +106,10 @@ export class ValidationService {
 			const requiredLength = control.errors['minlength'].requiredLength;
 			return `Password should be at least ${requiredLength} characters long.`;
 		}
+		if (control.errors?.['maxlength']) {
+      const requiredLength = control.errors['maxlength'].requiredLength;
+			return `This field at least maximum ${requiredLength} characters long.`;
+		}
 		if (control.errors?.['passwordMismatch']) {
 			return 'Passwords do not match.';
 		}

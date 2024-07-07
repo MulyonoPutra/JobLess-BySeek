@@ -7,8 +7,10 @@ import { Experience } from '../../../core/domain/entities/experience';
 import { HttpClient } from '@angular/common/http';
 import { HttpResponseEntity } from '../../../core/domain/entities/http-response-entity';
 import { Injectable } from '@angular/core';
+import { ProfileResponseEntity } from '../../../core/domain/entities/profile.response-entity';
 import { Seeker } from '../../../core/domain/entities/seeker';
 import { UpdateEducationDto } from '../../../core/domain/dto/update-education.dto';
+import { UpdateProfileDto } from '../../../core/domain/dto/update-profile.dto';
 import { UpdateSummaryDto } from '../../../core/domain/dto/update-summary.dto';
 import { UpdateSummaryResponseEntity } from '../../../core/domain/entities/update-summary.response-entity';
 import { WorkHistoryDto } from '../../../core/domain/dto/work-history.dto';
@@ -21,6 +23,14 @@ export class ProfileService {
 	endpoint = environment.endpoint;
 
 	constructor(private readonly http: HttpClient) {}
+
+  updateProfile(id: string, body: UpdateProfileDto): Observable<ProfileResponseEntity> {
+    return this.http
+      .patch<
+        HttpResponseEntity<ProfileResponseEntity>
+      >(`${this.endpoint}/profile/${id}`, body)
+      .pipe(map((response) => response.data));
+  }
 
 	findOne(id: string): Observable<Seeker> {
 		return this.http

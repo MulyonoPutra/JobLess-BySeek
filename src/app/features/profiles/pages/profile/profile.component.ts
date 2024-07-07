@@ -26,6 +26,8 @@ import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dy
 import { timer, take } from 'rxjs';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ButtonComponent } from '../../../../shared/components/atoms/button/button.component';
+import { PersonalDetailFormComponent } from '../../components/personal-detail-form/personal-detail-form.component';
 
 type DialogConfig = {
 	header: string;
@@ -53,6 +55,7 @@ type DialogConfig = {
 		SummaryFormComponent,
 		WorkHistoryFormComponent,
 		EmptyStateComponent,
+    ButtonComponent,
 		DynamicDialogModule,
     ConfirmDialogModule
 	],
@@ -84,10 +87,6 @@ export class ProfileComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.findOne();
-	}
-
-	viewDetail() {
-		this.toastService.showErrorToast('Info', 'View detail clicked.');
 	}
 
 	findOne(): void {
@@ -174,6 +173,21 @@ export class ProfileComponent implements OnInit {
       data: {
         id: seeker?.id,
         summary: seeker?.summary
+      }
+    });
+  }
+
+  openProfileDialog(user?: User): void {
+    this.ref = this.dialogService.open(PersonalDetailFormComponent, {
+      header: user?.id ? 'Update Personal Details' : 'Add Personal Details',
+      width: '50vw',
+      modal: true,
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw',
+      },
+      data: {
+        user: user
       }
     });
   }
