@@ -1,18 +1,18 @@
 <!-- Hero -->
-<div class="relative bg-gradient-to-bl from-blue-100 via-transparent dark:from-blue-950 dark:via-transparent">
+<div class="relative bg-gradient-to-bl from-elephant-100 via-transparent">
   <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
     <div class="grid items-center gap-8 md:grid-cols-2 lg:gap-12">
       <div>
         <p
-          class="inline-block text-sm font-medium text-transparent bg-clip-text bg-gradient-to-l from-blue-600 to-violet-500 dark:from-blue-400 dark:to-violet-400">
+          class="inline-block text-sm font-medium text-transparent bg-clip-text bg-gradient-to-l from-elephant-600 to-stark-500">
           Jobless: A vision for 2024
         </p>
 
         <div class="max-w-2xl mt-4 md:mb-12">
-          <h1 class="mb-4 text-4xl font-semibold text-gray-800 lg:text-5xl dark:text-neutral-200">
+          <h1 class="mb-4 text-4xl font-semibold text-elephant-800 lg:text-5xl">
             Unlock Your Career Potential
           </h1>
-          <p class="text-gray-600 dark:text-neutral-400">
+          <p class="text-elephant-600">
             Create an account to explore thousands of job opportunities, connect
             with top employers, and take the first step towards your dream job.
             Your future starts here!
@@ -21,11 +21,11 @@
 
         <blockquote class="relative hidden max-w-sm md:block">
           <svg-icon src="../../../../../assets/icons/blockquote.svg"
-            svgClass="absolute top-0 start-0 transform -translate-x-6 -translate-y-8 size-16 text-gray-200 dark:text-neutral-800">
+            svgClass="absolute top-0 start-0 transform -translate-x-6 -translate-y-8 size-16 text-gray-200">
           </svg-icon>
 
           <div class="relative z-10">
-            <p class="text-xl italic text-gray-800 dark:text-white">
+            <p class="text-lg italic text-stark-800">
               Amazing people to work with. Very fast and professional partner.
             </p>
           </div>
@@ -39,10 +39,10 @@
                   loading="lazy" />
               </div>
               <div class="grow ms-4">
-                <div class="font-semibold text-gray-800 dark:text-neutral-200">
+                <div class="font-semibold text-elephant-800">
                   Josh Grazioso
                 </div>
-                <div class="text-xs text-gray-500 dark:text-neutral-500">
+                <div class="text-xs text-elephant-500">
                   Director Payments & Risk | Airbnb
                 </div>
               </div>
@@ -54,14 +54,14 @@
       <div>
         <form [formGroup]="form">
           <div class="lg:max-w-lg lg:mx-auto lg:me-0 ms-auto">
-            <div class="flex flex-col p-4 bg-white shadow-lg sm:p-7 rounded-2xl dark:bg-neutral-900">
+            <div class="flex flex-col p-4 bg-white shadow-lg sm:p-7 rounded-2xl">
               <div class="text-center">
-                <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">
+                <h1 class="block text-2xl font-bold text-gray-800">
                   Start your free trial
                 </h1>
-                <p class="mt-2 text-sm text-gray-600 dark:text-neutral-400">
+                <p class="mt-2 text-sm text-elephant-900">
                   Already have an account?
-                  <a class="font-medium text-elephant-950 decoration-2 hover:underline dark:text-bayoux-700"
+                  <a class="font-medium text-elephant-950 decoration-2 hover:underline"
                     [routerLink]="'/auth/login'">
                     Sign in here
                   </a>
@@ -93,9 +93,14 @@
                 </div>
 
                 <div class="mt-5">
-                  <app-button [isLoading]="isLoading" (clicked)="onSubmit()" [label]="'Save'" [isCancel]="false"
-                    [isLarge]="true" [isDisabled]="form.invalid!" [type]="'save'">
-                  </app-button>
+                  <app-button
+                    [isLoading]="isLoading"
+                    (clicked)="onSubmit()"
+                    [label]="'Save'"
+                    [isCancel]="false"
+                    [isLarge]="true"
+                    [isDisabled]="form.invalid!"
+                    [type]="'save'" />
                 </div>
               </div>
             </div>

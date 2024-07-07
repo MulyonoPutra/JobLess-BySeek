@@ -6,7 +6,7 @@
         Welcome to
         <span class="text-elephant-950">JobLess</span>
       </h1>
-      <p class="mt-3 text-base text-bayoux-700 dark:text-neutral-500">
+      <p class="mt-3 text-base leading-relaxed text-bayoux-700">
         Your Gateway to a Brighter Career - Log in to access thousands of job
         opportunities, connect with top employers, and take the next step in
         your professional journey. Don't have an account?
@@ -17,10 +17,10 @@
         your path to success!
       </p>
       <div class="grid mt-8">
-        <app-google-button></app-google-button>
+        <app-google-button />
       </div>
 
-      <app-or-divider></app-or-divider>
+      <app-or-divider />
       <form [formGroup]="form">
         <div class="flex flex-col space-y-1">
           <div class="mb-4">
@@ -40,7 +40,13 @@
   </div>
 
   <div class="hidden h-full md:block md:absolute md:top-0 md:start-1/2 md:end-0">
-    <img height="100" width="100" priority [src]="bgImage" loading="lazy" class="object-cover object-center w-full h-full"
+    <img
+      height="100"
+      width="100"
+      priority
+      [src]="bgImage"
+      loading="lazy"
+      class="object-cover object-center w-full h-full"
       alt="Background Image" />
   </div>
 </div>

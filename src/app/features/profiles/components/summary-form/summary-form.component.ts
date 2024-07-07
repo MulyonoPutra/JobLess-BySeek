@@ -77,7 +77,6 @@ export class SummaryFormComponent implements OnInit {
 	}
 
 	onUpdate(): void {
-    this.updateSummaryDto = this.config.data;
 		this.profileService.updateSummary(this.updateSummaryDto.id!, this.formCtrlValue).subscribe({
 			next: () => {
         this.toastService.showSuccessToast('Success', 'Updated...');
