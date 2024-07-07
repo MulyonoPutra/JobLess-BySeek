@@ -1,0 +1,18 @@
+<div class="relative mx-auto overflow-hidden bg-white border shadow-lg rounded-xl">
+  <div class="px-6 py-4">
+    <div class="flex items-start justify-between">
+      <div class="flex flex-wrap gap-2">
+        @for (item of skills; track $index) {
+        <app-badge [skill]="item.name" />
+        }
+      </div>
+      <div class="hs-tooltip">
+        <button class="flex-shrink-0 ml-2 focus:outline-none hs-tooltip-toggle" (click)="onEdit()">
+          <svg-icon src="../../../../../assets/icons/edit-box.svg" />
+          <span
+            class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity rounded shadow-sm opacity-0 bg-elephant-900 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible">Edit</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

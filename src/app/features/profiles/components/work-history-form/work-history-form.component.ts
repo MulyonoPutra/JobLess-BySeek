@@ -40,7 +40,7 @@ import { TextAreaFieldComponent } from '../../../../shared/components/atoms/text
 	styleUrls: ['./work-history-form.component.scss'],
 })
 export class WorkHistoryFormComponent implements OnInit {
-	@Input() experienceId!: string;
+	experienceId!: string;
 	label!: string;
 
 	form!: FormGroup;
@@ -79,7 +79,7 @@ export class WorkHistoryFormComponent implements OnInit {
 				});
 			},
 			error: (error: HttpErrorResponse) => {
-				console.error(error);
+        this.toastService.showErrorToast('Error', error.message);
 			},
 			complete: () => {},
 		});

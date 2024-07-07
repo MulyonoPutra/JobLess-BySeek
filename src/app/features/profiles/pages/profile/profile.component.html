@@ -19,7 +19,6 @@
           <button type="button" class="edit-btn" (click)="openProfileDialog(user)">
             Edit
           </button>
-
         </div>
       </div>
     </div>
@@ -53,42 +52,32 @@
        <app-empty-state />
       }
   </ng-container>
-
   <!-- Work History Section -->
+
   <ng-container>
-    <app-section-header-profile (created)="onCreateEducation()" [title]="'Education'" />
-    @for (item of seeker.education; track $index) {
-      <app-card-profile
-        [isEducation]="true"
-        [title]="item.title"
-        [name]="item.institution"
-        [duration]="duration(item.startDate, item.endDate)"
-        [additional]="item.GPA"
-        [maxHeight]="10"
-        (edited)="onEdit(item.id)" />
+    <app-section-header-profile (created)="openEducationDialog()" [title]="'Education'" />
+    @if (seeker.education.length > 0) {
+      @for (item of seeker.education; track $index) {
+        <app-card-profile
+          [isEducation]="true"
+          [title]="item.title"
+          [name]="item.institution"
+          [duration]="duration(item.startDate, item.endDate)"
+          [additional]="item.GPA"
+          [maxHeight]="10"
+          (edited)="openEducationDialog(item.id)"
+          (removed)="removeEducationConfirm(item.id!)"
+          />
+      }
+    } @else {
+       <app-empty-state />
     }
+
   </ng-container>
 
   <ng-container>
-    <app-section-header-profile (created)="onEdit('123')" [title]="'Skills'" />
-    <div class="relative mx-auto overflow-hidden bg-white border shadow-lg rounded-xl">
-      <div class="px-6 py-4">
-        <div class="flex items-start justify-between">
-          <div class="flex flex-wrap gap-2">
-            @for (item of seeker.skills; track $index) {
-            <app-badge [skill]="item.name" />
-            }
-          </div>
-          <div class="hs-tooltip">
-            <button class="flex-shrink-0 ml-2 focus:outline-none hs-tooltip-toggle">
-              <svg-icon src="../../../../../assets/icons/edit-box.svg" />
-              <span
-                class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity rounded shadow-sm opacity-0 bg-elephant-900 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible">Edit</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-section-header-profile (created)="openSkillsDialog()" [title]="'Skills'" />
+    <app-card-skills [skills]="skills" (edited)="openSkillsDialog()" />
   </ng-container>
 </div>
 }

@@ -3,12 +3,14 @@ import { Observable, map } from 'rxjs';
 import { CreateSummaryDto } from '../../../core/domain/dto/create-summary.dto';
 import { CreateWorkHistoryDto } from '../../../core/domain/dto/create-work-history.dto';
 import { Education } from '../../../core/domain/entities/education';
+import { EducationDto } from '../../../core/domain/dto/create-education.dto';
 import { Experience } from '../../../core/domain/entities/experience';
 import { HttpClient } from '@angular/common/http';
 import { HttpResponseEntity } from '../../../core/domain/entities/http-response-entity';
 import { Injectable } from '@angular/core';
 import { ProfileResponseEntity } from '../../../core/domain/entities/profile.response-entity';
 import { Seeker } from '../../../core/domain/entities/seeker';
+import { Skill } from '../../../core/domain/entities/skill';
 import { UpdateEducationDto } from '../../../core/domain/dto/update-education.dto';
 import { UpdateProfileDto } from '../../../core/domain/dto/update-profile.dto';
 import { UpdateSummaryDto } from '../../../core/domain/dto/update-summary.dto';
@@ -70,15 +72,39 @@ export class ProfileService {
 			.pipe(map((response) => response.data));
 	}
 
-	removeExperienceById(id: string): Observable<unknown> {
+	removeExperienceById(id: string): Observable<Experience> {
 		return this.http
-			.delete<HttpResponseEntity<unknown>>(`${this.endpoint}/seeker/experience/${id}`)
+      .delete<HttpResponseEntity<Experience>>(`${this.endpoint}/seeker/experience/${id}`)
 			.pipe(map((response) => response.data));
 	}
+
+  findEducationById(id: string): Observable<Education> {
+    return this.http
+      .get<HttpResponseEntity<Education>>(`${this.endpoint}/seeker/education/${id}`)
+      .pipe(map((response) => response.data));
+  }
+
+  removeEducationById(id: string): Observable<Education> {
+		return this.http
+      .delete<HttpResponseEntity<Education>>(`${this.endpoint}/seeker/education/${id}`)
+			.pipe(map((response) => response.data));
+	}
+
+  createEducation(body: EducationDto[]): Observable<unknown> {
+    return this.http
+      .post<HttpResponseEntity<unknown>>(`${this.endpoint}/seeker/education`, body)
+      .pipe(map((response) => response.data));
+  }
 
 	updateEducation(id: string, body: UpdateEducationDto): Observable<Education> {
 		return this.http
 			.patch<HttpResponseEntity<Education>>(`${this.endpoint}/seeker/education/${id}`, body)
 			.pipe(map((response) => response.data));
 	}
+
+  findSkillsBySeekerId(id: string): Observable<Skill[]> {
+    return this.http
+      .get<HttpResponseEntity<Skill[]>>(`${this.endpoint}/seeker/skills/${id}`)
+      .pipe(map((response) => response.data));
+  }
 }

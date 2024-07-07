@@ -1,3 +1,23 @@
 {
-    "editor.fontFamily": "DM Mono"
+    "editor.fontFamily": "DM Mono",
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#21506f",
+        "activityBar.background": "#21506f",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#cc539c",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "commandCenter.border": "#e7e7e799",
+        "sash.hoverBorder": "#21506f",
+        "statusBar.background": "#153448",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#21506f",
+        "statusBarItem.remoteBackground": "#153448",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#153448",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#15344899",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#153448"
 }
