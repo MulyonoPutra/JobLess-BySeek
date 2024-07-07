@@ -20,13 +20,3 @@ a {
 	padding: 15px;
 	border-radius: 4px;
 }
-
-.blink {
-	animation: blinker 1s linear infinite;
-}
-
-@keyframes blinker {
-	50% {
-		opacity: 0;
-	}
-}
