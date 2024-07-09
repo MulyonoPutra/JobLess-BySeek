@@ -62,7 +62,7 @@
                   fieldName="institution" />
               </div>
               <div>
-                <app-form-input-field [formGroup]="educationFormGroupIndex($index)" [label]="'GPA'"
+                <app-number-field [formGroup]="educationFormGroupIndex($index)" [label]="'GPA'"
                   fieldName="GPA" />
               </div>
               <div>
@@ -94,7 +94,7 @@
             <app-form-input-field [formGroup]="updateForm" [label]="'Institution'" fieldName="institution" />
           </div>
           <div>
-            <app-form-input-field [formGroup]="updateForm" [label]="'GPA'" fieldName="GPA" />
+            <app-number-field [formGroup]="updateForm" [label]="'GPA'" fieldName="GPA" />
           </div>
           <div class="w-full">
             <app-text-area-field [formGroup]="updateForm" [label]="'Description'" fieldName="description" />

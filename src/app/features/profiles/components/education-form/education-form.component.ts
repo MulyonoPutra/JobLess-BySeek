@@ -15,6 +15,7 @@ import { TextAreaFieldComponent } from '../../../../shared/components/atoms/text
 import { HttpErrorResponse } from '@angular/common/http';
 import { EducationDto } from '../../../../core/domain/dto/create-education.dto';
 import { take, timer } from 'rxjs';
+import { NumberFieldComponent } from '../../../../shared/components/atoms/number-field/number-field.component';
 
 @Component({
   selector: 'app-education-form',
@@ -27,7 +28,8 @@ import { take, timer } from 'rxjs';
     ButtonComponent,
     FormInputFieldComponent,
     FormCalendarFieldComponent,
-    TextAreaFieldComponent
+    TextAreaFieldComponent,
+    NumberFieldComponent
   ],
   templateUrl: './education-form.component.html',
   styleUrls: [ './education-form.component.scss' ],
@@ -52,8 +54,6 @@ export class EducationFormComponent implements OnInit {
     private readonly dialogConfig: DynamicDialogConfig,
   ) {
     this.educationId = this.dialogConfig.data?.id;
-    console.log(this.educationId);
-
   }
 
   ngOnInit(): void {
