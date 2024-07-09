@@ -1,5 +1,5 @@
-import { Skill } from "../entities/skill";
+import { Skill } from '../entities/skill';
 
 export interface CreateSkillDto extends Skill {
-  seekerId?: string;
+	seekerId?: string;
 }

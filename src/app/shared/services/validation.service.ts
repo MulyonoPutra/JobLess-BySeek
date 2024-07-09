@@ -92,7 +92,7 @@ export class ValidationService {
 	}
 
 	isInvalid(control: FormControl): boolean {
-    return control && control.touched && control.invalid && (control.dirty || control.touched);
+		return control && control.touched && control.invalid && (control.dirty || control.touched);
 	}
 
 	getErrorMessage(control: FormControl): string {
@@ -107,7 +107,7 @@ export class ValidationService {
 			return `Password should be at least ${requiredLength} characters long.`;
 		}
 		if (control.errors?.['maxlength']) {
-      const requiredLength = control.errors['maxlength'].requiredLength;
+			const requiredLength = control.errors['maxlength'].requiredLength;
 			return `This field at least maximum ${requiredLength} characters long.`;
 		}
 		if (control.errors?.['passwordMismatch']) {

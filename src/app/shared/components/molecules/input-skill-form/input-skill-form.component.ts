@@ -7,19 +7,19 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-input-skill-form',
-  standalone: true,
-  imports: [CommonModule, AngularSvgIconModule, ButtonComponent, FormsModule],
-  templateUrl: './input-skill-form.component.html',
-  styleUrls: [ './input-skill-form.component.scss' ],
+	selector: 'app-input-skill-form',
+	standalone: true,
+	imports: [CommonModule, AngularSvgIconModule, ButtonComponent, FormsModule],
+	templateUrl: './input-skill-form.component.html',
+	styleUrls: ['./input-skill-form.component.scss'],
 })
 export class InputSkillFormComponent {
-  value!: string;
-  router = inject(Router);
+	value!: string;
+	router = inject(Router);
 
-  @Output() clicked = new EventEmitter<string>();
+	@Output() clicked = new EventEmitter<string>();
 
-  search(): void {
-    this.clicked.emit(this.value);
-  }
+	add(): void {
+		this.clicked.emit(this.value);
+	}
 }

@@ -56,6 +56,6 @@ export class CardProfileComponent implements AfterViewInit {
 	}
 
 	onRemoved(): void {
-    this.removed.emit();
+		this.removed.emit();
 	}
 }

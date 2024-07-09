@@ -7,19 +7,19 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-search-field',
-  standalone: true,
-  imports: [CommonModule, AngularSvgIconModule, ButtonComponent, FormsModule],
-  templateUrl: './search-field.component.html',
-  styleUrls: ['./search-field.component.scss'],
+	selector: 'app-search-field',
+	standalone: true,
+	imports: [CommonModule, AngularSvgIconModule, ButtonComponent, FormsModule],
+	templateUrl: './search-field.component.html',
+	styleUrls: ['./search-field.component.scss'],
 })
 export class SearchFieldComponent {
-  query!: string;
-  router = inject(Router);
+	query!: string;
+	router = inject(Router);
 
-  @Output() clicked = new EventEmitter<string>();
+	@Output() clicked = new EventEmitter<string>();
 
-  search(): void {
-    this.clicked.emit(this.query);
-  }
+	search(): void {
+		this.clicked.emit(this.query);
+	}
 }

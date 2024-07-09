@@ -1,5 +1,5 @@
-import { Education } from "../entities/education";
+import { Education } from '../entities/education';
 
 export interface EducationDto extends Education {
-  seekerId?: string;
+	seekerId?: string;
 }

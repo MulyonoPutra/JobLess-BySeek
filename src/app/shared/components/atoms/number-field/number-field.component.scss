@@ -1,37 +1,37 @@
 :host {
-  display: block;
+	display: block;
 }
 
 .errors {
-  &-message {
-    @apply blink absolute left-0 text-xs font-semibold text-red-700;
-  }
+	&-message {
+		@apply blink absolute left-0 text-xs font-semibold text-red-700;
+	}
 }
 
 .message {
-  @apply ml-2 absolute left-0 text-xs font-semibold text-elephant-700;
+	@apply ml-2 absolute left-0 text-xs font-semibold text-elephant-700;
 }
 
 .label-valid {
-  @apply flex justify-center text-start text-xs font-medium text-elephant-950;
+	@apply flex justify-center text-start text-xs font-medium text-elephant-950;
 }
 
 .label-invalid {
-  @apply flex justify-center text-start text-xs font-medium text-red-700;
+	@apply flex justify-center text-start text-xs font-medium text-red-700;
 }
 
 .blink {
-  animation: blinker 1s linear infinite;
+	animation: blinker 1s linear infinite;
 }
 
 @keyframes blinker {
-  50% {
-    opacity: 0;
-  }
+	50% {
+		opacity: 0;
+	}
 }
 
 ::ng-deep {
-  .p-inputtext.ng-dirty.ng-invalid {
-    border-color: #e24c4c;
-  }
+	.p-inputtext.ng-dirty.ng-invalid {
+		border-color: #e24c4c;
+	}
 }

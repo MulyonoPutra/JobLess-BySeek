@@ -32,12 +32,12 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 		DialogModule,
 		ProfilePromptComponent,
 		ButtonComponent,
-    DynamicDialogModule,
-    ConfirmDialogModule
+		DynamicDialogModule,
+		ConfirmDialogModule,
 	],
 	templateUrl: './job-details.component.html',
 	styleUrls: ['./job-details.component.scss'],
-  providers: [JobAdsService, DialogService, ConfirmationService],
+	providers: [JobAdsService, DialogService, ConfirmationService],
 })
 export class JobDetailsComponent implements OnInit {
 	jobId!: string;
@@ -48,7 +48,7 @@ export class JobDetailsComponent implements OnInit {
 	isLoading = false;
 	isSavedJobSubmitted = false;
 
-  ref: DynamicDialogRef | undefined;
+	ref: DynamicDialogRef | undefined;
 
 	constructor(
 		private readonly router: Router,
@@ -57,9 +57,8 @@ export class JobDetailsComponent implements OnInit {
 		private readonly jobAdsService: JobAdsService,
 		private readonly storageService: StorageService,
 		private readonly toastService: ToastService,
-    public dialogService: DialogService,
-    private readonly confirmationService: ConfirmationService,
-
+		public dialogService: DialogService,
+		private readonly confirmationService: ConfirmationService,
 	) {
 		this.jobId = this.route.snapshot.paramMap.get('id')!;
 	}
@@ -79,14 +78,14 @@ export class JobDetailsComponent implements OnInit {
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: () => {
-          this.toastService.showSuccessToast('Success', 'Saved!');
+					this.toastService.showSuccessToast('Success', 'Saved!');
 					setTimeout(() => {
 						this.isSavedJobSubmitted = false;
 					}, 2000);
 				},
 				error: (error: HttpErrorResponse) => {
 					this.setLoading();
-          this.toastService.showErrorToast('Error', error.message);
+					this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {
 					this.navigateAfterSucceed('saved-jobs');
@@ -94,24 +93,24 @@ export class JobDetailsComponent implements OnInit {
 			});
 	}
 
-  onSubmitted(): void {
-    const seekerId = this.storageService.getSeekerIdentity();
-    if(seekerId) {
-      this.applyConfirmation();
-    } else {
-      this.confirmDialog();
-    }
-  }
+	onSubmitted(): void {
+		const seekerId = this.storageService.getSeekerIdentity();
+		if (seekerId) {
+			this.applyConfirmation();
+		} else {
+			this.confirmDialog();
+		}
+	}
 
-  applyConfirmation(): void {
-    this.confirmationService.confirm({
-      header: 'Apply Confirmation',
-      message: 'Are you sure want to apply this job?',
-      accept: () => {
-        this.onApplied();
-      }
-    });
-  }
+	applyConfirmation(): void {
+		this.confirmationService.confirm({
+			header: 'Apply Confirmation',
+			message: 'Are you sure want to apply this job?',
+			accept: () => {
+				this.onApplied();
+			},
+		});
+	}
 
 	onApplied() {
 		const seekerId = this.storageService.getSeekerIdentity();
@@ -125,11 +124,11 @@ export class JobDetailsComponent implements OnInit {
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: () => {
-          this.toastService.showSuccessToast('Success', 'Applied!');
+					this.toastService.showSuccessToast('Success', 'Applied!');
 				},
 				error: (error: HttpErrorResponse) => {
 					this.setLoading();
-          this.toastService.showErrorToast('Error', error.message);
+					this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {
 					this.navigateAfterSucceed('applied-jobs');
@@ -159,7 +158,7 @@ export class JobDetailsComponent implements OnInit {
 					this.companyId = this.jobAds.employer.company?.id!;
 				},
 				error: (error: HttpErrorResponse) => {
-          this.toastService.showErrorToast('Error', error.message);
+					this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {},
 			});
@@ -175,12 +174,12 @@ export class JobDetailsComponent implements OnInit {
 		this.router.navigateByUrl(`/jobs/views`, { state: { id: this.companyId } });
 	}
 
-  confirmDialog(): void {
-    this.ref = this.dialogService.open(ProfilePromptComponent, {
-      header: 'Complete Your Profile',
-      width: '50vw',
-      modal: true,
-      breakpoints: { '1199px': '75vw', '575px': '90vw' }
-    });
-  }
+	confirmDialog(): void {
+		this.ref = this.dialogService.open(ProfilePromptComponent, {
+			header: 'Complete Your Profile',
+			width: '50vw',
+			modal: true,
+			breakpoints: { '1199px': '75vw', '575px': '90vw' },
+		});
+	}
 }

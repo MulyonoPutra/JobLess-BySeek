@@ -1,3 +1,3 @@
-import { ProfileResponseEntity } from "../entities/profile.response-entity";
+import { ProfileResponseEntity } from '../entities/profile.response-entity';
 
 export interface UpdateProfileDto extends ProfileResponseEntity {}

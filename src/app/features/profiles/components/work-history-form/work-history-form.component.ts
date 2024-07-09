@@ -33,8 +33,8 @@ import { TextAreaFieldComponent } from '../../../../shared/components/atoms/text
 		AngularSvgIconModule,
 		ButtonComponent,
 		FormInputFieldComponent,
-    FormCalendarFieldComponent,
-    TextAreaFieldComponent
+		FormCalendarFieldComponent,
+		TextAreaFieldComponent,
 	],
 	templateUrl: './work-history-form.component.html',
 	styleUrls: ['./work-history-form.component.scss'],
@@ -79,7 +79,7 @@ export class WorkHistoryFormComponent implements OnInit {
 				});
 			},
 			error: (error: HttpErrorResponse) => {
-        this.toastService.showErrorToast('Error', error.message);
+				this.toastService.showErrorToast('Error', error.message);
 			},
 			complete: () => {},
 		});
@@ -194,7 +194,7 @@ export class WorkHistoryFormComponent implements OnInit {
 				.updateWorkHistory(this.experienceId, this.updatedFormValue)
 				.subscribe({
 					next: () => {
-            this.toastService.showSuccessToast('Success', 'Updated Work History...');
+						this.toastService.showSuccessToast('Success', 'Updated Work History...');
 						setTimeout(() => {
 							this.isLoading = false;
 						}, 2000);
@@ -214,7 +214,7 @@ export class WorkHistoryFormComponent implements OnInit {
 		if (this.form.valid) {
 			this.profileService.createWorkHistory(this.newFormValue).subscribe({
 				next: () => {
-          this.toastService.showSuccessToast('Success', 'Created Work History...');
+					this.toastService.showSuccessToast('Success', 'Created Work History...');
 					setTimeout(() => {
 						this.isLoading = false;
 					}, 2000);

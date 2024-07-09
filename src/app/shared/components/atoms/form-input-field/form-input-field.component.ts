@@ -9,7 +9,7 @@ import { ValidationService } from '../../../services/validation.service';
 @Component({
 	selector: 'app-form-input-field',
 	standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, FloatLabelModule, InputTextModule],
+	imports: [CommonModule, FormsModule, ReactiveFormsModule, FloatLabelModule, InputTextModule],
 	templateUrl: './form-input-field.component.html',
 	styleUrls: ['./form-input-field.component.scss'],
 	providers: [ValidationService],
@@ -32,15 +32,15 @@ export class FormInputFieldComponent {
 		return this.validation.getErrorMessage(control);
 	}
 
-  get classFilled(): { [key: string]: boolean } {
-    const isFilled = this.formGroup.get(this.fieldName)?.value !== '';
-    return { 'p-filled': isFilled };
-  }
+	get classFilled(): { [key: string]: boolean } {
+		const isFilled = this.formGroup.get(this.fieldName)?.value !== '';
+		return { 'p-filled': isFilled };
+	}
 
-  get classLabel() {
-    return {
-      'label-valid': !this.isInvalid,
-      'label-invalid': this.isInvalid,
-    };
-  }
+	get classLabel() {
+		return {
+			'label-valid': !this.isInvalid,
+			'label-invalid': this.isInvalid,
+		};
+	}
 }

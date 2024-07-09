@@ -10,10 +10,9 @@ import { Router } from '@angular/router';
 	styleUrls: ['./profile-prompt.component.scss'],
 })
 export class ProfilePromptComponent {
+	router: Router = inject(Router);
 
-  router: Router = inject(Router);
-
-  navigate(): void {
-    this.router.navigate(['/profile']);
-  }
+	navigate(): void {
+		this.router.navigate(['/profile']);
+	}
 }
