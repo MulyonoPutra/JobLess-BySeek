@@ -1,5 +1,6 @@
 import { Observable, map } from 'rxjs';
 
+import { CreateSkillDto } from '../../../core/domain/dto/create-skill.dto';
 import { CreateSummaryDto } from '../../../core/domain/dto/create-summary.dto';
 import { CreateWorkHistoryDto } from '../../../core/domain/dto/create-work-history.dto';
 import { Education } from '../../../core/domain/entities/education';
@@ -105,6 +106,18 @@ export class ProfileService {
   findSkillsBySeekerId(id: string): Observable<Skill[]> {
     return this.http
       .get<HttpResponseEntity<Skill[]>>(`${this.endpoint}/seeker/skills/${id}`)
+      .pipe(map((response) => response.data));
+  }
+
+  createSkills(seekerId: string, body: CreateSkillDto[]): Observable<unknown> {
+    return this.http
+      .post<HttpResponseEntity<unknown>>(`${this.endpoint}/seeker/skills/${seekerId}`, body)
+      .pipe(map((response) => response.data));
+  }
+
+  removeSkillById(id: string): Observable<unknown> {
+    return this.http
+      .delete<HttpResponseEntity<unknown>>(`${this.endpoint}/seeker/skills/${id}`)
       .pipe(map((response) => response.data));
   }
 }

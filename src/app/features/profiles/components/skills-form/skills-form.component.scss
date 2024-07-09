@@ -1,3 +1,8 @@
 :host {
   display: block;
+  ::ng-deep {
+      .p-chip {
+        @apply text-stark-500 bg-elephant font-medium;
+      }
+  }
 }

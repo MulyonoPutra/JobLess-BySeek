@@ -1,5 +1,9 @@
 :host {
 	display: block;
+
+  ::placeholder {
+      @apply text-sm text-stark-200;
+    }
 }
 
 .colors {

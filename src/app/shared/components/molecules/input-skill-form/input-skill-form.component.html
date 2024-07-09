@@ -7,7 +7,7 @@
     <input type="search"
       class="border border-elephant-300 bg-elephant-50 text-elephant-900 text-sm
       rounded-lg focus:ring-elephant-950 focus:border-elephant-950 block w-full ps-10 p-2.5"
-      placeholder="Search By Company Name ..." [(ngModel)]="query" [ngModelOptions]="{standalone: true}" required />
+      placeholder="Search By Company Name ..." [(ngModel)]="value" [ngModelOptions]="{ standalone: true }" required />
   </div>
   <button (click)="search()"
     class="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-stark-500 bg-elephant-950 rounded-lg

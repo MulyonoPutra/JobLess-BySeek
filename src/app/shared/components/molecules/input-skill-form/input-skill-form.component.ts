@@ -7,19 +7,19 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-search-field',
+  selector: 'app-input-skill-form',
   standalone: true,
   imports: [CommonModule, AngularSvgIconModule, ButtonComponent, FormsModule],
-  templateUrl: './search-field.component.html',
-  styleUrls: ['./search-field.component.scss'],
+  templateUrl: './input-skill-form.component.html',
+  styleUrls: [ './input-skill-form.component.scss' ],
 })
-export class SearchFieldComponent {
-  query!: string;
+export class InputSkillFormComponent {
+  value!: string;
   router = inject(Router);
 
   @Output() clicked = new EventEmitter<string>();
 
   search(): void {
-    this.clicked.emit(this.query);
+    this.clicked.emit(this.value);
   }
 }

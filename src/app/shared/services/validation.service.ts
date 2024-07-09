@@ -92,7 +92,7 @@ export class ValidationService {
 	}
 
 	isInvalid(control: FormControl): boolean {
-		return control && control.touched && control.invalid;
+    return control && control.touched && control.invalid && (control.dirty || control.touched);
 	}
 
 	getErrorMessage(control: FormControl): string {
