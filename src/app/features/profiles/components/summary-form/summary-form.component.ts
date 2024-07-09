@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, type OnInit } from '@angular/core';
+import { Component, DestroyRef, type OnInit } from '@angular/core';
 import {
 	FormsModule,
 	ReactiveFormsModule,
@@ -10,13 +10,13 @@ import {
 import { Router } from '@angular/router';
 import { timer, take } from 'rxjs';
 import { FormInputFieldComponent } from '../../../../shared/components/atoms/form-input-field/form-input-field.component';
-import { Seeker } from '../../../../core/domain/entities/seeker';
 import { UpdateSummaryDto } from '../../../../core/domain/dto/update-summary.dto';
 import { ProfileService } from '../../services/profile.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ButtonComponent } from '../../../../shared/components/atoms/button/button.component';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
 	selector: 'app-summary-form',
@@ -43,6 +43,7 @@ export class SummaryFormComponent implements OnInit {
 		private readonly router: Router,
 		private readonly profileService: ProfileService,
 		private readonly toastService: ToastService,
+    private readonly destroyRef: DestroyRef,
 		public ref: DynamicDialogRef,
 		public config: DynamicDialogConfig,
 	) {
@@ -77,7 +78,9 @@ export class SummaryFormComponent implements OnInit {
 	}
 
 	onUpdate(): void {
-		this.profileService.updateSummary(this.updateSummaryDto.id!, this.formCtrlValue).subscribe({
+		this.profileService.updateSummary(this.updateSummaryDto.id!, this.formCtrlValue)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
 			next: () => {
 				this.toastService.showSuccessToast('Success', 'Updated...');
 				setTimeout(() => {
@@ -115,7 +118,9 @@ export class SummaryFormComponent implements OnInit {
 	}
 
 	onCreate() {
-		this.profileService.createSummary(this.formCtrlValue).subscribe({
+		this.profileService.createSummary(this.formCtrlValue)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
 			next: () => {
 				this.toastService.showSuccessToast('Success', 'Updated...');
 				setTimeout(() => {

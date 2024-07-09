@@ -1,3 +1,4 @@
+import { Component, DestroyRef } from '@angular/core';
 import { take, timer } from 'rxjs';
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -5,7 +6,6 @@ import { BadgeComponent } from '../../../../shared/components/atoms/badge/badge.
 import { ButtonComponent } from '../../../../shared/components/atoms/button/button.component';
 import { ChipModule } from 'primeng/chip';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { CreateSkillDto } from '../../../../core/domain/dto/create-skill.dto';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { Skill } from '../../../../core/domain/entities/skill';
 import { StorageService } from '../../../../core/services/storage.service';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
 	selector: 'app-skills-form',
@@ -43,6 +44,7 @@ export class SkillsFormComponent {
 		private readonly toastService: ToastService,
 		private readonly router: Router,
 		private readonly dialogConfig: DynamicDialogConfig,
+    private readonly destroyRef: DestroyRef,
 	) {
 		this.seekerId = this.storageService.getSeekerIdentity();
 		this.skills = this.dialogConfig.data.skills;
@@ -75,7 +77,9 @@ export class SkillsFormComponent {
 	}
 
 	onSubmitToServer(): void {
-		this.profileService.createSkills(this.seekerId, this.skillInput).subscribe({
+		this.profileService.createSkills(this.seekerId, this.skillInput)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
 			next: () => {
 				this.toastService.showSuccessToast('Success', 'Created Skills...');
 				setTimeout(() => {
@@ -93,7 +97,9 @@ export class SkillsFormComponent {
 	}
 
 	removeSkillById(id: string): void {
-		this.profileService.removeSkillById(id).subscribe({
+		this.profileService.removeSkillById(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
 			next: (removed) => {
 				this.toastService.showSuccessToast('Success', `Removed ${removed.name}`);
 			},

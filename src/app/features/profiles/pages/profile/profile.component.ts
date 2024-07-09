@@ -140,7 +140,9 @@ export class ProfileComponent implements OnInit {
 	}
 
 	onRemoveExperience(id: string): void {
-		this.profileService.removeExperienceById(id).subscribe({
+		this.profileService.removeExperienceById(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
 			next: () => {
 				this.toastService.showSuccessToast('Success', 'Removed Work History...');
 			},
@@ -154,7 +156,9 @@ export class ProfileComponent implements OnInit {
 	}
 
 	onRemoveEducation(id: string): void {
-		this.profileService.removeEducationById(id).subscribe({
+		this.profileService.removeEducationById(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
 			next: () => {
 				this.toastService.showSuccessToast('Success', 'Removed Work History...');
 			},

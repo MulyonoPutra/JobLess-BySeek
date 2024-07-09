@@ -5,9 +5,11 @@ import { CommonModule } from '@angular/common';
 import { Company } from '../../../../core/domain/entities/company';
 import { CompanyService } from '../../services/company.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { OVERLAY_IMAGES } from '../../../../core/constants/overlay-images';
 import { OverlayImageContainerComponent } from '../../../../shared/components/molecules/overlay-image-container/overlay-image-container.component';
 import { Router } from '@angular/router';
 import { SearchFieldComponent } from '../../../../shared/components/molecules/search-field/search-field.component';
+import { ToastService } from '../../../../shared/services/toast.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -24,8 +26,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 	providers: [CompanyService],
 })
 export class CompanyComponent implements OnInit {
-	overlayImage =
-		'https://res.cloudinary.com/damu971dt/image/upload/v1718958396/Projects/alex-kotliarskyi-QBpZGqEMsKg-unsplash_hv7ltq.jpg';
+  overlayImage = OVERLAY_IMAGES.company;
 
 	companies!: Company[];
 
@@ -33,6 +34,7 @@ export class CompanyComponent implements OnInit {
 		private readonly router: Router,
 		private readonly companyService: CompanyService,
 		private readonly destroyRef: DestroyRef,
+    private readonly toastService: ToastService,
 	) {}
 
 	ngOnInit(): void {
@@ -48,7 +50,7 @@ export class CompanyComponent implements OnInit {
 					this.companies = response;
 				},
 				error: (error: HttpErrorResponse) => {
-					console.error(error);
+          this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {},
 			});

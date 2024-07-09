@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, type OnInit } from '@angular/core';
 import { CardJobAdsComponent } from '../../../../shared/components/molecules/card-job-ads/card-job-ads.component';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from '../../../companies/services/company.service';
 import { JobAds } from '../../../../core/domain/entities/job-ads';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -11,6 +11,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
 import { RupiahPipe } from '../../../../shared/pipes/rupiah.pipe';
 import { JobViewDetailsComponent } from '../../../../shared/components/organisms/job-view-details/job-view-details.component';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
 	selector: 'app-job-views',
@@ -35,10 +36,10 @@ export class JobViewsComponent implements OnInit {
 
 	constructor(
 		private readonly router: Router,
-		private readonly route: ActivatedRoute,
 		private readonly destroyRef: DestroyRef,
 		private readonly companyService: CompanyService,
 		private readonly storageService: StorageService,
+    private readonly toastService: ToastService,
 	) {
 		this.routerState = this.router.getCurrentNavigation()?.extras.state?.['id'];
 	}
@@ -48,7 +49,7 @@ export class JobViewsComponent implements OnInit {
 		if (this.companyId) {
 			this.findJobAdsByCompanyId();
 		} else {
-			alert('Company ID is not found, Please back to previous page!');
+      this.toastService.showWarnToast('Warning', 'Company ID is not found, Please back to previous page!');
 		}
 	}
 
@@ -67,11 +68,9 @@ export class JobViewsComponent implements OnInit {
 			.subscribe({
 				next: (jobAds: JobAds[]) => {
 					this.jobAds = jobAds;
-
-					console.log(jobAds);
 				},
 				error: (error: HttpErrorResponse) => {
-					console.error(error.message);
+          this.toastService.showErrorToast('Error', error.message);
 				},
 			});
 	}

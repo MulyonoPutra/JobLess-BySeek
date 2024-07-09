@@ -1,7 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { Component, type OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
+
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-activity',
@@ -10,6 +11,4 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 	templateUrl: './activity.component.html',
 	styleUrls: ['./activity.component.scss'],
 })
-export class ActivityComponent implements OnInit {
-	ngOnInit(): void {}
-}
+export class ActivityComponent {}

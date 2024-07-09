@@ -52,7 +52,6 @@ export class JobAdsComponent implements OnInit {
 				error: (error: HttpErrorResponse) => {
 					console.error(error);
 				},
-				complete: () => {},
 			});
 	}
 

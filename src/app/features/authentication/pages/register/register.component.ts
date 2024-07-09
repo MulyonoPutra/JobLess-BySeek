@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, type OnInit } from '@angular/core';
+import { Component, DestroyRef, type OnInit } from '@angular/core';
 import {
 	FormBuilder,
 	FormGroup,
@@ -17,6 +17,11 @@ import { GoogleButtonComponent } from '../../../../shared/components/atoms/googl
 import { OrDividerComponent } from '../../../../shared/components/atoms/or-divider/or-divider.component';
 import { ClientListComponent } from '../../../../shared/components/molecules/client-list/client-list.component';
 import { ValidationService } from '../../../../shared/services/validation.service';
+import { AuthenticationService } from '../../services/authentication.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'app-register',
@@ -44,7 +49,10 @@ export class RegisterComponent implements OnInit {
 	constructor(
 		private readonly formBuilder: FormBuilder,
 		private readonly router: Router,
+    private readonly destroyRef: DestroyRef,
 		private readonly validationService: ValidationService,
+    private readonly authenticationService: AuthenticationService,
+    private readonly toastService: ToastService,
 	) {}
 
 	ngOnInit(): void {
@@ -76,23 +84,44 @@ export class RegisterComponent implements OnInit {
 			name: this.form.get('name')?.value,
 			email: this.form.get('email')?.value,
 			password: this.form.get('password')?.value,
-			termsAndCondition: this.form.get('termsAndCondition')?.value,
-			confirmPassword: this.form.get('confirmPassword')?.value,
 		};
 	}
 
-	navigateAfterSucceed(): void {
-		timer(1000)
-			.pipe(take(1))
-			.subscribe(() => this.router.navigateByUrl('/'));
-	}
+  private setLoading() {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
+  }
+
+  register(): void {
+    this.authenticationService.register(this.formCtrlValue)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.toastService.showSuccessToast('Success', 'Login Successfully!');
+          this.setLoading();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.setLoading();
+          this.toastService.showErrorToast('Error', error.message);
+        },
+        complete: () => {
+          this.form.reset();
+          this.navigateAfterSucceed();
+        },
+      })
+  }
+
+  navigateAfterSucceed(): void {
+    timer(1000)
+      .pipe(take(1))
+      .subscribe(() => this.router.navigateByUrl('/auth/login'));
+  }
 
 	onSubmit() {
-		console.log(this.formCtrlValue);
-		setTimeout(() => {
-			this.isLoading = false;
-		}, 3000);
 		this.isLoading = true;
-		this.form.reset();
+    if(this.form.valid) {
+      this.register();
+    }
 	}
 }

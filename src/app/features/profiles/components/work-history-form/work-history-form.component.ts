@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnChanges, SimpleChanges, type OnInit } from '@angular/core';
+import { Component, DestroyRef, type OnInit } from '@angular/core';
 import {
 	FormArray,
 	FormBuilder,
@@ -22,6 +22,7 @@ import { CreateWorkHistoryDto } from '../../../../core/domain/dto/create-work-hi
 import { StorageService } from '../../../../core/services/storage.service';
 import { FormCalendarFieldComponent } from '../../../../shared/components/atoms/form-calendar-field/form-calendar-field.component';
 import { TextAreaFieldComponent } from '../../../../shared/components/atoms/text-area-field/text-area-field.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
 	selector: 'app-work-history-form',
@@ -42,6 +43,7 @@ import { TextAreaFieldComponent } from '../../../../shared/components/atoms/text
 export class WorkHistoryFormComponent implements OnInit {
 	experienceId!: string;
 	label!: string;
+  seekerId!: string;
 
 	form!: FormGroup;
 	updateForm!: FormGroup;
@@ -56,8 +58,10 @@ export class WorkHistoryFormComponent implements OnInit {
 		private readonly profileService: ProfileService,
 		private readonly storageService: StorageService,
 		private readonly dialogConfig: DynamicDialogConfig,
+    private readonly destroyRef: DestroyRef,
 	) {
 		this.experienceId = this.dialogConfig.data?.id;
+    this.seekerId = this.storageService.getSeekerIdentity();
 	}
 
 	ngOnInit(): void {
@@ -72,7 +76,9 @@ export class WorkHistoryFormComponent implements OnInit {
 	}
 
 	findExperienceById() {
-		this.profileService.findExperienceById(this.experienceId).subscribe({
+		this.profileService.findExperienceById(this.experienceId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe({
 			next: (data) => {
 				this.form = this.fb.group({
 					experience: this.prepopulateForms(data),
@@ -142,7 +148,6 @@ export class WorkHistoryFormComponent implements OnInit {
 	}
 
 	get newFormValue(): CreateWorkHistoryDto[] {
-		const seekerId = this.storageService.getSeekerIdentity();
 		return (
 			this.form.get('experience')?.value.map((experience: CreateWorkHistoryDto) => ({
 				startDate: experience.startDate,
@@ -151,7 +156,7 @@ export class WorkHistoryFormComponent implements OnInit {
 				position: experience.position,
 				companyName: experience.companyName,
 				responsibilities: experience.responsibilities,
-				seekerId: seekerId,
+        seekerId: this.seekerId,
 			})) || []
 		);
 	}
@@ -192,6 +197,7 @@ export class WorkHistoryFormComponent implements OnInit {
 		if (this.updateForm.valid) {
 			this.profileService
 				.updateWorkHistory(this.experienceId, this.updatedFormValue)
+        .pipe(takeUntilDestroyed(this.destroyRef))
 				.subscribe({
 					next: () => {
 						this.toastService.showSuccessToast('Success', 'Updated Work History...');
@@ -212,7 +218,9 @@ export class WorkHistoryFormComponent implements OnInit {
 
 	onCreate(): void {
 		if (this.form.valid) {
-			this.profileService.createWorkHistory(this.newFormValue).subscribe({
+			this.profileService.createWorkHistory(this.newFormValue)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
 				next: () => {
 					this.toastService.showSuccessToast('Success', 'Created Work History...');
 					setTimeout(() => {

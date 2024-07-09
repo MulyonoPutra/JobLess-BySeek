@@ -9,6 +9,8 @@ import { CardJobAdsComponent } from '../../../../shared/components/molecules/car
 import { RupiahPipe } from '../../../../shared/pipes/rupiah.pipe';
 import { TimeAgoPipe } from '../../../../shared/pipes/time-ago.pipe';
 import { CompanyService } from '../../services/company.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
 	selector: 'app-job-ads-by-company',
@@ -28,6 +30,7 @@ export class JobAdsByCompanyComponent implements OnInit {
 		private readonly route: ActivatedRoute,
 		private readonly destroyRef: DestroyRef,
 		private readonly companyService: CompanyService,
+    private readonly toastService: ToastService,
 	) {}
 
 	ngOnInit(): void {
@@ -36,7 +39,9 @@ export class JobAdsByCompanyComponent implements OnInit {
 	}
 
 	getCompanyId() {
-		this.route.parent?.data.subscribe({
+		this.route.parent?.data
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
 			next: (response) => {
 				this.companyId = response['data'].id;
 			},
@@ -51,6 +56,9 @@ export class JobAdsByCompanyComponent implements OnInit {
 				next: (response) => {
 					this.jobAds = response;
 				},
+        error: (error: HttpErrorResponse) => {
+          this.toastService.showErrorToast('Error', error.message);
+        },
 			});
 	}
 

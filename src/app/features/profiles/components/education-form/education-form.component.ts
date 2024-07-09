@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, type OnInit } from '@angular/core';
+import { Component, DestroyRef, type OnInit } from '@angular/core';
 import {
 	FormGroup,
 	FormBuilder,
@@ -23,6 +23,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { EducationDto } from '../../../../core/domain/dto/create-education.dto';
 import { take, timer } from 'rxjs';
 import { NumberFieldComponent } from '../../../../shared/components/atoms/number-field/number-field.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
 	selector: 'app-education-form',
@@ -58,6 +59,7 @@ export class EducationFormComponent implements OnInit {
 		private readonly profileService: ProfileService,
 		private readonly storageService: StorageService,
 		private readonly dialogConfig: DynamicDialogConfig,
+    private readonly destroyRef: DestroyRef,
 	) {
 		this.educationId = this.dialogConfig.data?.id;
 	}
@@ -74,7 +76,9 @@ export class EducationFormComponent implements OnInit {
 	}
 
 	findEducationById() {
-		this.profileService.findEducationById(this.educationId).subscribe({
+		this.profileService.findEducationById(this.educationId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
 			next: (data) => {
 				this.form = this.fb.group({
 					education: this.prepopulateForms(data),
@@ -195,7 +199,9 @@ export class EducationFormComponent implements OnInit {
 
 	onUpdate(): void {
 		if (this.updateForm.valid) {
-			this.profileService.updateEducation(this.educationId, this.updatedFormValue).subscribe({
+			this.profileService.updateEducation(this.educationId, this.updatedFormValue)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
 				next: () => {
 					this.toastService.showSuccessToast('Success', 'Updated Education...');
 					setTimeout(() => {
@@ -215,7 +221,9 @@ export class EducationFormComponent implements OnInit {
 
 	onCreate(): void {
 		if (this.form.valid) {
-			this.profileService.createEducation(this.newFormValue).subscribe({
+			this.profileService.createEducation(this.newFormValue)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
 				next: () => {
 					this.toastService.showSuccessToast('Success', 'Created Education...');
 					setTimeout(() => {

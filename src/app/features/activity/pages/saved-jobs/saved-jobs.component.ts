@@ -45,7 +45,7 @@ export class SavedJobsComponent implements OnInit {
 					this.jobAds = response;
 				},
 				error: (error: HttpErrorResponse) => {
-					this.errorMessage(error.message);
+          this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {},
 			});
@@ -67,7 +67,7 @@ export class SavedJobsComponent implements OnInit {
 					this.toastService.showSuccessToast('Success', 'Sucessfully removed');
 				},
 				error: (error: HttpErrorResponse) => {
-					this.errorMessage(error.message);
+          this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {
 					this.reloadAfterSuccess();
@@ -79,9 +79,5 @@ export class SavedJobsComponent implements OnInit {
 		timer(2000)
 			.pipe(take(1))
 			.subscribe(() => window.location.reload());
-	}
-
-	errorMessage(message: string) {
-		this.toastService.showErrorToast('Error', message);
 	}
 }

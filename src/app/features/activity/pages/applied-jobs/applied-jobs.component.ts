@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, type OnInit } from '@angular/core';
-import { CardActivityComponent } from '../../../../shared/components/molecules/card-activity/card-activity.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { JobAds } from '../../../../core/domain/entities/job-ads';
 import { StorageService } from '../../../../core/services/storage.service';
 import { ActivityService } from '../../services/activity.service';
 import { Application } from '../../../../core/domain/entities/application';
@@ -23,7 +21,6 @@ export class AppliedJobsComponent implements OnInit {
 	applications!: Application[];
 
 	constructor(
-		private readonly router: Router,
 		private readonly destroyRef: DestroyRef,
 		private readonly activityService: ActivityService,
 		private readonly storageService: StorageService,
@@ -45,7 +42,6 @@ export class AppliedJobsComponent implements OnInit {
 				error: (error: HttpErrorResponse) => {
 					console.error(error);
 				},
-				complete: () => {},
 			});
 	}
 

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, type OnInit } from '@angular/core';
+import { Component, DestroyRef, type OnInit } from '@angular/core';
 import {
 	FormBuilder,
 	FormGroup,
@@ -13,11 +13,11 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { take, timer } from 'rxjs';
 import { UpdateProfileDto } from '../../../../core/domain/dto/update-profile.dto';
 import { User } from '../../../../core/domain/entities/user';
-import { StorageService } from '../../../../core/services/storage.service';
 import { ButtonComponent } from '../../../../shared/components/atoms/button/button.component';
 import { FormInputFieldComponent } from '../../../../shared/components/atoms/form-input-field/form-input-field.component';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { ProfileService } from '../../services/profile.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
 	selector: 'app-personal-detail-form',
@@ -44,8 +44,8 @@ export class PersonalDetailFormComponent implements OnInit {
 		private readonly fb: FormBuilder,
 		private readonly toastService: ToastService,
 		private readonly profileService: ProfileService,
-		private readonly storageService: StorageService,
 		private readonly dialogConfig: DynamicDialogConfig,
+    private readonly destroyRef: DestroyRef,
 	) {
 		this.updateProfileDto = this.dialogConfig.data.user;
 	}
@@ -81,7 +81,9 @@ export class PersonalDetailFormComponent implements OnInit {
 
 	onUpdate(): void {
 		this.isLoading = true;
-		this.profileService.updateProfile(this.updateProfileDto.id!, this.formCtrlValue).subscribe({
+		this.profileService.updateProfile(this.updateProfileDto.id!, this.formCtrlValue)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
 			next: () => {
 				this.toastService.showSuccessToast('Success', 'Updated...');
 				setTimeout(() => {

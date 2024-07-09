@@ -1,6 +1,6 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, type OnInit } from '@angular/core';
+import { Component, DestroyRef, type OnInit } from '@angular/core';
 import {
 	FormBuilder,
 	FormGroup,
@@ -19,6 +19,8 @@ import { ValidationService } from '../../../../shared/services/validation.servic
 import { AuthenticationService } from '../../services/authentication.service';
 import { OVERLAY_IMAGES } from '../../../../core/constants/overlay-images';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
 	selector: 'app-login',
@@ -48,6 +50,7 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private readonly formBuilder: FormBuilder,
 		private readonly router: Router,
+    private readonly destroyRef: DestroyRef,
 		private readonly authService: AuthenticationService,
 		private readonly validationService: ValidationService,
 		private readonly toastService: ToastService,
@@ -68,14 +71,16 @@ export class LoginComponent implements OnInit {
 	}
 
 	login(): void {
-		this.authService.login(this.formCtrlValue).subscribe({
+		this.authService.login(this.formCtrlValue)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
 			next: () => {
-				this.successMessage();
+        this.toastService.showSuccessToast('Success', 'Login Successfully!');
 				this.setLoading();
 			},
 			error: (error: HttpErrorResponse) => {
 				this.setLoading();
-				this.errorMessage(error.message);
+        this.toastService.showErrorToast('Error', error.message);
 			},
 			complete: () => {
 				this.navigateAfterSucceed();
@@ -102,13 +107,5 @@ export class LoginComponent implements OnInit {
 		} else {
 			this.validationService.markAllFormControlsAsTouched(this.form);
 		}
-	}
-
-	successMessage() {
-		this.toastService.showSuccessToast('Success', 'Login Successfully!');
-	}
-
-	errorMessage(message: string) {
-		this.toastService.showErrorToast('Error', message);
 	}
 }
