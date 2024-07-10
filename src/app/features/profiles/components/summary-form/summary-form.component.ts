@@ -61,10 +61,6 @@ export class SummaryFormComponent implements OnInit {
 		});
 	}
 
-	get f() {
-		return this.form.controls;
-	}
-
 	get formCtrlValue() {
 		return {
 			summary: this.form.get('summary')?.value,
