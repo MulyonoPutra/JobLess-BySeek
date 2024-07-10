@@ -31,9 +31,14 @@
       {{ data.jobAds.requirements }}
     </p>
     @if (isButtonHidden) {
-    <app-button [withIcon]="true" [isLoading]="isLoading" (clicked)="onClick()" [label]="'Apply'" [isCancel]="false"
-      [isLarge]="false" [type]="'save'">
-    </app-button>
+      <app-button
+        [withIcon]="true"
+        [isLoading]="isLoading"
+        (clicked)="onClick()"
+        [label]="'Apply'"
+        [isCancel]="false"
+        [isLarge]="false"
+        [type]="'save'" />
     }
   </div>
 </div>

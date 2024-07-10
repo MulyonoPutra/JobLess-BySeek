@@ -59,7 +59,7 @@ export class EducationFormComponent implements OnInit {
 		private readonly profileService: ProfileService,
 		private readonly storageService: StorageService,
 		private readonly dialogConfig: DynamicDialogConfig,
-    private readonly destroyRef: DestroyRef,
+		private readonly destroyRef: DestroyRef,
 	) {
 		this.educationId = this.dialogConfig.data?.id;
 	}
@@ -76,19 +76,20 @@ export class EducationFormComponent implements OnInit {
 	}
 
 	findEducationById() {
-		this.profileService.findEducationById(this.educationId)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-			next: (data) => {
-				this.form = this.fb.group({
-					education: this.prepopulateForms(data),
-				});
-			},
-			error: (error: HttpErrorResponse) => {
-				this.toastService.showErrorToast('Error', error.message);
-			},
-			complete: () => {},
-		});
+		this.profileService
+			.findEducationById(this.educationId)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: (data) => {
+					this.form = this.fb.group({
+						education: this.prepopulateForms(data),
+					});
+				},
+				error: (error: HttpErrorResponse) => {
+					this.toastService.showErrorToast('Error', error.message);
+				},
+				complete: () => {},
+			});
 	}
 
 	formArrayInitialized(): void {
@@ -199,45 +200,47 @@ export class EducationFormComponent implements OnInit {
 
 	onUpdate(): void {
 		if (this.updateForm.valid) {
-			this.profileService.updateEducation(this.educationId, this.updatedFormValue)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe({
-				next: () => {
-					this.toastService.showSuccessToast('Success', 'Updated Education...');
-					setTimeout(() => {
+			this.profileService
+				.updateEducation(this.educationId, this.updatedFormValue)
+				.pipe(takeUntilDestroyed(this.destroyRef))
+				.subscribe({
+					next: () => {
+						this.toastService.showSuccessToast('Success', 'Updated Education...');
+						setTimeout(() => {
+							this.isLoading = false;
+						}, 2000);
+					},
+					error: (error: HttpErrorResponse) => {
 						this.isLoading = false;
-					}, 2000);
-				},
-				error: (error: HttpErrorResponse) => {
-					this.isLoading = false;
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {
-					this.navigateAfterSucceed();
-				},
-			});
+						this.toastService.showErrorToast('Error', error.message);
+					},
+					complete: () => {
+						this.navigateAfterSucceed();
+					},
+				});
 		}
 	}
 
 	onCreate(): void {
 		if (this.form.valid) {
-			this.profileService.createEducation(this.newFormValue)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe({
-				next: () => {
-					this.toastService.showSuccessToast('Success', 'Created Education...');
-					setTimeout(() => {
+			this.profileService
+				.createEducation(this.newFormValue)
+				.pipe(takeUntilDestroyed(this.destroyRef))
+				.subscribe({
+					next: () => {
+						this.toastService.showSuccessToast('Success', 'Created Education...');
+						setTimeout(() => {
+							this.isLoading = false;
+						}, 2000);
+					},
+					error: (error: HttpErrorResponse) => {
 						this.isLoading = false;
-					}, 2000);
-				},
-				error: (error: HttpErrorResponse) => {
-					this.isLoading = false;
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {
-					this.navigateAfterSucceed();
-				},
-			});
+						this.toastService.showErrorToast('Error', error.message);
+					},
+					complete: () => {
+						this.navigateAfterSucceed();
+					},
+				});
 		}
 	}
 

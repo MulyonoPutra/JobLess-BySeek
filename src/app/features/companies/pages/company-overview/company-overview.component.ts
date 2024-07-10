@@ -25,9 +25,7 @@ export class CompanyOverviewComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.route.parent?.data
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
+		this.route.parent?.data.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
 			next: (response) => {
 				this.company = response['data'];
 			},

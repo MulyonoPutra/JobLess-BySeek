@@ -21,7 +21,7 @@ export class ButtonComponent {
 	@Input({ required: false }) withIcon!: boolean;
 	@Input() type = 'cancel' || 'save';
 
-	@Output() clicked = new EventEmitter<void>();
+	@Output() clicked = new EventEmitter();
 
 	onClick(): void {
 		this.clicked.emit();

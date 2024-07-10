@@ -44,7 +44,7 @@ export class SkillsFormComponent {
 		private readonly toastService: ToastService,
 		private readonly router: Router,
 		private readonly dialogConfig: DynamicDialogConfig,
-    private readonly destroyRef: DestroyRef,
+		private readonly destroyRef: DestroyRef,
 	) {
 		this.seekerId = this.storageService.getSeekerIdentity();
 		this.skills = this.dialogConfig.data.skills;
@@ -77,36 +77,38 @@ export class SkillsFormComponent {
 	}
 
 	onSubmitToServer(): void {
-		this.profileService.createSkills(this.seekerId, this.skillInput)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-			next: () => {
-				this.toastService.showSuccessToast('Success', 'Created Skills...');
-				setTimeout(() => {
+		this.profileService
+			.createSkills(this.seekerId, this.skillInput)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.toastService.showSuccessToast('Success', 'Created Skills...');
+					setTimeout(() => {
+						this.isLoading = false;
+					}, 2000);
+				},
+				error: (error: HttpErrorResponse) => {
 					this.isLoading = false;
-				}, 2000);
-			},
-			error: (error: HttpErrorResponse) => {
-				this.isLoading = false;
-				this.toastService.showErrorToast('Error', error.message);
-			},
-			complete: () => {
-				this.navigateAfterSucceed();
-			},
-		});
+					this.toastService.showErrorToast('Error', error.message);
+				},
+				complete: () => {
+					this.navigateAfterSucceed();
+				},
+			});
 	}
 
 	removeSkillById(id: string): void {
-		this.profileService.removeSkillById(id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-			next: (removed) => {
-				this.toastService.showSuccessToast('Success', `Removed ${removed.name}`);
-			},
-			error: (error: HttpErrorResponse) => {
-				this.toastService.showErrorToast('Error', error.message);
-			},
-		});
+		this.profileService
+			.removeSkillById(id)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: (removed) => {
+					this.toastService.showSuccessToast('Success', `Removed ${removed.name}`);
+				},
+				error: (error: HttpErrorResponse) => {
+					this.toastService.showErrorToast('Error', error.message);
+				},
+			});
 	}
 
 	navigateAfterSucceed(): void {

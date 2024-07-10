@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private readonly formBuilder: FormBuilder,
 		private readonly router: Router,
-    private readonly destroyRef: DestroyRef,
+		private readonly destroyRef: DestroyRef,
 		private readonly authService: AuthenticationService,
 		private readonly validationService: ValidationService,
 		private readonly toastService: ToastService,
@@ -71,21 +71,22 @@ export class LoginComponent implements OnInit {
 	}
 
 	login(): void {
-		this.authService.login(this.formCtrlValue)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-			next: () => {
-        this.toastService.showSuccessToast('Success', 'Login Successfully!');
-				this.setLoading();
-			},
-			error: (error: HttpErrorResponse) => {
-				this.setLoading();
-        this.toastService.showErrorToast('Error', error.message);
-			},
-			complete: () => {
-				this.navigateAfterSucceed();
-			},
-		});
+		this.authService
+			.login(this.formCtrlValue)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.toastService.showSuccessToast('Success', 'Login Successfully!');
+					this.setLoading();
+				},
+				error: (error: HttpErrorResponse) => {
+					this.setLoading();
+					this.toastService.showErrorToast('Error', error.message);
+				},
+				complete: () => {
+					this.navigateAfterSucceed();
+				},
+			});
 	}
 
 	private setLoading() {

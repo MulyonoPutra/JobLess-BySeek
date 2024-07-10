@@ -45,7 +45,7 @@ export class PersonalDetailFormComponent implements OnInit {
 		private readonly toastService: ToastService,
 		private readonly profileService: ProfileService,
 		private readonly dialogConfig: DynamicDialogConfig,
-    private readonly destroyRef: DestroyRef,
+		private readonly destroyRef: DestroyRef,
 	) {
 		this.updateProfileDto = this.dialogConfig.data.user;
 	}
@@ -81,23 +81,24 @@ export class PersonalDetailFormComponent implements OnInit {
 
 	onUpdate(): void {
 		this.isLoading = true;
-		this.profileService.updateProfile(this.updateProfileDto.id!, this.formCtrlValue)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-			next: () => {
-				this.toastService.showSuccessToast('Success', 'Updated...');
-				setTimeout(() => {
+		this.profileService
+			.updateProfile(this.updateProfileDto.id!, this.formCtrlValue)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.toastService.showSuccessToast('Success', 'Updated...');
+					setTimeout(() => {
+						this.isLoading = false;
+					}, 2000);
+				},
+				error: (error: HttpErrorResponse) => {
 					this.isLoading = false;
-				}, 2000);
-			},
-			error: (error: HttpErrorResponse) => {
-				this.isLoading = false;
-				this.toastService.showErrorToast('Error', error.message);
-			},
-			complete: () => {
-				this.navigateAfterSucceed();
-			},
-		});
+					this.toastService.showErrorToast('Error', error.message);
+				},
+				complete: () => {
+					this.navigateAfterSucceed();
+				},
+			});
 	}
 
 	navigateAfterSucceed(): void {

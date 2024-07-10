@@ -49,10 +49,10 @@ export class RegisterComponent implements OnInit {
 	constructor(
 		private readonly formBuilder: FormBuilder,
 		private readonly router: Router,
-    private readonly destroyRef: DestroyRef,
+		private readonly destroyRef: DestroyRef,
 		private readonly validationService: ValidationService,
-    private readonly authenticationService: AuthenticationService,
-    private readonly toastService: ToastService,
+		private readonly authenticationService: AuthenticationService,
+		private readonly toastService: ToastService,
 	) {}
 
 	ngOnInit(): void {
@@ -87,41 +87,42 @@ export class RegisterComponent implements OnInit {
 		};
 	}
 
-  private setLoading() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 2000);
-  }
+	private setLoading() {
+		setTimeout(() => {
+			this.isLoading = false;
+		}, 2000);
+	}
 
-  register(): void {
-    this.authenticationService.register(this.formCtrlValue)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.toastService.showSuccessToast('Success', 'Login Successfully!');
-          this.setLoading();
-        },
-        error: (error: HttpErrorResponse) => {
-          this.setLoading();
-          this.toastService.showErrorToast('Error', error.message);
-        },
-        complete: () => {
-          this.form.reset();
-          this.navigateAfterSucceed();
-        },
-      })
-  }
+	register(): void {
+		this.authenticationService
+			.register(this.formCtrlValue)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.toastService.showSuccessToast('Success', 'Login Successfully!');
+					this.setLoading();
+				},
+				error: (error: HttpErrorResponse) => {
+					this.setLoading();
+					this.toastService.showErrorToast('Error', error.message);
+				},
+				complete: () => {
+					this.form.reset();
+					this.navigateAfterSucceed();
+				},
+			});
+	}
 
-  navigateAfterSucceed(): void {
-    timer(1000)
-      .pipe(take(1))
-      .subscribe(() => this.router.navigateByUrl('/auth/login'));
-  }
+	navigateAfterSucceed(): void {
+		timer(1000)
+			.pipe(take(1))
+			.subscribe(() => this.router.navigateByUrl('/auth/login'));
+	}
 
 	onSubmit() {
 		this.isLoading = true;
-    if(this.form.valid) {
-      this.register();
-    }
+		if (this.form.valid) {
+			this.register();
+		}
 	}
 }

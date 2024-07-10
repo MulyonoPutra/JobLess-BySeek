@@ -26,7 +26,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 	providers: [CompanyService],
 })
 export class CompanyComponent implements OnInit {
-  overlayImage = OVERLAY_IMAGES.company;
+	overlayImage = OVERLAY_IMAGES.company;
 
 	companies!: Company[];
 
@@ -34,7 +34,7 @@ export class CompanyComponent implements OnInit {
 		private readonly router: Router,
 		private readonly companyService: CompanyService,
 		private readonly destroyRef: DestroyRef,
-    private readonly toastService: ToastService,
+		private readonly toastService: ToastService,
 	) {}
 
 	ngOnInit(): void {
@@ -50,7 +50,7 @@ export class CompanyComponent implements OnInit {
 					this.companies = response;
 				},
 				error: (error: HttpErrorResponse) => {
-          this.toastService.showErrorToast('Error', error.message);
+					this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {},
 			});

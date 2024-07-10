@@ -43,7 +43,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class WorkHistoryFormComponent implements OnInit {
 	experienceId!: string;
 	label!: string;
-  seekerId!: string;
+	seekerId!: string;
 
 	form!: FormGroup;
 	updateForm!: FormGroup;
@@ -58,10 +58,10 @@ export class WorkHistoryFormComponent implements OnInit {
 		private readonly profileService: ProfileService,
 		private readonly storageService: StorageService,
 		private readonly dialogConfig: DynamicDialogConfig,
-    private readonly destroyRef: DestroyRef,
+		private readonly destroyRef: DestroyRef,
 	) {
 		this.experienceId = this.dialogConfig.data?.id;
-    this.seekerId = this.storageService.getSeekerIdentity();
+		this.seekerId = this.storageService.getSeekerIdentity();
 	}
 
 	ngOnInit(): void {
@@ -76,19 +76,20 @@ export class WorkHistoryFormComponent implements OnInit {
 	}
 
 	findExperienceById() {
-		this.profileService.findExperienceById(this.experienceId)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe({
-			next: (data) => {
-				this.form = this.fb.group({
-					experience: this.prepopulateForms(data),
-				});
-			},
-			error: (error: HttpErrorResponse) => {
-				this.toastService.showErrorToast('Error', error.message);
-			},
-			complete: () => {},
-		});
+		this.profileService
+			.findExperienceById(this.experienceId)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: (data) => {
+					this.form = this.fb.group({
+						experience: this.prepopulateForms(data),
+					});
+				},
+				error: (error: HttpErrorResponse) => {
+					this.toastService.showErrorToast('Error', error.message);
+				},
+				complete: () => {},
+			});
 	}
 
 	formArrayInitialized(): void {
@@ -156,7 +157,7 @@ export class WorkHistoryFormComponent implements OnInit {
 				position: experience.position,
 				companyName: experience.companyName,
 				responsibilities: experience.responsibilities,
-        seekerId: this.seekerId,
+				seekerId: this.seekerId,
 			})) || []
 		);
 	}
@@ -197,7 +198,7 @@ export class WorkHistoryFormComponent implements OnInit {
 		if (this.updateForm.valid) {
 			this.profileService
 				.updateWorkHistory(this.experienceId, this.updatedFormValue)
-        .pipe(takeUntilDestroyed(this.destroyRef))
+				.pipe(takeUntilDestroyed(this.destroyRef))
 				.subscribe({
 					next: () => {
 						this.toastService.showSuccessToast('Success', 'Updated Work History...');
@@ -218,23 +219,24 @@ export class WorkHistoryFormComponent implements OnInit {
 
 	onCreate(): void {
 		if (this.form.valid) {
-			this.profileService.createWorkHistory(this.newFormValue)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe({
-				next: () => {
-					this.toastService.showSuccessToast('Success', 'Created Work History...');
-					setTimeout(() => {
+			this.profileService
+				.createWorkHistory(this.newFormValue)
+				.pipe(takeUntilDestroyed(this.destroyRef))
+				.subscribe({
+					next: () => {
+						this.toastService.showSuccessToast('Success', 'Created Work History...');
+						setTimeout(() => {
+							this.isLoading = false;
+						}, 2000);
+					},
+					error: (error: HttpErrorResponse) => {
 						this.isLoading = false;
-					}, 2000);
-				},
-				error: (error: HttpErrorResponse) => {
-					this.isLoading = false;
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {
-					this.navigateAfterSucceed();
-				},
-			});
+						this.toastService.showErrorToast('Error', error.message);
+					},
+					complete: () => {
+						this.navigateAfterSucceed();
+					},
+				});
 		}
 	}
 

@@ -1,8 +1,8 @@
-@if (jobAds.length > 0) {
+@if (jobAds) {
   @for (job of jobAds; track $index) {
     <app-card-activity
       [data]="job"
-      (clicked)="applied()"
+      (clicked)="applyConfirmation(job)"
       (removed)="onRemove(job.id)"
       [isLoading]="isLoading"
       [isButtonHidden]="true"
@@ -13,3 +13,4 @@
   <app-empty-state />
 }
 
+<p-confirmDialog />

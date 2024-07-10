@@ -1,4 +1,6 @@
 @for (application of applications; track $index) {
-<app-card-application [data]="application" (clicked)="applied()" (removed)="onRemove()" [isLoading]="isLoading"
-  [borderColor]="'border-t-4 border-t-bayoux-700'" />
+  <app-card-application
+    [data]="application"
+    [isLoading]="isLoading"
+    [borderColor]="'border-t-4 border-t-bayoux-700'" />
 }

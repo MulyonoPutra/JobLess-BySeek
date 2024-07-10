@@ -44,7 +44,7 @@ export class JobDetailsComponent implements OnInit {
 	companyId!: string;
 	jobAds!: JobAds;
 	visible = false;
-  seekerId!: string;
+	seekerId!: string;
 
 	isLoading = false;
 	isSavedJobSubmitted = false;
@@ -62,7 +62,7 @@ export class JobDetailsComponent implements OnInit {
 		private readonly confirmationService: ConfirmationService,
 	) {
 		this.jobId = this.route.snapshot.paramMap.get('id')!;
-    this.seekerId = this.storageService.getSeekerIdentity();
+		this.seekerId = this.storageService.getSeekerIdentity();
 	}
 
 	ngOnInit(): void {
@@ -96,7 +96,7 @@ export class JobDetailsComponent implements OnInit {
 	}
 
 	onSubmitted(): void {
-    if (this.seekerId) {
+		if (this.seekerId) {
 			this.applyConfirmation();
 		} else {
 			this.confirmDialog();
@@ -115,7 +115,7 @@ export class JobDetailsComponent implements OnInit {
 
 	onApplied() {
 		const application: CreateApplicationDto = {
-      seekerId: this.seekerId,
+			seekerId: this.seekerId,
 			jobAdsId: this.jobAds.id,
 			status: 'Applied',
 		};

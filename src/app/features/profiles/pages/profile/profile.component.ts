@@ -140,35 +140,37 @@ export class ProfileComponent implements OnInit {
 	}
 
 	onRemoveExperience(id: string): void {
-		this.profileService.removeExperienceById(id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-			next: () => {
-				this.toastService.showSuccessToast('Success', 'Removed Work History...');
-			},
-			error: (error: HttpErrorResponse) => {
-				this.toastService.showErrorToast('Error', error.message);
-			},
-			complete: () => {
-				this.navigateAfterSucceed();
-			},
-		});
+		this.profileService
+			.removeExperienceById(id)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.toastService.showSuccessToast('Success', 'Removed Work History...');
+				},
+				error: (error: HttpErrorResponse) => {
+					this.toastService.showErrorToast('Error', error.message);
+				},
+				complete: () => {
+					this.navigateAfterSucceed();
+				},
+			});
 	}
 
 	onRemoveEducation(id: string): void {
-		this.profileService.removeEducationById(id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-			next: () => {
-				this.toastService.showSuccessToast('Success', 'Removed Work History...');
-			},
-			error: (error: HttpErrorResponse) => {
-				this.toastService.showErrorToast('Error', error.message);
-			},
-			complete: () => {
-				this.navigateAfterSucceed();
-			},
-		});
+		this.profileService
+			.removeEducationById(id)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.toastService.showSuccessToast('Success', 'Removed Work History...');
+				},
+				error: (error: HttpErrorResponse) => {
+					this.toastService.showErrorToast('Error', error.message);
+				},
+				complete: () => {
+					this.navigateAfterSucceed();
+				},
+			});
 	}
 
 	removeConfirmation(id: string): void {

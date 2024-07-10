@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, type OnInit } from '@angular/core';
 import { CardJobAdsComponent } from '../../../../shared/components/molecules/card-job-ads/card-job-ads.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CompanyService } from '../../../companies/services/company.service';
 import { JobAds } from '../../../../core/domain/entities/job-ads';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -39,7 +39,7 @@ export class JobViewsComponent implements OnInit {
 		private readonly destroyRef: DestroyRef,
 		private readonly companyService: CompanyService,
 		private readonly storageService: StorageService,
-    private readonly toastService: ToastService,
+		private readonly toastService: ToastService,
 	) {
 		this.routerState = this.router.getCurrentNavigation()?.extras.state?.['id'];
 	}
@@ -49,7 +49,10 @@ export class JobViewsComponent implements OnInit {
 		if (this.companyId) {
 			this.findJobAdsByCompanyId();
 		} else {
-      this.toastService.showWarnToast('Warning', 'Company ID is not found, Please back to previous page!');
+			this.toastService.showWarnToast(
+				'Warning',
+				'Company ID is not found, Please back to previous page!',
+			);
 		}
 	}
 
@@ -70,7 +73,7 @@ export class JobViewsComponent implements OnInit {
 					this.jobAds = jobAds;
 				},
 				error: (error: HttpErrorResponse) => {
-          this.toastService.showErrorToast('Error', error.message);
+					this.toastService.showErrorToast('Error', error.message);
 				},
 			});
 	}

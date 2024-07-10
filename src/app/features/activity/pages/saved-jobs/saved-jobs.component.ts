@@ -3,25 +3,40 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DestroyRef, type OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { StorageService } from '../../../../core/services/storage.service';
-import { CardActivityComponent } from '../../../../shared/components/molecules/card-activity/card-activity.component';
-import { ActivityService } from '../../services/activity.service';
-import { ToastService } from '../../../../shared/services/toast.service';
-import { timer, take } from 'rxjs';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { take, timer } from 'rxjs';
+import { CreateApplicationDto } from '../../../../core/domain/dto/create-application.dto';
 import { SavedJobs } from '../../../../core/domain/entities/saved-jobs';
+import { StorageService } from '../../../../core/services/storage.service';
 import { EmptyStateComponent } from '../../../../shared/components/atoms/empty-state/empty-state.component';
+import { CardActivityComponent } from '../../../../shared/components/molecules/card-activity/card-activity.component';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { JobAdsService } from '../../../jobs/services/job-ads.service';
+import { ActivityService } from '../../services/activity.service';
+import { JobAds } from '../../../../core/domain/entities/job-ads';
 
 @Component({
 	selector: 'app-saved-jobs',
 	standalone: true,
-	imports: [CommonModule, CardActivityComponent, EmptyStateComponent],
+	imports: [
+		CommonModule,
+		CardActivityComponent,
+		EmptyStateComponent,
+		DynamicDialogModule,
+		ConfirmDialogModule,
+		DialogModule,
+	],
 	templateUrl: './saved-jobs.component.html',
 	styleUrls: ['./saved-jobs.component.scss'],
-	providers: [ActivityService],
+	providers: [ActivityService, JobAdsService, DialogService, ConfirmationService],
 })
 export class SavedJobsComponent implements OnInit {
 	isLoading = false;
 	jobAds!: SavedJobs[];
+	seekerId!: string;
 
 	constructor(
 		private readonly router: Router,
@@ -29,7 +44,12 @@ export class SavedJobsComponent implements OnInit {
 		private readonly activityService: ActivityService,
 		private readonly storageService: StorageService,
 		private readonly toastService: ToastService,
-	) {}
+		public dialogService: DialogService,
+		private readonly jobAdsService: JobAdsService,
+		private readonly confirmationService: ConfirmationService,
+	) {
+		this.seekerId = this.storageService.getSeekerIdentity();
+	}
 
 	ngOnInit(): void {
 		this.findOne();
@@ -45,17 +65,51 @@ export class SavedJobsComponent implements OnInit {
 					this.jobAds = response;
 				},
 				error: (error: HttpErrorResponse) => {
-          this.toastService.showErrorToast('Error', error.message);
+					this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {},
 			});
 	}
 
-	applied(): void {
+	applyConfirmation(savedJobs: SavedJobs): void {
+		const jobAdsId = savedJobs.jobAds.id;
+		this.confirmationService.confirm({
+			header: 'Apply Confirmation',
+			message: 'Are you sure want to apply this job?',
+			accept: () => {
+				this.onApplied(jobAdsId);
+			},
+		});
+	}
+
+	onApplied(jobAdsId: string): void {
+		this.isLoading = true;
+		const application: CreateApplicationDto = {
+			seekerId: this.seekerId,
+			jobAdsId: jobAdsId,
+			status: 'Applied',
+		};
+		this.jobAdsService
+			.appliedJobs(application)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.toastService.showSuccessToast('Success', 'Applied!');
+				},
+				error: (error: HttpErrorResponse) => {
+					this.setLoading();
+					this.toastService.showErrorToast('Error', error.message);
+				},
+				complete: () => {
+					this.navigateAfterSucceed('applied-jobs');
+				},
+			});
+	}
+
+	private setLoading() {
 		setTimeout(() => {
 			this.isLoading = false;
-		}, 3000);
-		this.isLoading = true;
+		}, 2000);
 	}
 
 	onRemove(id: string): void {
@@ -67,7 +121,7 @@ export class SavedJobsComponent implements OnInit {
 					this.toastService.showSuccessToast('Success', 'Sucessfully removed');
 				},
 				error: (error: HttpErrorResponse) => {
-          this.toastService.showErrorToast('Error', error.message);
+					this.toastService.showErrorToast('Error', error.message);
 				},
 				complete: () => {
 					this.reloadAfterSuccess();
@@ -79,5 +133,15 @@ export class SavedJobsComponent implements OnInit {
 		timer(2000)
 			.pipe(take(1))
 			.subscribe(() => window.location.reload());
+	}
+
+	navigateAfterSucceed(route: string): void {
+		timer(1000)
+			.pipe(take(1))
+			.subscribe(() =>
+				this.router.navigateByUrl(`/activity/${route}`).then(() => {
+					window.location.reload();
+				}),
+			);
 	}
 }

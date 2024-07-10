@@ -43,7 +43,7 @@ export class SummaryFormComponent implements OnInit {
 		private readonly router: Router,
 		private readonly profileService: ProfileService,
 		private readonly toastService: ToastService,
-    private readonly destroyRef: DestroyRef,
+		private readonly destroyRef: DestroyRef,
 		public ref: DynamicDialogRef,
 		public config: DynamicDialogConfig,
 	) {
@@ -74,23 +74,24 @@ export class SummaryFormComponent implements OnInit {
 	}
 
 	onUpdate(): void {
-		this.profileService.updateSummary(this.updateSummaryDto.id!, this.formCtrlValue)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-			next: () => {
-				this.toastService.showSuccessToast('Success', 'Updated...');
-				setTimeout(() => {
+		this.profileService
+			.updateSummary(this.updateSummaryDto.id!, this.formCtrlValue)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.toastService.showSuccessToast('Success', 'Updated...');
+					setTimeout(() => {
+						this.isLoading = false;
+					}, 2000);
+				},
+				error: (error: HttpErrorResponse) => {
 					this.isLoading = false;
-				}, 2000);
-			},
-			error: (error: HttpErrorResponse) => {
-				this.isLoading = false;
-				this.toastService.showErrorToast('Error', error.message);
-			},
-			complete: () => {
-				this.navigateAfterSucceed();
-			},
-		});
+					this.toastService.showErrorToast('Error', error.message);
+				},
+				complete: () => {
+					this.navigateAfterSucceed();
+				},
+			});
 	}
 
 	navigateAfterSucceed(): void {
@@ -114,23 +115,24 @@ export class SummaryFormComponent implements OnInit {
 	}
 
 	onCreate() {
-		this.profileService.createSummary(this.formCtrlValue)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-			next: () => {
-				this.toastService.showSuccessToast('Success', 'Updated...');
-				setTimeout(() => {
+		this.profileService
+			.createSummary(this.formCtrlValue)
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe({
+				next: () => {
+					this.toastService.showSuccessToast('Success', 'Updated...');
+					setTimeout(() => {
+						this.isLoading = false;
+					}, 2000);
+				},
+				error: (error: HttpErrorResponse) => {
 					this.isLoading = false;
-				}, 2000);
-			},
-			error: (error: HttpErrorResponse) => {
-				this.isLoading = false;
-				this.toastService.showErrorToast('Error', error.message);
-			},
-			complete: () => {
-				this.navigateAfterSucceed();
-			},
-		});
+					this.toastService.showErrorToast('Error', error.message);
+				},
+				complete: () => {
+					this.navigateAfterSucceed();
+				},
+			});
 	}
 
 	get submitButtonLabel(): string {

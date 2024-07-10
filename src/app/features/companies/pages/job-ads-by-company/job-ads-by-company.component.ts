@@ -30,7 +30,7 @@ export class JobAdsByCompanyComponent implements OnInit {
 		private readonly route: ActivatedRoute,
 		private readonly destroyRef: DestroyRef,
 		private readonly companyService: CompanyService,
-    private readonly toastService: ToastService,
+		private readonly toastService: ToastService,
 	) {}
 
 	ngOnInit(): void {
@@ -39,9 +39,7 @@ export class JobAdsByCompanyComponent implements OnInit {
 	}
 
 	getCompanyId() {
-		this.route.parent?.data
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
+		this.route.parent?.data.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
 			next: (response) => {
 				this.companyId = response['data'].id;
 			},
@@ -56,9 +54,9 @@ export class JobAdsByCompanyComponent implements OnInit {
 				next: (response) => {
 					this.jobAds = response;
 				},
-        error: (error: HttpErrorResponse) => {
-          this.toastService.showErrorToast('Error', error.message);
-        },
+				error: (error: HttpErrorResponse) => {
+					this.toastService.showErrorToast('Error', error.message);
+				},
 			});
 	}
 

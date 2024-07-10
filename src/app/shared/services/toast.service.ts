@@ -11,28 +11,33 @@ export class ToastService {
 	constructor(private msgService: MessageService) {}
 
 	async showSuccessToast(summary: string, detail: string): Promise<void> {
-		this.showToast(summary, detail, 'success');
+		this.showToast(summary, detail, 'success', 3000);
 	}
 
 	async showInfoToast(summary: string, detail: string): Promise<void> {
-		this.showToast(summary, detail, 'info');
+		this.showToast(summary, detail, 'info', 3000);
 	}
 	async showWarnToast(summary: string, detail: string): Promise<void> {
-		this.showToast(summary, detail, 'warn');
+		this.showToast(summary, detail, 'warn', 3000);
 	}
 
 	async showErrorToast(summary: string, detail: string): Promise<void> {
-		this.showToast(summary, detail, 'error');
+		this.showToast(summary, detail, 'error', 3000);
 	}
 
-	async showToast(summary: string, detail: string, severity: string): Promise<void> {
+	async showToast(
+		summary: string,
+		detail: string,
+		severity: string,
+		life: number,
+	): Promise<void> {
 		this.msgService.add({
-			life: 3000,
 			key: this.TOAST_KEY,
 			severity: severity,
 			summary: summary,
 			detail: detail,
 			sticky: this.STICKY,
+			life: life,
 		});
 	}
 }
