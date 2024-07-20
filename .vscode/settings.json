@@ -1,5 +1,5 @@
 {
-    "editor.fontFamily": "DM Mono",
+    "editor.fontFamily": "'IBM Plex Mono', 'Courier New', monospace",
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#21506f",
         "activityBar.background": "#21506f",

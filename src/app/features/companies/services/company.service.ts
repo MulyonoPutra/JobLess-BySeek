@@ -8,28 +8,28 @@ import { JobAds } from '../../../core/domain/entities/job-ads';
 import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
-	providedIn: 'root',
+    providedIn: 'root',
 })
 export class CompanyService {
-	endpoint = environment.endpoint;
+    endpoint = environment.endpoint;
 
-	constructor(private readonly http: HttpClient) {}
+    constructor(private readonly http: HttpClient) {}
 
-	findAll(): Observable<Company[]> {
-		return this.http
-			.get<HttpResponseEntity<Company[]>>(`${this.endpoint}/company`)
-			.pipe(map((response) => response.data));
-	}
+    findAll(): Observable<Company[]> {
+        return this.http
+            .get<HttpResponseEntity<Company[]>>(`${this.endpoint}/company`)
+            .pipe(map((response) => response.data));
+    }
 
-	findById(id: string): Observable<Company> {
-		return this.http
-			.get<HttpResponseEntity<Company>>(`${this.endpoint}/company/${id}`)
-			.pipe(map((response) => response.data));
-	}
+    findById(id: string): Observable<Company> {
+        return this.http
+            .get<HttpResponseEntity<Company>>(`${this.endpoint}/company/${id}`)
+            .pipe(map((response) => response.data));
+    }
 
-	findJobAdsByCompanyId(id: string): Observable<JobAds[]> {
-		return this.http
-			.get<HttpResponseEntity<JobAds[]>>(`${this.endpoint}/company/jobs/${id}`)
-			.pipe(map((response) => response.data));
-	}
+    findJobAdsByCompanyId(id: string): Observable<JobAds[]> {
+        return this.http
+            .get<HttpResponseEntity<JobAds[]>>(`${this.endpoint}/company/jobs/${id}`)
+            .pipe(map((response) => response.data));
+    }
 }

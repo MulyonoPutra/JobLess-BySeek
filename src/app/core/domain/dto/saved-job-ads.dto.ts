@@ -1,4 +1,4 @@
 export interface SavedJobAdsDto {
-	seekerId: string;
-	jobAdsId: string;
+    seekerId: string;
+    jobAdsId: string;
 }

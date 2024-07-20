@@ -20,166 +20,165 @@ import { ToastService } from '../../../services/toast.service';
 import { ProfilePromptComponent } from '../../molecules/profile-prompt/profile-prompt.component';
 
 @Component({
-  selector: 'app-job-view-details',
-  standalone: true,
-  imports: [
-    CommonModule,
-    AngularSvgIconModule,
-    RouterModule,
-    TimeAgoPipe,
-    RupiahPipe,
-    DialogModule,
-    ProfilePromptComponent,
-    DynamicDialogModule,
-    ConfirmDialogModule,
-  ],
-  templateUrl: './job-view-details.component.html',
-  styleUrls: ['./job-view-details.component.scss'],
-  providers: [JobAdsService, DialogService, ConfirmationService],
+    selector: 'app-job-view-details',
+    standalone: true,
+    imports: [
+        CommonModule,
+        AngularSvgIconModule,
+        RouterModule,
+        TimeAgoPipe,
+        RupiahPipe,
+        DialogModule,
+        ProfilePromptComponent,
+        DynamicDialogModule,
+        ConfirmDialogModule,
+    ],
+    templateUrl: './job-view-details.component.html',
+    styleUrls: ['./job-view-details.component.scss'],
+    providers: [JobAdsService, DialogService, ConfirmationService],
 })
 export class JobViewDetailsComponent implements OnInit {
-  @Input() jobAdsId!: string;
-  companyId!: string;
-  jobAds!: JobAds;
-  visible = false;
-  isLoading = false;
-  seekerId!: string;
+    @Input() jobAdsId!: string;
+    companyId!: string;
+    jobAds!: JobAds;
+    visible = false;
+    isLoading = false;
+    seekerId!: string;
 
-  ref: DynamicDialogRef | undefined;
+    ref: DynamicDialogRef | undefined;
 
-  constructor(
-    private readonly router: Router,
-    private readonly route: ActivatedRoute,
-    private readonly destroyRef: DestroyRef,
-    private readonly jobAdsService: JobAdsService,
-    private readonly storageService: StorageService,
-    private readonly toastService: ToastService,
-    public dialogService: DialogService,
-    private readonly confirmationService: ConfirmationService,
-  ) {
-    this.jobAdsId = this.route.snapshot.paramMap.get('id')!;
-    this.seekerId = this.storageService.getSeekerIdentity();
-  }
-
-  ngOnInit(): void {
-    this.findById();
-  }
-
-  showDialog() {
-    this.visible = true;
-  }
-
-  navigate(): void {
-    this.router.navigate(['/profile']);
-  }
-
-  onSubmitted(): void {
-    if (this.seekerId) {
-      this.applyConfirmation();
-    } else {
-      this.confirmDialog();
+    constructor(
+        private readonly router: Router,
+        private readonly route: ActivatedRoute,
+        private readonly destroyRef: DestroyRef,
+        private readonly jobAdsService: JobAdsService,
+        private readonly storageService: StorageService,
+        private readonly toastService: ToastService,
+        public dialogService: DialogService,
+        private readonly confirmationService: ConfirmationService,
+    ) {
+        this.jobAdsId = this.route.snapshot.paramMap.get('id')!;
+        this.seekerId = this.storageService.getSeekerIdentity();
     }
-  }
 
-  applyConfirmation(): void {
-    this.confirmationService.confirm({
-      header: 'Apply Confirmation',
-      message: 'Are you sure want to apply this job?',
-      accept: () => {
-        this.onApplied();
-      },
-    });
-  }
+    ngOnInit(): void {
+        this.findById();
+    }
 
-  onApplied() {
-    const application: CreateApplicationDto = {
-      seekerId: this.seekerId,
-      jobAdsId: this.jobAds.id,
-      status: 'Applied',
-    };
-    this.jobAdsService
-      .appliedJobs(application)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.toastService.showSuccessToast('Success', 'Applied!');
-        },
-        error: (error: HttpErrorResponse) => {
-          this.setLoading();
-          this.toastService.showErrorToast('Error', error.message);
-        },
-        complete: () => {
-          this.navigateAfterSucceed();
-        },
-      });
-  }
+    showDialog() {
+        this.visible = true;
+    }
 
-  private setLoading() {
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 2000);
-  }
+    navigate(): void {
+        this.router.navigate(['/profile']);
+    }
 
-  savedJobs(): void {
-    const payload: SavedJobAdsDto = {
-      seekerId: this.storageService.getSeekerIdentity(),
-      jobAdsId: this.jobAds.id,
-    };
-    this.jobAdsService
-      .savedJobAds(payload)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.toastService.showSuccessToast('Success', 'Applied Successfully!');
-        },
-        error: (error: HttpErrorResponse) => {
-          this.toastService.showErrorToast('Error', error.message);
-        },
-        complete: () => {
-          this.navigateAfterSucceed();
-        },
-      });
-  }
+    onSubmitted(): void {
+        if (this.seekerId) {
+            this.applyConfirmation();
+        } else {
+            this.confirmDialog();
+        }
+    }
 
-  navigateAfterSucceed(): void {
-    timer(1000)
-      .pipe(take(1))
-      .subscribe(() => this.router.navigateByUrl('/activity/applied-jobs'));
-  }
+    applyConfirmation(): void {
+        this.confirmationService.confirm({
+            header: 'Apply Confirmation',
+            message: 'Are you sure want to apply this job?',
+            accept: () => {
+                this.onApplied();
+            },
+        });
+    }
 
-  findById(): void {
-    this.jobAdsService
-      .findById(this.jobAdsId)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (response: JobAds) => {
-          this.jobAds = response;
-          this.companyId = this.jobAds.employer.company?.id!;
-        },
-        error: (error: HttpErrorResponse) => {
-          this.toastService.showErrorToast('Error', error.message);
-        },
-        complete: () => { },
-      });
-  }
+    onApplied() {
+        const application: CreateApplicationDto = {
+            seekerId: this.seekerId,
+            jobAdsId: this.jobAds.id,
+            status: 'Applied',
+        };
+        this.jobAdsService
+            .appliedJobs(application)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.toastService.showSuccessToast('Success', 'Applied!');
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.setLoading();
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {
+                    this.navigateAfterSucceed();
+                },
+            });
+    }
 
-  setCompanyId(id: string): void {
-    this.companyId = id;
-    this.storageService.setCompanyIdentity(this.companyId);
-  }
+    private setLoading() {
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 2000);
+    }
 
-  viewAllJobs(id: string): void {
-    this.setCompanyId(id);
-    this.router.navigateByUrl(`/jobs/views`, { state: { id: this.companyId } });
-  }
+    savedJobs(): void {
+        const payload: SavedJobAdsDto = {
+            seekerId: this.storageService.getSeekerIdentity(),
+            jobAdsId: this.jobAds.id,
+        };
+        this.jobAdsService
+            .savedJobAds(payload)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.toastService.showSuccessToast('Success', 'Applied Successfully!');
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {
+                    this.navigateAfterSucceed();
+                },
+            });
+    }
 
-  confirmDialog(): void {
-    this.ref = this.dialogService.open(ProfilePromptComponent, {
-      header: 'Complete Your Profile',
-      width: '50vw',
-      modal: true,
-      breakpoints: { '1199px': '75vw', '575px': '90vw' },
-    });
-  }
+    navigateAfterSucceed(): void {
+        timer(1000)
+            .pipe(take(1))
+            .subscribe(() => this.router.navigateByUrl('/activity/applied-jobs'));
+    }
 
+    findById(): void {
+        this.jobAdsService
+            .findById(this.jobAdsId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (response: JobAds) => {
+                    this.jobAds = response;
+                    this.companyId = this.jobAds.employer.company?.id!;
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {},
+            });
+    }
+
+    setCompanyId(id: string): void {
+        this.companyId = id;
+        this.storageService.setCompanyIdentity(this.companyId);
+    }
+
+    viewAllJobs(id: string): void {
+        this.setCompanyId(id);
+        this.router.navigateByUrl(`/jobs/views`, { state: { id: this.companyId } });
+    }
+
+    confirmDialog(): void {
+        this.ref = this.dialogService.open(ProfilePromptComponent, {
+            header: 'Complete Your Profile',
+            width: '50vw',
+            modal: true,
+            breakpoints: { '1199px': '75vw', '575px': '90vw' },
+        });
+    }
 }

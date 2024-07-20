@@ -1,11 +1,11 @@
 :host {
-	display: block;
+    display: block;
 
-	::placeholder {
-		@apply text-sm text-stark-200;
-	}
+    ::placeholder {
+        @apply text-sm text-stark-200;
+    }
 }
 
 .colors {
-	color: #e7e2db;
+    color: #e7e2db;
 }

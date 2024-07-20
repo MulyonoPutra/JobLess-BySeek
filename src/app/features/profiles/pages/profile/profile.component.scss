@@ -1,28 +1,28 @@
 .add-icon {
-	&:hover {
-		filter: invert(100%) sepia(74%) saturate(0%) hue-rotate(32deg) brightness(105%)
-			contrast(101%);
-	}
+    &:hover {
+        filter: invert(100%) sepia(74%) saturate(0%) hue-rotate(32deg) brightness(105%)
+            contrast(101%);
+    }
 }
 
 ::ng-deep {
-	.pi {
-		@apply cursor-pointer text-gray-400;
+    .pi {
+        @apply cursor-pointer text-gray-400;
 
-		&:hover {
-			@apply text-gray-600;
-		}
-	}
+        &:hover {
+            @apply text-gray-600;
+        }
+    }
 
-	.p-confirm-dialog-reject {
-		@apply py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-stark-100 text-elephant hover:text-stark-400 hover:bg-bayoux-700 disabled:opacity-50 disabled:pointer-events-none;
-	}
+    .p-confirm-dialog-reject {
+        @apply py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-stark-100 text-elephant hover:text-stark-400 hover:bg-bayoux-700 disabled:opacity-50 disabled:pointer-events-none;
+    }
 
-	.p-confirm-dialog-accept {
-		@apply ml-3 py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-elephant-950 text-stark-400 hover:bg-bayoux-700 disabled:opacity-50 disabled:pointer-events-none;
-	}
+    .p-confirm-dialog-accept {
+        @apply ml-3 py-2 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-elephant-950 text-stark-400 hover:bg-bayoux-700 disabled:opacity-50 disabled:pointer-events-none;
+    }
 }
 
 .edit-btn {
-	@apply inline-flex font-semibold items-center py-2.5 px-6 ms-2 text-sm text-stark-200 bg-transparent rounded-lg border border-stark-50 hover:bg-stark-950 hover:text-stark-200 focus:ring-4 focus:outline-none focus:ring-blue-300;
+    @apply inline-flex font-semibold items-center py-2.5 px-6 ms-2 text-sm text-stark-200 bg-transparent rounded-lg border border-stark-50 hover:bg-stark-950 hover:text-stark-200 focus:ring-4 focus:outline-none focus:ring-blue-300;
 }

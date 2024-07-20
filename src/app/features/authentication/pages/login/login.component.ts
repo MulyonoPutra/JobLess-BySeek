@@ -2,11 +2,11 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, DestroyRef, type OnInit } from '@angular/core';
 import {
-	FormBuilder,
-	FormGroup,
-	FormsModule,
-	ReactiveFormsModule,
-	Validators,
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { take, timer } from 'rxjs';
@@ -23,90 +23,90 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
-	selector: 'app-login',
-	standalone: true,
-	imports: [
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		RouterModule,
-		NgOptimizedImage,
-		GoogleButtonComponent,
-		OrDividerComponent,
-		ButtonComponent,
-		FormInputFieldComponent,
-		FormPasswordFieldComponent,
-	],
-	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.scss'],
-	providers: [AuthenticationService, ValidationService],
+    selector: 'app-login',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        NgOptimizedImage,
+        GoogleButtonComponent,
+        OrDividerComponent,
+        ButtonComponent,
+        FormInputFieldComponent,
+        FormPasswordFieldComponent,
+    ],
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    providers: [AuthenticationService, ValidationService],
 })
 export class LoginComponent implements OnInit {
-	bgImage = OVERLAY_IMAGES.login;
+    bgImage = OVERLAY_IMAGES.login;
 
-	form!: FormGroup;
-	isLoading: boolean = false;
+    form!: FormGroup;
+    isLoading: boolean = false;
 
-	constructor(
-		private readonly formBuilder: FormBuilder,
-		private readonly router: Router,
-		private readonly destroyRef: DestroyRef,
-		private readonly authService: AuthenticationService,
-		private readonly validationService: ValidationService,
-		private readonly toastService: ToastService,
-	) {}
+    constructor(
+        private readonly formBuilder: FormBuilder,
+        private readonly router: Router,
+        private readonly destroyRef: DestroyRef,
+        private readonly authService: AuthenticationService,
+        private readonly validationService: ValidationService,
+        private readonly toastService: ToastService,
+    ) {}
 
-	ngOnInit(): void {
-		this.form = this.formBuilder.group({
-			email: ['', [Validators.required, Validators.email]],
-			password: ['', Validators.required],
-		});
-	}
+    ngOnInit(): void {
+        this.form = this.formBuilder.group({
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', Validators.required],
+        });
+    }
 
-	get formCtrlValue() {
-		return {
-			email: this.form.get('email')?.value,
-			password: this.form.get('password')?.value,
-		};
-	}
+    get formCtrlValue() {
+        return {
+            email: this.form.get('email')?.value,
+            password: this.form.get('password')?.value,
+        };
+    }
 
-	login(): void {
-		this.authService
-			.login(this.formCtrlValue)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: () => {
-					this.toastService.showSuccessToast('Success', 'Login Successfully!');
-					this.setLoading();
-				},
-				error: (error: HttpErrorResponse) => {
-					this.setLoading();
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {
-					this.navigateAfterSucceed();
-				},
-			});
-	}
+    login(): void {
+        this.authService
+            .login(this.formCtrlValue)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.toastService.showSuccessToast('Success', 'Login Successfully!');
+                    this.setLoading();
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.setLoading();
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {
+                    this.navigateAfterSucceed();
+                },
+            });
+    }
 
-	private setLoading() {
-		setTimeout(() => {
-			this.isLoading = false;
-		}, 2000);
-	}
+    private setLoading() {
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 2000);
+    }
 
-	navigateAfterSucceed(): void {
-		timer(2000)
-			.pipe(take(1))
-			.subscribe(() => this.router.navigateByUrl('/'));
-	}
+    navigateAfterSucceed(): void {
+        timer(2000)
+            .pipe(take(1))
+            .subscribe(() => this.router.navigateByUrl('/'));
+    }
 
-	onSubmit() {
-		this.isLoading = true;
-		if (this.form.valid) {
-			this.login();
-		} else {
-			this.validationService.markAllFormControlsAsTouched(this.form);
-		}
-	}
+    onSubmit() {
+        this.isLoading = true;
+        if (this.form.valid) {
+            this.login();
+        } else {
+            this.validationService.markAllFormControlsAsTouched(this.form);
+        }
+    }
 }

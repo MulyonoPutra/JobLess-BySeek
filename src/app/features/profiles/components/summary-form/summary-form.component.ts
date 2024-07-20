@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, type OnInit } from '@angular/core';
 import {
-	FormsModule,
-	ReactiveFormsModule,
-	FormGroup,
-	FormBuilder,
-	Validators,
+    FormsModule,
+    ReactiveFormsModule,
+    FormGroup,
+    FormBuilder,
+    Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { timer, take } from 'rxjs';
@@ -17,129 +17,133 @@ import { ButtonComponent } from '../../../../shared/components/atoms/button/butt
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { StorageService } from '../../../../core/services/storage.service';
 
 @Component({
-	selector: 'app-summary-form',
-	standalone: true,
-	imports: [
-		CommonModule,
-		FormInputFieldComponent,
-		FormsModule,
-		ReactiveFormsModule,
-		ButtonComponent,
-	],
-	templateUrl: './summary-form.component.html',
-	styleUrls: ['./summary-form.component.scss'],
+    selector: 'app-summary-form',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormInputFieldComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        ButtonComponent,
+    ],
+    templateUrl: './summary-form.component.html',
+    styleUrls: ['./summary-form.component.scss'],
 })
 export class SummaryFormComponent implements OnInit {
-	form!: FormGroup;
-	isLoading: boolean = false;
-	label!: string;
-	summary!: string;
-	updateSummaryDto!: UpdateSummaryDto;
+    form!: FormGroup;
+    isLoading: boolean = false;
+    label!: string;
+    summary!: string;
+    updateSummaryDto!: UpdateSummaryDto;
+    seekerId!: string;
 
-	constructor(
-		private readonly formBuilder: FormBuilder,
-		private readonly router: Router,
-		private readonly profileService: ProfileService,
-		private readonly toastService: ToastService,
-		private readonly destroyRef: DestroyRef,
-		public ref: DynamicDialogRef,
-		public config: DynamicDialogConfig,
-	) {
-		this.updateSummaryDto = this.config.data;
-	}
+    constructor(
+        private readonly formBuilder: FormBuilder,
+        private readonly router: Router,
+        private readonly profileService: ProfileService,
+        private readonly toastService: ToastService,
+        private readonly storageService: StorageService,
+        private readonly destroyRef: DestroyRef,
+        public ref: DynamicDialogRef,
+        public config: DynamicDialogConfig,
+    ) {
+        this.updateSummaryDto = this.config.data;
+        this.seekerId = this.storageService.getSeekerIdentity();
+    }
 
-	ngOnInit(): void {
-		this.formInitialized();
-		this.prepopulateForm(this.updateSummaryDto);
-	}
+    ngOnInit(): void {
+        this.formInitialized();
+        this.prepopulateForm(this.updateSummaryDto);
+    }
 
-	formInitialized(): void {
-		this.form = this.formBuilder.group({
-			summary: ['', Validators.required],
-		});
-	}
+    formInitialized(): void {
+        this.form = this.formBuilder.group({
+            summary: ['', Validators.required],
+        });
+    }
 
-	get formCtrlValue() {
-		return {
-			summary: this.form.get('summary')?.value,
-		};
-	}
+    get formCtrlValue() {
+        return {
+            summary: this.form.get('summary')?.value,
+        };
+    }
 
-	prepopulateForm(dto: UpdateSummaryDto): void {
-		this.form.patchValue({
-			summary: dto.summary,
-		});
-	}
+    prepopulateForm(dto: UpdateSummaryDto): void {
+        this.form.patchValue({
+            summary: dto.summary,
+        });
+    }
 
-	onUpdate(): void {
-		this.profileService
-			.updateSummary(this.updateSummaryDto.id!, this.formCtrlValue)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: () => {
-					this.toastService.showSuccessToast('Success', 'Updated...');
-					setTimeout(() => {
-						this.isLoading = false;
-					}, 2000);
-				},
-				error: (error: HttpErrorResponse) => {
-					this.isLoading = false;
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {
-					this.navigateAfterSucceed();
-				},
-			});
-	}
+    onUpdate(): void {
+        this.profileService
+            .updateSummary(this.seekerId, this.formCtrlValue)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.toastService.showSuccessToast('Success', 'Updated...');
+                    setTimeout(() => {
+                        this.isLoading = false;
+                    }, 2000);
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.isLoading = false;
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {
+                    this.navigateAfterSucceed();
+                },
+            });
+    }
 
-	navigateAfterSucceed(): void {
-		timer(3000)
-			.pipe(take(1))
-			.subscribe(() => {
-				this.router.navigateByUrl('/profile').then(() => {
-					window.location.reload();
-				});
-			});
-	}
+    navigateAfterSucceed(): void {
+        timer(3000)
+            .pipe(take(1))
+            .subscribe(() => {
+                this.router.navigateByUrl('/profile').then(() => {
+                    window.location.reload();
+                });
+            });
+    }
 
-	onSubmit() {
-		this.isLoading = true;
-		if (this.updateSummaryDto.id) {
-			this.onUpdate();
-		} else {
-			this.onCreate();
-		}
-		this.form.reset();
-	}
+    onSubmit() {
+        this.isLoading = true;
+        if (this.updateSummaryDto.id) {
+            this.onUpdate();
+        } else {
+            this.onCreate();
+        }
+        this.form.reset();
+    }
 
-	onCreate() {
-		this.profileService
-			.createSummary(this.formCtrlValue)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: () => {
-					this.toastService.showSuccessToast('Success', 'Updated...');
-					setTimeout(() => {
-						this.isLoading = false;
-					}, 2000);
-				},
-				error: (error: HttpErrorResponse) => {
-					this.isLoading = false;
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {
-					this.navigateAfterSucceed();
-				},
-			});
-	}
+    onCreate() {
+        this.profileService
+            .createSummary(this.formCtrlValue)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.toastService.showSuccessToast('Success', 'Updated...');
+                    setTimeout(() => {
+                        this.isLoading = false;
+                    }, 2000);
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.isLoading = false;
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {
+                    this.navigateAfterSucceed();
+                },
+            });
+    }
 
-	get submitButtonLabel(): string {
-		return this.label;
-	}
+    get submitButtonLabel(): string {
+        return this.label;
+    }
 
-	get cancelButtonLabel(): string {
-		return 'Cancel';
-	}
+    get cancelButtonLabel(): string {
+        return 'Cancel';
+    }
 }

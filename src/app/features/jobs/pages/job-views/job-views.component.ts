@@ -14,70 +14,69 @@ import { JobViewDetailsComponent } from '../../../../shared/components/organisms
 import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
-	selector: 'app-job-views',
-	standalone: true,
-	imports: [
-		CommonModule,
-		AngularSvgIconModule,
-		CardJobAdsComponent,
-		TimeAgoPipe,
-		RupiahPipe,
-		JobViewDetailsComponent,
-	],
-	templateUrl: './job-views.component.html',
-	styleUrls: ['./job-views.component.scss'],
-  providers: [CompanyService],
+    selector: 'app-job-views',
+    standalone: true,
+    imports: [
+        CommonModule,
+        AngularSvgIconModule,
+        CardJobAdsComponent,
+        TimeAgoPipe,
+        RupiahPipe,
+        JobViewDetailsComponent,
+    ],
+    templateUrl: './job-views.component.html',
+    styleUrls: ['./job-views.component.scss'],
+    providers: [CompanyService],
 })
 export class JobViewsComponent implements OnInit {
-	jobAds!: JobAds[];
-	jobAdsId!: string;
-	companyId!: string;
-	routerState!: string;
+    jobAds!: JobAds[];
+    jobAdsId!: string;
+    companyId!: string;
+    routerState!: string;
 
-	content = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. `;
+    content = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. `;
 
-	constructor(
-		private readonly router: Router,
-		private readonly destroyRef: DestroyRef,
-		private readonly companyService: CompanyService,
-		private readonly storageService: StorageService,
-		private readonly toastService: ToastService,
-	) {
-		this.routerState = this.router.getCurrentNavigation()?.extras.state?.['id'];
-	}
+    constructor(
+        private readonly router: Router,
+        private readonly destroyRef: DestroyRef,
+        private readonly companyService: CompanyService,
+        private readonly storageService: StorageService,
+        private readonly toastService: ToastService,
+    ) {
+        this.routerState = this.router.getCurrentNavigation()?.extras.state?.['id'];
+    }
 
-	ngOnInit(): void {
-		this.companyId = this.routerState || this.storageService.getCompanyIdentity();
-		if (this.companyId) {
-			this.findJobAdsByCompanyId();
-		} else {
-			this.toastService.showWarnToast(
-				'Warning',
-				'Company ID is not found, Please back to previous page!',
-			);
-		}
-	}
+    ngOnInit(): void {
+        this.companyId = this.routerState || this.storageService.getCompanyIdentity();
+        if (this.companyId) {
+            this.findJobAdsByCompanyId();
+        } else {
+            this.toastService.showWarnToast(
+                'Warning',
+                'Company ID is not found, Please back to previous page!',
+            );
+        }
+    }
 
+    onDetails(id: string): void {
+        this.jobAdsId = id;
+    }
 
-	onDetails(id: string): void {
-		this.jobAdsId = id;
-	}
+    onBookmark(): void {
+        console.log('onBookmark');
+    }
 
-	onBookmark(): void {
-		console.log('onBookmark');
-	}
-
-	findJobAdsByCompanyId() {
-		this.companyService
-			.findJobAdsByCompanyId(this.companyId)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: (jobAds: JobAds[]) => {
-					this.jobAds = jobAds;
-				},
-				error: (error: HttpErrorResponse) => {
-					this.toastService.showErrorToast('Error', error.message);
-				},
-			});
-	}
+    findJobAdsByCompanyId() {
+        this.companyService
+            .findJobAdsByCompanyId(this.companyId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (jobAds: JobAds[]) => {
+                    this.jobAds = jobAds;
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+            });
+    }
 }

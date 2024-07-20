@@ -10,50 +10,50 @@ import { CardApplicationComponent } from '../../../../shared/components/molecule
 import { EmptyStateComponent } from '../../../../shared/components/atoms/empty-state/empty-state.component';
 
 @Component({
-	selector: 'app-applied-jobs',
-	standalone: true,
-	imports: [CommonModule, CardApplicationComponent, EmptyStateComponent],
-	templateUrl: './applied-jobs.component.html',
-	styleUrls: ['./applied-jobs.component.scss'],
-	providers: [ActivityService],
+    selector: 'app-applied-jobs',
+    standalone: true,
+    imports: [CommonModule, CardApplicationComponent, EmptyStateComponent],
+    templateUrl: './applied-jobs.component.html',
+    styleUrls: ['./applied-jobs.component.scss'],
+    providers: [ActivityService],
 })
 export class AppliedJobsComponent implements OnInit {
-	isLoading = false;
-	applications!: Application[];
+    isLoading = false;
+    applications!: Application[];
 
-	constructor(
-		private readonly destroyRef: DestroyRef,
-		private readonly activityService: ActivityService,
-		private readonly storageService: StorageService,
-	) {}
+    constructor(
+        private readonly destroyRef: DestroyRef,
+        private readonly activityService: ActivityService,
+        private readonly storageService: StorageService,
+    ) {}
 
-	ngOnInit(): void {
-		this.findOne();
-	}
+    ngOnInit(): void {
+        this.findOne();
+    }
 
-	findOne(): void {
-		const seekerId = this.storageService.getSeekerIdentity();
-		this.activityService
-			.findApplicationBySeekerId(seekerId)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: (response: Application[]) => {
-					this.applications = response;
-				},
-				error: (error: HttpErrorResponse) => {
-					console.error(error);
-				},
-			});
-	}
+    findOne(): void {
+        const seekerId = this.storageService.getSeekerIdentity();
+        this.activityService
+            .findApplicationBySeekerId(seekerId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (response: Application[]) => {
+                    this.applications = response;
+                },
+                error: (error: HttpErrorResponse) => {
+                    console.error(error);
+                },
+            });
+    }
 
-	applied(): void {
-		setTimeout(() => {
-			this.isLoading = false;
-		}, 3000);
-		this.isLoading = true;
-	}
+    applied(): void {
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 3000);
+        this.isLoading = true;
+    }
 
-	onRemove(): void {
-		console.log('removed');
-	}
+    onRemove(): void {
+        console.log('removed');
+    }
 }

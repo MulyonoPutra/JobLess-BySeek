@@ -15,60 +15,60 @@ import { JobAdsService } from '../../services/job-ads.service';
 import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
-  selector: 'app-job-ads',
-  standalone: true,
-  imports: [
-    CommonModule,
-    OverlayImageContainerComponent,
-    SearchFieldComponent,
-    CardJobAdsComponent,
-    AngularSvgIconModule,
-  ],
-  templateUrl: './job-ads.component.html',
-  styleUrls: ['./job-ads.component.scss'],
-  providers: [JobAdsService],
+    selector: 'app-job-ads',
+    standalone: true,
+    imports: [
+        CommonModule,
+        OverlayImageContainerComponent,
+        SearchFieldComponent,
+        CardJobAdsComponent,
+        AngularSvgIconModule,
+    ],
+    templateUrl: './job-ads.component.html',
+    styleUrls: ['./job-ads.component.scss'],
+    providers: [JobAdsService],
 })
 export class JobAdsComponent implements OnInit {
-  overlayImage = OVERLAY_IMAGES.jobs;
+    overlayImage = OVERLAY_IMAGES.jobs;
 
-  jobAds!: JobAds[];
-  isBookmark!: boolean;
+    jobAds!: JobAds[];
+    isBookmark!: boolean;
 
-  constructor(
-    private readonly router: Router,
-    private readonly destroyRef: DestroyRef,
-    private readonly jobAdsService: JobAdsService,
-    private readonly localStorageService: LocalStorageService,
-    private readonly toastService: ToastService,
-  ) { }
+    constructor(
+        private readonly router: Router,
+        private readonly destroyRef: DestroyRef,
+        private readonly jobAdsService: JobAdsService,
+        private readonly localStorageService: LocalStorageService,
+        private readonly toastService: ToastService,
+    ) {}
 
-  ngOnInit(): void {
-    this.findAll();
-  }
+    ngOnInit(): void {
+        this.findAll();
+    }
 
-  findAll(): void {
-    this.jobAdsService
-      .findAll()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (response: JobAds[]) => {
-          this.jobAds = response;
-        },
-        error: (error: HttpErrorResponse) => {
-          this.toastService.showErrorToast('Error', error.message);
-        },
-      });
-  }
+    findAll(): void {
+        this.jobAdsService
+            .findAll()
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (response: JobAds[]) => {
+                    this.jobAds = response;
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+            });
+    }
 
-  onDetails(id: string): void {
-    this.router.navigateByUrl(`/jobs/details/${id}`);
-  }
+    onDetails(id: string): void {
+        this.router.navigateByUrl(`/jobs/details/${id}`);
+    }
 
-  onBookmark(): void {
-    this.isBookmark = !this.isBookmark;
-    console.log(this.isBookmark);
+    onBookmark(): void {
+        this.isBookmark = !this.isBookmark;
+        console.log(this.isBookmark);
 
-    this.localStorageService.removeItem('bookmark');
-    this.localStorageService.setItem('bookmark', this.isBookmark);
-  }
+        this.localStorageService.removeItem('bookmark');
+        this.localStorageService.setItem('bookmark', this.isBookmark);
+    }
 }

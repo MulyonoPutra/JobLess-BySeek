@@ -19,129 +19,129 @@ import { ActivityService } from '../../services/activity.service';
 import { JobAds } from '../../../../core/domain/entities/job-ads';
 
 @Component({
-	selector: 'app-saved-jobs',
-	standalone: true,
-	imports: [
-		CommonModule,
-		CardActivityComponent,
-		EmptyStateComponent,
-		DynamicDialogModule,
-		ConfirmDialogModule,
-		DialogModule,
-	],
-	templateUrl: './saved-jobs.component.html',
-	styleUrls: ['./saved-jobs.component.scss'],
-	providers: [ActivityService, JobAdsService, DialogService, ConfirmationService],
+    selector: 'app-saved-jobs',
+    standalone: true,
+    imports: [
+        CommonModule,
+        CardActivityComponent,
+        EmptyStateComponent,
+        DynamicDialogModule,
+        ConfirmDialogModule,
+        DialogModule,
+    ],
+    templateUrl: './saved-jobs.component.html',
+    styleUrls: ['./saved-jobs.component.scss'],
+    providers: [ActivityService, JobAdsService, DialogService, ConfirmationService],
 })
 export class SavedJobsComponent implements OnInit {
-	isLoading = false;
-	jobAds!: SavedJobs[];
-	seekerId!: string;
+    isLoading = false;
+    jobAds!: SavedJobs[];
+    seekerId!: string;
 
-	constructor(
-		private readonly router: Router,
-		private readonly destroyRef: DestroyRef,
-		private readonly activityService: ActivityService,
-		private readonly storageService: StorageService,
-		private readonly toastService: ToastService,
-		public dialogService: DialogService,
-		private readonly jobAdsService: JobAdsService,
-		private readonly confirmationService: ConfirmationService,
-	) {
-		this.seekerId = this.storageService.getSeekerIdentity();
-	}
+    constructor(
+        private readonly router: Router,
+        private readonly destroyRef: DestroyRef,
+        private readonly activityService: ActivityService,
+        private readonly storageService: StorageService,
+        private readonly toastService: ToastService,
+        public dialogService: DialogService,
+        private readonly jobAdsService: JobAdsService,
+        private readonly confirmationService: ConfirmationService,
+    ) {
+        this.seekerId = this.storageService.getSeekerIdentity();
+    }
 
-	ngOnInit(): void {
-		this.findOne();
-	}
+    ngOnInit(): void {
+        this.findOne();
+    }
 
-	findOne(): void {
-		const seekerId = this.storageService.getSeekerIdentity();
-		this.activityService
-			.findSavedJobsBySeekerId(seekerId)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: (response) => {
-					this.jobAds = response;
-				},
-				error: (error: HttpErrorResponse) => {
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {},
-			});
-	}
+    findOne(): void {
+        const seekerId = this.storageService.getSeekerIdentity();
+        this.activityService
+            .findSavedJobsBySeekerId(seekerId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (response) => {
+                    this.jobAds = response;
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {},
+            });
+    }
 
-	applyConfirmation(savedJobs: SavedJobs): void {
-		const jobAdsId = savedJobs.jobAds.id;
-		this.confirmationService.confirm({
-			header: 'Apply Confirmation',
-			message: 'Are you sure want to apply this job?',
-			accept: () => {
-				this.onApplied(jobAdsId);
-			},
-		});
-	}
+    applyConfirmation(savedJobs: SavedJobs): void {
+        const jobAdsId = savedJobs.jobAds.id;
+        this.confirmationService.confirm({
+            header: 'Apply Confirmation',
+            message: 'Are you sure want to apply this job?',
+            accept: () => {
+                this.onApplied(jobAdsId);
+            },
+        });
+    }
 
-	onApplied(jobAdsId: string): void {
-		this.isLoading = true;
-		const application: CreateApplicationDto = {
-			seekerId: this.seekerId,
-			jobAdsId: jobAdsId,
-			status: 'Applied',
-		};
-		this.jobAdsService
-			.appliedJobs(application)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: () => {
-					this.toastService.showSuccessToast('Success', 'Applied!');
-				},
-				error: (error: HttpErrorResponse) => {
-					this.setLoading();
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {
-					this.navigateAfterSucceed('applied-jobs');
-				},
-			});
-	}
+    onApplied(jobAdsId: string): void {
+        this.isLoading = true;
+        const application: CreateApplicationDto = {
+            seekerId: this.seekerId,
+            jobAdsId: jobAdsId,
+            status: 'Applied',
+        };
+        this.jobAdsService
+            .appliedJobs(application)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.toastService.showSuccessToast('Success', 'Applied!');
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.setLoading();
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {
+                    this.navigateAfterSucceed('applied-jobs');
+                },
+            });
+    }
 
-	private setLoading() {
-		setTimeout(() => {
-			this.isLoading = false;
-		}, 2000);
-	}
+    private setLoading() {
+        setTimeout(() => {
+            this.isLoading = false;
+        }, 2000);
+    }
 
-	onRemove(id: string): void {
-		this.activityService
-			.removeSavedJobsById(id)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: () => {
-					this.toastService.showSuccessToast('Success', 'Sucessfully removed');
-				},
-				error: (error: HttpErrorResponse) => {
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {
-					this.reloadAfterSuccess();
-				},
-			});
-	}
+    onRemove(id: string): void {
+        this.activityService
+            .removeSavedJobsById(id)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.toastService.showSuccessToast('Success', 'Sucessfully removed');
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {
+                    this.reloadAfterSuccess();
+                },
+            });
+    }
 
-	reloadAfterSuccess(): void {
-		timer(2000)
-			.pipe(take(1))
-			.subscribe(() => window.location.reload());
-	}
+    reloadAfterSuccess(): void {
+        timer(2000)
+            .pipe(take(1))
+            .subscribe(() => window.location.reload());
+    }
 
-	navigateAfterSucceed(route: string): void {
-		timer(1000)
-			.pipe(take(1))
-			.subscribe(() =>
-				this.router.navigateByUrl(`/activity/${route}`).then(() => {
-					window.location.reload();
-				}),
-			);
-	}
+    navigateAfterSucceed(route: string): void {
+        timer(1000)
+            .pipe(take(1))
+            .subscribe(() =>
+                this.router.navigateByUrl(`/activity/${route}`).then(() => {
+                    window.location.reload();
+                }),
+            );
+    }
 }

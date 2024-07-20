@@ -7,25 +7,25 @@ import { SavedJobs } from '../../../../core/domain/entities/saved-jobs';
 import { TimeAgoPipe } from '../../../pipes/time-ago.pipe';
 
 @Component({
-	selector: 'app-card-activity',
-	standalone: true,
-	imports: [CommonModule, AngularSvgIconModule, ButtonComponent, TimeAgoPipe],
-	templateUrl: './card-activity.component.html',
-	styleUrls: ['./card-activity.component.scss'],
+    selector: 'app-card-activity',
+    standalone: true,
+    imports: [CommonModule, AngularSvgIconModule, ButtonComponent, TimeAgoPipe],
+    templateUrl: './card-activity.component.html',
+    styleUrls: ['./card-activity.component.scss'],
 })
 export class CardActivityComponent {
-	@Input() isLoading!: boolean;
-	@Input() borderColor!: string;
-	@Input({ required: false }) isButtonHidden?: boolean;
-	@Input({ required: false }) data!: SavedJobs;
-	@Output() clicked = new EventEmitter<any>();
-	@Output() removed = new EventEmitter<string>();
+    @Input() isLoading!: boolean;
+    @Input() borderColor!: string;
+    @Input({ required: false }) isButtonHidden?: boolean;
+    @Input({ required: false }) data!: SavedJobs;
+    @Output() clicked = new EventEmitter<any>();
+    @Output() removed = new EventEmitter<string>();
 
-	onClick(): void {
-		this.clicked.emit();
-	}
+    onClick(): void {
+        this.clicked.emit();
+    }
 
-	onRemove(): void {
-		this.removed.emit();
-	}
+    onRemove(): void {
+        this.removed.emit();
+    }
 }

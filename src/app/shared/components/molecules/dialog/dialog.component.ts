@@ -3,19 +3,19 @@ import { Component, EventEmitter, Input, Output, type OnInit } from '@angular/co
 import { DialogModule } from 'primeng/dialog';
 
 @Component({
-	selector: 'app-dialog',
-	standalone: true,
-	imports: [CommonModule, DialogModule],
-	templateUrl: './dialog.component.html',
-	styleUrls: ['./dialog.component.scss'],
+    selector: 'app-dialog',
+    standalone: true,
+    imports: [CommonModule, DialogModule],
+    templateUrl: './dialog.component.html',
+    styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements OnInit {
-	@Input() visible = false;
-	@Output() hide = new EventEmitter<void>();
+    @Input() visible = false;
+    @Output() hide = new EventEmitter<void>();
 
-	onHide(): void {
-		this.hide.emit();
-	}
+    onHide(): void {
+        this.hide.emit();
+    }
 
-	ngOnInit(): void {}
+    ngOnInit(): void {}
 }

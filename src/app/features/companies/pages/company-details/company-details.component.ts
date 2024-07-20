@@ -6,38 +6,38 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { Company } from '../../../../core/domain/entities/company';
 
 @Component({
-	selector: 'app-company-details',
-	standalone: true,
-	imports: [CommonModule, AngularSvgIconModule, RouterOutlet, RouterModule],
-	templateUrl: './company-details.component.html',
-	styleUrls: ['./company-details.component.scss'],
+    selector: 'app-company-details',
+    standalone: true,
+    imports: [CommonModule, AngularSvgIconModule, RouterOutlet, RouterModule],
+    templateUrl: './company-details.component.html',
+    styleUrls: ['./company-details.component.scss'],
 })
 export class CompanyDetailsComponent implements OnInit {
-	companyId!: string;
+    companyId!: string;
 
-	company!: Company;
-	visible = false;
+    company!: Company;
+    visible = false;
 
-	constructor(
-		private readonly router: Router,
-		private readonly route: ActivatedRoute,
-		private readonly destroyRef: DestroyRef,
-	) {}
+    constructor(
+        private readonly router: Router,
+        private readonly route: ActivatedRoute,
+        private readonly destroyRef: DestroyRef,
+    ) {}
 
-	ngOnInit(): void {
-		this.passIdToOverview();
-	}
+    ngOnInit(): void {
+        this.passIdToOverview();
+    }
 
-	passIdToOverview() {
-		this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-			next: (params) => {
-				this.companyId = params.get('id')!;
-				this.router.navigate(['overview'], { relativeTo: this.route });
-			},
-		});
-	}
+    passIdToOverview() {
+        this.route.paramMap.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+            next: (params) => {
+                this.companyId = params.get('id')!;
+                this.router.navigate(['overview'], { relativeTo: this.route });
+            },
+        });
+    }
 
-	onOverview(): void {
-		this.router.navigateByUrl(`company/details/${this.companyId}/overview`);
-	}
+    onOverview(): void {
+        this.router.navigateByUrl(`company/details/${this.companyId}/overview`);
+    }
 }

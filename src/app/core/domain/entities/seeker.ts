@@ -6,13 +6,13 @@ import { Skill } from './skill';
 import { User } from './user';
 
 export interface Seeker {
-	id: string;
-	birthday: string;
-	summary: string;
-	education: Education[];
-	experience: Experience[];
-	skills: Skill[];
-	user: User;
-	savedJobs: SavedJobs[];
-	application: Application[];
+    id: string;
+    birthday: string;
+    summary: string;
+    education: Education[];
+    experience: Experience[];
+    skills: Skill[];
+    user: User;
+    savedJobs: SavedJobs[];
+    application: Application[];
 }

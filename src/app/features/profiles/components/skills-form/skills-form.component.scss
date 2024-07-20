@@ -1,16 +1,16 @@
 :host {
-	display: block;
-	::ng-deep {
-		.skills {
-			.p-chip {
-				@apply text-elephant-900 bg-elephant-200 font-medium;
-			}
-		}
+    display: block;
+    ::ng-deep {
+        .skills {
+            .p-chip {
+                @apply text-elephant-900 bg-elephant-200 font-medium;
+            }
+        }
 
-		.input {
-			.p-chip {
-				@apply text-elephant-900 bg-stark-100 font-medium;
-			}
-		}
-	}
+        .input {
+            .p-chip {
+                @apply text-elephant-900 bg-stark-100 font-medium;
+            }
+        }
+    }
 }

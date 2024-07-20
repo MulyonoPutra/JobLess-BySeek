@@ -7,59 +7,59 @@
 
 *,
 html {
-	font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-	background: url('https://preline.co/assets/svg/examples/polygon-bg-element.svg') no-repeat
-		repeat;
+    background: url('https://preline.co/assets/svg/examples/polygon-bg-element.svg') no-repeat
+        repeat;
 }
 
 ::-webkit-scrollbar {
-	width: 9px;
-	height: 8px;
+    width: 9px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-	background: transparent;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-	@apply bg-stonewall-400 border-transparent rounded-lg;
+    @apply bg-stonewall-400 border-transparent rounded-lg;
 }
 
 .hover-animation {
-	@apply transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300 hover:shadow-lg;
+    @apply transition ease-in-out hover:-translate-y-1 hover:scale-100 duration-300 hover:shadow-lg;
 }
 
 .icon-primary-1 {
-	filter: invert(15%) sepia(86%) saturate(429%) hue-rotate(160deg) brightness(91%) contrast(93%);
+    filter: invert(15%) sepia(86%) saturate(429%) hue-rotate(160deg) brightness(91%) contrast(93%);
 }
 
 .icon-primary-2 {
-	filter: invert(31%) sepia(14%) saturate(1286%) hue-rotate(160deg) brightness(96%) contrast(87%);
+    filter: invert(31%) sepia(14%) saturate(1286%) hue-rotate(160deg) brightness(96%) contrast(87%);
 }
 
 .icon-primary-3 {
-	filter: invert(67%) sepia(2%) saturate(2823%) hue-rotate(357deg) brightness(81%) contrast(83%);
+    filter: invert(67%) sepia(2%) saturate(2823%) hue-rotate(357deg) brightness(81%) contrast(83%);
 }
 
 .icon-primary-4 {
-	filter: invert(100%) sepia(76%) saturate(611%) hue-rotate(310deg) brightness(89%) contrast(97%);
+    filter: invert(100%) sepia(76%) saturate(611%) hue-rotate(310deg) brightness(89%) contrast(97%);
 }
 
 .blink {
-	animation: blinker 1s linear infinite;
+    animation: blinker 1s linear infinite;
 }
 
 @keyframes blinker {
-	50% {
-		opacity: 0;
-	}
+    50% {
+        opacity: 0;
+    }
 }
 
 .router-link-active {
-	border-bottom: solid 3px;
-	border-image: linear-gradient(to right, #3c5b6f, #3e4a7662, #153448);
-	border-image-slice: 1;
+    border-bottom: solid 3px;
+    border-image: linear-gradient(to right, #3c5b6f, #3e4a7662, #153448);
+    border-image-slice: 1;
 }

@@ -9,37 +9,37 @@ import { LogoComponent } from '../../atoms/logo/logo.component';
 import { DropdownHeaderComponent } from '../../molecules/dropdown-header/dropdown-header.component';
 
 @Component({
-	selector: 'app-navbar',
-	standalone: true,
-	imports: [
-		CommonModule,
-		RouterModule,
-		AngularSvgIconModule,
-		DropdownHeaderComponent,
-		LogoComponent,
-	],
-	templateUrl: './navbar.component.html',
-	styleUrls: ['./navbar.component.scss'],
+    selector: 'app-navbar',
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterModule,
+        AngularSvgIconModule,
+        DropdownHeaderComponent,
+        LogoComponent,
+    ],
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-	@Input() user!: User;
-	@Output() logout = new EventEmitter<void>();
+    @Input() user!: User;
+    @Output() logout = new EventEmitter<void>();
 
-	dropdownLangMenu = MENU_LANG;
-	menuItems = MENU_ITEM;
+    dropdownLangMenu = MENU_LANG;
+    menuItems = MENU_ITEM;
 
-	ngOnInit(): void {}
+    ngOnInit(): void {}
 
-	get firstName(): string {
-		const [name] = this.user.name.split(' ');
-		return name;
-	}
+    get firstName(): string {
+        const [name] = this.user.name.split(' ');
+        return name;
+    }
 
-	changeLanguage(): void {
-		console.log('change language');
-	}
+    changeLanguage(): void {
+        console.log('change language');
+    }
 
-	onLogout(): void {
-		this.logout.emit();
-	}
+    onLogout(): void {
+        this.logout.emit();
+    }
 }

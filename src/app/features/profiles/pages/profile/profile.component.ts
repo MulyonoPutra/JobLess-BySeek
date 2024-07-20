@@ -34,257 +34,257 @@ import { ProfileService } from '../../services/profile.service';
 import { EducationFormComponent } from '../../components/education-form/education-form.component';
 
 type DialogConfig = {
-	header: string;
-	width: string;
-	modal: boolean;
-	breakpoints: {
-		'960px': string;
-		'640px': string;
-	};
-	data?: { id: string } | any;
+    header: string;
+    width: string;
+    modal: boolean;
+    breakpoints: {
+        '960px': string;
+        '640px': string;
+    };
+    data?: { id: string } | any;
 };
 
 @Component({
-	selector: 'app-profile',
-	standalone: true,
-	imports: [
-		CommonModule,
-		AngularSvgIconModule,
-		DynamicDialogModule,
-		ConfirmDialogModule,
-		CardProfileComponent,
-		SectionHeaderProfileComponent,
-		OverlayImageContainerComponent,
-		CardSummaryComponent,
-		BadgeComponent,
-		DialogComponent,
-		SummaryFormComponent,
-		WorkHistoryFormComponent,
-		EmptyStateComponent,
-		ButtonComponent,
-		CardSkillsComponent,
-		SkillsFormComponent,
-	],
-	templateUrl: './profile.component.html',
-	styleUrls: ['./profile.component.scss'],
-	providers: [ProfileService, MonthYearPipe, DialogService, ConfirmationService],
+    selector: 'app-profile',
+    standalone: true,
+    imports: [
+        CommonModule,
+        AngularSvgIconModule,
+        DynamicDialogModule,
+        ConfirmDialogModule,
+        CardProfileComponent,
+        SectionHeaderProfileComponent,
+        OverlayImageContainerComponent,
+        CardSummaryComponent,
+        BadgeComponent,
+        DialogComponent,
+        SummaryFormComponent,
+        WorkHistoryFormComponent,
+        EmptyStateComponent,
+        ButtonComponent,
+        CardSkillsComponent,
+        SkillsFormComponent,
+    ],
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss'],
+    providers: [ProfileService, MonthYearPipe, DialogService, ConfirmationService],
 })
 export class ProfileComponent implements OnInit {
-	seeker!: Seeker;
-	user!: User;
-	skills!: Skill[];
-	seekerId!: string;
+    seeker!: Seeker;
+    user!: User;
+    skills!: Skill[];
+    seekerId!: string;
 
-	updateSummaryDto!: UpdateSummaryDto;
-	updateWorkHistoryDto!: WorkHistoryDto;
+    updateSummaryDto!: UpdateSummaryDto;
+    updateWorkHistoryDto!: WorkHistoryDto;
 
-	overlayImage = OVERLAY_IMAGES.profile;
+    overlayImage = OVERLAY_IMAGES.profile;
 
-	ref: DynamicDialogRef | undefined;
+    ref: DynamicDialogRef | undefined;
 
-	constructor(
-		private readonly router: Router,
-		private readonly destroyRef: DestroyRef,
-		private readonly profileService: ProfileService,
-		private readonly storageService: StorageService,
-		private readonly monthYearPipe: MonthYearPipe,
-		private readonly toastService: ToastService,
-		public dialogService: DialogService,
-		private readonly confirmationService: ConfirmationService,
-	) {
-		this.seekerId = this.storageService.getSeekerIdentity();
-	}
+    constructor(
+        private readonly router: Router,
+        private readonly destroyRef: DestroyRef,
+        private readonly profileService: ProfileService,
+        private readonly storageService: StorageService,
+        private readonly monthYearPipe: MonthYearPipe,
+        private readonly toastService: ToastService,
+        public dialogService: DialogService,
+        private readonly confirmationService: ConfirmationService,
+    ) {
+        this.seekerId = this.storageService.getSeekerIdentity();
+    }
 
-	ngOnInit(): void {
-		this.findOne();
-		this.findSkillsBySeekerId();
-	}
+    ngOnInit(): void {
+        this.findOne();
+        this.findSkillsBySeekerId();
+    }
 
-	findOne(): void {
-		this.profileService
-			.findOne(this.seekerId)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: (seeker: Seeker) => {
-					this.seeker = seeker;
-					this.user = this.seeker?.user;
-					this.updateSummaryDto = {
-						id: this.seeker.id,
-						summary: this.seeker?.summary,
-					};
-				},
-				error: (error: HttpErrorResponse) => {
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {},
-			});
-	}
+    findOne(): void {
+        this.profileService
+            .findOne(this.seekerId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (seeker: Seeker) => {
+                    this.seeker = seeker;
+                    this.user = this.seeker?.user;
+                    this.updateSummaryDto = {
+                        id: this.seeker.id,
+                        summary: this.seeker?.summary,
+                    };
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {},
+            });
+    }
 
-	findSkillsBySeekerId() {
-		this.profileService
-			.findSkillsBySeekerId(this.seekerId)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: (skills: Skill[]) => {
-					this.skills = skills;
-				},
-				error: (error: HttpErrorResponse) => {
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {},
-			});
-	}
+    findSkillsBySeekerId() {
+        this.profileService
+            .findSkillsBySeekerId(this.seekerId)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: (skills: Skill[]) => {
+                    this.skills = skills;
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {},
+            });
+    }
 
-	duration(startDate: string, endDate: string): string {
-		return `${this.monthYearPipe.transform(startDate)} - ${this.monthYearPipe.transform(endDate)}`;
-	}
+    duration(startDate: string, endDate: string): string {
+        return `${this.monthYearPipe.transform(startDate)} - ${this.monthYearPipe.transform(endDate)}`;
+    }
 
-	onRemoveExperience(id: string): void {
-		this.profileService
-			.removeExperienceById(id)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: () => {
-					this.toastService.showSuccessToast('Success', 'Removed Work History...');
-				},
-				error: (error: HttpErrorResponse) => {
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {
-					this.navigateAfterSucceed();
-				},
-			});
-	}
+    onRemoveExperience(id: string): void {
+        this.profileService
+            .removeExperienceById(id)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.toastService.showSuccessToast('Success', 'Removed Work History...');
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {
+                    this.navigateAfterSucceed();
+                },
+            });
+    }
 
-	onRemoveEducation(id: string): void {
-		this.profileService
-			.removeEducationById(id)
-			.pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe({
-				next: () => {
-					this.toastService.showSuccessToast('Success', 'Removed Work History...');
-				},
-				error: (error: HttpErrorResponse) => {
-					this.toastService.showErrorToast('Error', error.message);
-				},
-				complete: () => {
-					this.navigateAfterSucceed();
-				},
-			});
-	}
+    onRemoveEducation(id: string): void {
+        this.profileService
+            .removeEducationById(id)
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.toastService.showSuccessToast('Success', 'Removed Work History...');
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {
+                    this.navigateAfterSucceed();
+                },
+            });
+    }
 
-	removeConfirmation(id: string): void {
-		this.confirmationService.confirm({
-			header: 'Remove Work History',
-			message: 'Are you sure want to remove this work history?',
-			accept: () => {
-				this.onRemoveExperience(id);
-			},
-		});
-	}
+    removeConfirmation(id: string): void {
+        this.confirmationService.confirm({
+            header: 'Remove Work History',
+            message: 'Are you sure want to remove this work history?',
+            accept: () => {
+                this.onRemoveExperience(id);
+            },
+        });
+    }
 
-	removeEducationConfirm(id: string): void {
-		this.confirmationService.confirm({
-			header: 'Remove Educaton',
-			message: 'Are you sure want to remove this educaton?',
-			accept: () => {
-				this.onRemoveEducation(id);
-			},
-		});
-	}
+    removeEducationConfirm(id: string): void {
+        this.confirmationService.confirm({
+            header: 'Remove Educaton',
+            message: 'Are you sure want to remove this educaton?',
+            accept: () => {
+                this.onRemoveEducation(id);
+            },
+        });
+    }
 
-	openWorkHistoryDialog(id?: string): void {
-		const config: DialogConfig = {
-			header: id ? 'Update Work History' : 'Add Work History',
-			width: '50vw',
-			modal: true,
-			breakpoints: {
-				'960px': '75vw',
-				'640px': '90vw',
-			},
-		};
+    openWorkHistoryDialog(id?: string): void {
+        const config: DialogConfig = {
+            header: id ? 'Update Work History' : 'Add Work History',
+            width: '50vw',
+            modal: true,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw',
+            },
+        };
 
-		if (id) {
-			config.data = { id };
-		}
+        if (id) {
+            config.data = { id };
+        }
 
-		this.ref = this.dialogService.open(WorkHistoryFormComponent, config);
-	}
+        this.ref = this.dialogService.open(WorkHistoryFormComponent, config);
+    }
 
-	openSummaryDialog(seeker?: Seeker): void {
-		this.ref = this.dialogService.open(SummaryFormComponent, {
-			header: seeker?.id ? 'Update Summary' : 'Add Summary',
-			width: '50vw',
-			modal: true,
-			breakpoints: {
-				'960px': '75vw',
-				'640px': '90vw',
-			},
-			data: {
-				id: seeker?.id,
-				summary: seeker?.summary,
-			},
-		});
-	}
+    openSummaryDialog(seeker?: Seeker): void {
+        this.ref = this.dialogService.open(SummaryFormComponent, {
+            header: seeker?.id ? 'Update Summary' : 'Add Summary',
+            width: '50vw',
+            modal: true,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw',
+            },
+            data: {
+                id: seeker?.id,
+                summary: seeker?.summary,
+            },
+        });
+    }
 
-	openProfileDialog(user?: User): void {
-		this.ref = this.dialogService.open(PersonalDetailFormComponent, {
-			header: user?.id ? 'Update Personal Details' : 'Add Personal Details',
-			width: '50vw',
-			modal: true,
-			breakpoints: {
-				'960px': '75vw',
-				'640px': '90vw',
-			},
-			data: {
-				user: user,
-			},
-		});
-	}
+    openProfileDialog(user?: User): void {
+        this.ref = this.dialogService.open(PersonalDetailFormComponent, {
+            header: user?.id ? 'Update Personal Details' : 'Add Personal Details',
+            width: '50vw',
+            modal: true,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw',
+            },
+            data: {
+                user: user,
+            },
+        });
+    }
 
-	openSkillsDialog(skills?: Skill[]): void {
-		this.ref = this.dialogService.open(SkillsFormComponent, {
-			width: '50vw',
-			modal: true,
-			breakpoints: {
-				'960px': '75vw',
-				'640px': '90vw',
-			},
-			data: {
-				skills: skills,
-			},
-		});
-	}
+    openSkillsDialog(skills?: Skill[]): void {
+        this.ref = this.dialogService.open(SkillsFormComponent, {
+            width: '50vw',
+            modal: true,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw',
+            },
+            data: {
+                skills: skills,
+            },
+        });
+    }
 
-	openEducationDialog(id?: string): void {
-		const config: DialogConfig = {
-			header: id ? 'Update Education' : 'Add Education',
-			width: '50vw',
-			modal: true,
-			breakpoints: {
-				'960px': '75vw',
-				'640px': '90vw',
-			},
-		};
+    openEducationDialog(id?: string): void {
+        const config: DialogConfig = {
+            header: id ? 'Update Education' : 'Add Education',
+            width: '50vw',
+            modal: true,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw',
+            },
+        };
 
-		if (id) {
-			config.data = { id };
-		}
+        if (id) {
+            config.data = { id };
+        }
 
-		this.ref = this.dialogService.open(EducationFormComponent, config);
-	}
+        this.ref = this.dialogService.open(EducationFormComponent, config);
+    }
 
-	navigateAfterSucceed(): void {
-		timer(3000)
-			.pipe(take(1))
-			.subscribe(() => {
-				this.router.navigateByUrl('/profile').then(() => {
-					window.location.reload();
-				});
-			});
-	}
+    navigateAfterSucceed(): void {
+        timer(3000)
+            .pipe(take(1))
+            .subscribe(() => {
+                this.router.navigateByUrl('/profile').then(() => {
+                    window.location.reload();
+                });
+            });
+    }
 
-	errorMessage(message: string) {
-		this.toastService.showErrorToast('Info', message);
-	}
+    errorMessage(message: string) {
+        this.toastService.showErrorToast('Info', message);
+    }
 }

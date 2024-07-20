@@ -7,16 +7,16 @@ import { User } from '../domain/entities/user';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
-	providedIn: 'root',
+    providedIn: 'root',
 })
 export class UserService {
-	endpoint = environment.endpoint;
+    endpoint = environment.endpoint;
 
-	constructor(private readonly http: HttpClient) {}
+    constructor(private readonly http: HttpClient) {}
 
-	findUser(): Observable<User> {
-		return this.http
-			.get<HttpResponseEntity<User>>(`${this.endpoint}/profile/detail`)
-			.pipe(map((response) => response.data));
-	}
+    findUser(): Observable<User> {
+        return this.http
+            .get<HttpResponseEntity<User>>(`${this.endpoint}/profile/detail`)
+            .pipe(map((response) => response.data));
+    }
 }

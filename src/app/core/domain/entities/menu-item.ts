@@ -1,10 +1,10 @@
 export interface MenuItem {
-	label: string;
-	route: string;
-	function?: () => void;
+    label: string;
+    route: string;
+    function?: () => void;
 }
 
 export interface Menu {
-	header: MenuItem[];
-	profile: MenuItem[];
+    header: MenuItem[];
+    profile: MenuItem[];
 }

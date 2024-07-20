@@ -7,39 +7,39 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { ValidationService } from '../../../services/validation.service';
 
 @Component({
-	selector: 'app-number-field',
-	standalone: true,
-	imports: [CommonModule, InputNumberModule, FormsModule, ReactiveFormsModule, FloatLabelModule],
-	templateUrl: './number-field.component.html',
-	styleUrls: ['./number-field.component.scss'],
+    selector: 'app-number-field',
+    standalone: true,
+    imports: [CommonModule, InputNumberModule, FormsModule, ReactiveFormsModule, FloatLabelModule],
+    templateUrl: './number-field.component.html',
+    styleUrls: ['./number-field.component.scss'],
 })
 export class NumberFieldComponent {
-	@Input() label!: string;
-	@Input() fieldName!: string;
-	@Input() formGroup!: FormGroup;
-	@Input() isDisabled!: FormGroup;
+    @Input() label!: string;
+    @Input() fieldName!: string;
+    @Input() formGroup!: FormGroup;
+    @Input() isDisabled!: FormGroup;
 
-	constructor(private validation: ValidationService) {}
+    constructor(private validation: ValidationService) {}
 
-	get isInvalid() {
-		const control = this.formGroup.get(this.fieldName) as FormControl;
-		return this.validation.isInvalid(control);
-	}
+    get isInvalid() {
+        const control = this.formGroup.get(this.fieldName) as FormControl;
+        return this.validation.isInvalid(control);
+    }
 
-	get errorMessage(): string {
-		const control = this.formGroup.get(this.fieldName) as FormControl;
-		return this.validation.getErrorMessage(control);
-	}
+    get errorMessage(): string {
+        const control = this.formGroup.get(this.fieldName) as FormControl;
+        return this.validation.getErrorMessage(control);
+    }
 
-	get classFilled(): { [key: string]: boolean } {
-		const isFilled = this.formGroup.get(this.fieldName)?.value !== '';
-		return { 'p-filled': isFilled };
-	}
+    get classFilled(): { [key: string]: boolean } {
+        const isFilled = this.formGroup.get(this.fieldName)?.value !== '';
+        return { 'p-filled': isFilled };
+    }
 
-	get classLabel() {
-		return {
-			'label-valid': !this.isInvalid,
-			'label-invalid': this.isInvalid,
-		};
-	}
+    get classLabel() {
+        return {
+            'label-valid': !this.isInvalid,
+            'label-invalid': this.isInvalid,
+        };
+    }
 }

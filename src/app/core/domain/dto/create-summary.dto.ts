@@ -1,3 +1,4 @@
 export interface CreateSummaryDto {
-	summary: string;
+    userId?: string;
+    summary: string;
 }
