@@ -4,11 +4,12 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { BadgeComponent } from '../../atoms/badge/badge.component';
 import { CommonModule } from '@angular/common';
 import { Skill } from '../../../../core/domain/entities/skill';
+import { EmptyStateComponent } from '../../atoms/empty-state/empty-state.component';
 
 @Component({
 	selector: 'app-card-skills',
 	standalone: true,
-	imports: [CommonModule, BadgeComponent, AngularSvgIconModule],
+	imports: [CommonModule, BadgeComponent, AngularSvgIconModule, EmptyStateComponent],
 	templateUrl: './card-skills.component.html',
 	styleUrls: ['./card-skills.component.scss'],
 })

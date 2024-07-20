@@ -7,11 +7,12 @@ import { StorageService } from '../../../../core/services/storage.service';
 import { ActivityService } from '../../services/activity.service';
 import { Application } from '../../../../core/domain/entities/application';
 import { CardApplicationComponent } from '../../../../shared/components/molecules/card-application/card-application.component';
+import { EmptyStateComponent } from '../../../../shared/components/atoms/empty-state/empty-state.component';
 
 @Component({
 	selector: 'app-applied-jobs',
 	standalone: true,
-	imports: [CommonModule, CardApplicationComponent],
+	imports: [CommonModule, CardApplicationComponent, EmptyStateComponent],
 	templateUrl: './applied-jobs.component.html',
 	styleUrls: ['./applied-jobs.component.scss'],
 	providers: [ActivityService],

@@ -1,12 +1,13 @@
-import { Observable, map } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, map } from 'rxjs';
 
 import { CreateApplicationDto } from '../../../core/domain/dto/create-application.dto';
-import { HttpClient } from '@angular/common/http';
 import { HttpResponseEntity } from '../../../core/domain/entities/http-response-entity';
 import { Injectable } from '@angular/core';
 import { JobAds } from '../../../core/domain/entities/job-ads';
 import { SavedJobAdsDto } from '../../../core/domain/dto/saved-job-ads.dto';
 import { environment } from '../../../../environments/environment.development';
+import { handlerHttpError } from '../../../core/utility/http-handle-error';
 
 @Injectable({
 	providedIn: 'root',
@@ -37,6 +38,8 @@ export class JobAdsService {
 	appliedJobs(body: CreateApplicationDto): Observable<unknown> {
 		return this.http
 			.post(`${this.endpoint}/seeker/application`, body)
-			.pipe(map((response) => response));
+			.pipe(map((response) => response),
+        catchError((error: HttpErrorResponse) => handlerHttpError(error))
+    );
 	}
 }

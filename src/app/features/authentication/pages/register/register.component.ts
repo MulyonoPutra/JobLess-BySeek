@@ -99,7 +99,7 @@ export class RegisterComponent implements OnInit {
 			.pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe({
 				next: () => {
-					this.toastService.showSuccessToast('Success', 'Login Successfully!');
+					this.toastService.showSuccessToast('Success', 'Register Successfully!');
 					this.setLoading();
 				},
 				error: (error: HttpErrorResponse) => {

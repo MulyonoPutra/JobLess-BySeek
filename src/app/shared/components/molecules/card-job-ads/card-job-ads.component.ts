@@ -15,6 +15,7 @@ import { TimeAgoPipe } from '../../../pipes/time-ago.pipe';
 })
 export class CardJobAdsComponent {
 	@Input() job!: JobAds;
+	@Input() isBookmark!: boolean;
 	@Output() marked = new EventEmitter<void>();
 	@Output() details = new EventEmitter<string>();
 

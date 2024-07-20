@@ -1,4 +1,4 @@
-@if (jobAds) {
+@if (jobAds && jobAds.length > 0) {
   @for (job of jobAds; track $index) {
     <app-card-activity
       [data]="job"

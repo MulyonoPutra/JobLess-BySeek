@@ -26,12 +26,14 @@ import { ToastService } from '../../../../shared/services/toast.service';
 	],
 	templateUrl: './job-views.component.html',
 	styleUrls: ['./job-views.component.scss'],
+  providers: [CompanyService],
 })
 export class JobViewsComponent implements OnInit {
 	jobAds!: JobAds[];
 	jobAdsId!: string;
 	companyId!: string;
 	routerState!: string;
+
 	content = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. `;
 
 	constructor(
@@ -56,6 +58,7 @@ export class JobViewsComponent implements OnInit {
 		}
 	}
 
+
 	onDetails(id: string): void {
 		this.jobAdsId = id;
 	}
@@ -77,6 +80,4 @@ export class JobViewsComponent implements OnInit {
 				},
 			});
 	}
-
-	onMark(): void {}
 }

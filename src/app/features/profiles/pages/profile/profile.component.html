@@ -77,7 +77,11 @@
 
   <ng-container>
     <app-section-header-profile (created)="openSkillsDialog()" [title]="'Skills'" />
-    <app-card-skills [skills]="skills" (edited)="openSkillsDialog(skills)" />
+    @if (seeker.savedJobs.length > 0) {
+      <app-card-skills [skills]="skills" (edited)="openSkillsDialog(skills)" />
+    } @else {
+       <app-empty-state />
+    }
   </ng-container>
 </div>
 }
