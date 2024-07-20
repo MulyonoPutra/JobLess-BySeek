@@ -34,7 +34,7 @@
     </div>
     <div>
       @if (user) {
-      <app-dropdown-header (logout)="onLogout()" [menu]="menuItems.profile" [title]="firstName" (clicked)="onLogout()" />
+      <app-dropdown-header [isMenuItems]="!isMenuItems" (logout)="onLogout()" [menu]="menuItems.profile" [title]="firstName" (clicked)="onLogout()" />
       } @else {
       <div>
         <a routerLink="auth/login"

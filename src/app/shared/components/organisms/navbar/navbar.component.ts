@@ -1,12 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, type OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { MENU_LANG } from '../../../../core/constants/dropdown-menu';
-import { MENU_ITEM } from '../../../../core/constants/menu';
-import { User } from '../../../../core/domain/entities/user';
-import { LogoComponent } from '../../atoms/logo/logo.component';
+import { CommonModule } from '@angular/common';
 import { DropdownHeaderComponent } from '../../molecules/dropdown-header/dropdown-header.component';
+import { LogoComponent } from '../../atoms/logo/logo.component';
+import { MENU_ITEM } from '../../../../core/constants/menu';
+import { MENU_LANG } from '../../../../core/constants/dropdown-menu';
+import { RouterModule } from '@angular/router';
+import { User } from '../../../../core/domain/entities/user';
 
 @Component({
     selector: 'app-navbar',
@@ -21,14 +22,14 @@ import { DropdownHeaderComponent } from '../../molecules/dropdown-header/dropdow
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
     @Input() user!: User;
     @Output() logout = new EventEmitter<void>();
 
     dropdownLangMenu = MENU_LANG;
     menuItems = MENU_ITEM;
 
-    ngOnInit(): void {}
+    isMenuItems = false;
 
     get firstName(): string {
         const [name] = this.user.name.split(' ');

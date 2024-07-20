@@ -29,10 +29,11 @@
       </div>
     </div>
     }
-    <div
-      class="px-3 py-2 text-sm rounded-lg cursor-pointer text-bayoux-700 hover:bg-bayoux-700 hover:text-stark-400"
-    >
-      <button type="button" (click)="onLogout()">Logout</button>
-    </div>
+
+    @if(isMenuItems) {
+      <div class="px-3 py-2 text-sm rounded-lg cursor-pointer text-bayoux-700 hover:bg-bayoux-700 hover:text-stark-400">
+        <button type="button" (click)="onLogout()">Logout</button>
+      </div>
+    }
   </div>
 </div>
