@@ -18,6 +18,7 @@
 		"@angular/platform-browser": "^17.0.0",
 		"@angular/platform-browser-dynamic": "^17.0.0",
 		"@angular/router": "^17.0.0",
+		"@npmcli/package-json": "^5.2.0",
 		"@preline/tooltip": "^2.3.0",
 		"angular-svg-icon": "^17.0.0",
 		"jwt-decode": "^4.0.0",

@@ -14,5 +14,5 @@ export interface Seeker {
 	skills: Skill[];
 	user: User;
 	savedJobs: SavedJobs[];
-	Application: Application[];
+	application: Application[];
 }
