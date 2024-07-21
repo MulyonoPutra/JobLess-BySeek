@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, type OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
 import { StorageService } from '../../../../core/services/storage.service';
 import { ActivityService } from '../../services/activity.service';
 import { Application } from '../../../../core/domain/entities/application';

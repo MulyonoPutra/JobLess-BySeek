@@ -1,6 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, type OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-section-header-profile',

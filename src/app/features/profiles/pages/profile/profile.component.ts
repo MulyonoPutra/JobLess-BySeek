@@ -41,7 +41,7 @@ type DialogConfig = {
         '960px': string;
         '640px': string;
     };
-    data?: { id: string } | any;
+    data?: { id: string } | unknown;
 };
 
 @Component({

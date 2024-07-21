@@ -10,7 +10,6 @@ import {
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CommonModule } from '@angular/common';
-import { MonthYearPipe } from '../../../pipes/month-year.pipe';
 
 @Component({
     selector: 'app-card-profile',
@@ -42,7 +41,7 @@ export class CardProfileComponent implements AfterViewInit {
     ) {}
 
     ngAfterViewInit() {
-        let currentHeight =
+        const currentHeight =
             this.elementRef.nativeElement.getElementsByTagName('div')[0].offsetHeight;
         if (currentHeight > this.maxHeight) {
             this.isCollapsed = true;

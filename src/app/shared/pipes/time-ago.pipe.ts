@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Pipe, type PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -5,7 +6,7 @@ import { Pipe, type PipeTransform } from '@angular/core';
     standalone: true,
 })
 export class TimeAgoPipe implements PipeTransform {
-    transform(value: any, args?: any): any {
+    transform(value: string): any {
         if (value) {
             const seconds = Math.floor((+new Date() - +new Date(value)) / 1000);
             if (seconds < 29)

@@ -18,7 +18,7 @@ export class CardActivityComponent {
     @Input() borderColor!: string;
     @Input({ required: false }) isButtonHidden?: boolean;
     @Input({ required: false }) data!: SavedJobs;
-    @Output() clicked = new EventEmitter<any>();
+    @Output() clicked = new EventEmitter<void>();
     @Output() removed = new EventEmitter<string>();
 
     onClick(): void {

@@ -1,7 +1,10 @@
 @if (company) {
     <div
         class="flex flex-col bg-white border shadow-sm cursor-pointer group rounded-xl hover-animation dark:bg-neutral-900 dark:border-neutral-800"
-        (click)="onClick(company.id)">
+        (click)="onClick(company.id)"
+        (keydown.enter)="onClick(company.id)"
+        (keydown.space)="onClick(company.id)"
+        tabindex="0">
         <div class="p-4 md:p-5">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">

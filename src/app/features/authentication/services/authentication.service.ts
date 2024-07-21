@@ -48,7 +48,7 @@ export class AuthenticationService {
         );
     }
 
-    logout(accessToken: string): Observable<any> {
+    logout(accessToken: string): Observable<unknown> {
         const endpoint = `${this.endpoint}/auth/logout`;
         if (!accessToken) {
             return throwError(() => console.error('Access token not found!'));

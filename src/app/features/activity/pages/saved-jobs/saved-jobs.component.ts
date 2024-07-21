@@ -16,7 +16,6 @@ import { CardActivityComponent } from '../../../../shared/components/molecules/c
 import { ToastService } from '../../../../shared/services/toast.service';
 import { JobAdsService } from '../../../jobs/services/job-ads.service';
 import { ActivityService } from '../../services/activity.service';
-import { JobAds } from '../../../../core/domain/entities/job-ads';
 
 @Component({
     selector: 'app-saved-jobs',

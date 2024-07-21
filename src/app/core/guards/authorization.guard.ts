@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Router, type CanActivateFn } from '@angular/router';
 import { StorageService } from '../services/storage.service';
 
-export const authorizationGuard: CanActivateFn = (route, state) => {
+export const authorizationGuard: CanActivateFn = (route) => {
     const storageService: StorageService = inject(StorageService);
     const router: Router = inject(Router);
     const token = storageService.getAccessToken();

@@ -1,5 +1,6 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, type OnInit } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 
 @Component({
@@ -9,13 +10,11 @@ import { DialogModule } from 'primeng/dialog';
     templateUrl: './dialog.component.html',
     styleUrls: ['./dialog.component.scss'],
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent {
     @Input() visible = false;
     @Output() hide = new EventEmitter<void>();
 
     onHide(): void {
         this.hide.emit();
     }
-
-    ngOnInit(): void {}
 }

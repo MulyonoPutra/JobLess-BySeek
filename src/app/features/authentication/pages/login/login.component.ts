@@ -20,7 +20,6 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { OVERLAY_IMAGES } from '../../../../core/constants/overlay-images';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-login',

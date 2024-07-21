@@ -155,7 +155,14 @@ export class JobDetailsComponent implements OnInit {
             .subscribe({
                 next: (response: JobAds) => {
                     this.jobAds = response;
-                    this.companyId = this.jobAds.employer.company?.id!;
+                    if (this.jobAds.employer?.company) {
+                        this.companyId = this.jobAds.employer.company.id;
+                    } else {
+                        this.toastService.showWarnToast(
+                            'Warning',
+                            'Company information is not available.',
+                        );
+                    }
                 },
                 error: (error: HttpErrorResponse) => {
                     this.toastService.showErrorToast('Error', error.message);

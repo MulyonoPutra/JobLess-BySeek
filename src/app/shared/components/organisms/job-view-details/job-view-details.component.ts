@@ -154,7 +154,14 @@ export class JobViewDetailsComponent implements OnInit {
             .subscribe({
                 next: (response: JobAds) => {
                     this.jobAds = response;
-                    this.companyId = this.jobAds.employer.company?.id!;
+                    if (this.jobAds.employer?.company?.id) {
+                        this.companyId = this.jobAds.employer.company.id;
+                    } else {
+                        this.toastService.showWarnToast(
+                            'Warning',
+                            'Company ID is not found, Please back to previous page!',
+                        );
+                    }
                 },
                 error: (error: HttpErrorResponse) => {
                     this.toastService.showErrorToast('Error', error.message);

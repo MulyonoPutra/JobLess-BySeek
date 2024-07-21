@@ -4,6 +4,9 @@
         @for (job of jobAds; track $index) {
             <div
                 (click)="onDetails(job.id)"
+                (keydown.enter)="onDetails(job.id)"
+                (keydown.space)="onDetails(job.id)"
+                tabindex="0"
                 class="flex flex-col bg-white border shadow-sm cursor-pointer hover-animation rounded-xl">
                 <div class="relative flex items-center gap-x-1">
                     <div class="inline-block hs-tooltip">
@@ -22,7 +25,12 @@
                         </button>
                     </div>
                 </div>
-                <div class="p-4 md:p-5" (click)="onDetails(job.id)">
+                <div
+                    class="p-4 md:p-5"
+                    (click)="onDetails(job.id)"
+                    (keydown.enter)="onDetails(job.id)"
+                    (keydown.space)="onDetails(job.id)"
+                    tabindex="0">
                     <div class="flex items-center">
                         <img
                             src="https://via.placeholder.com/50"

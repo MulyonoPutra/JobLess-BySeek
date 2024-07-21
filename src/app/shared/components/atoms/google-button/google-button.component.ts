@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, type OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-google-button',
@@ -8,6 +8,4 @@ import { Component, type OnInit } from '@angular/core';
     templateUrl: './google-button.component.html',
     styleUrls: ['./google-button.component.scss'],
 })
-export class GoogleButtonComponent implements OnInit {
-    ngOnInit(): void {}
-}
+export class GoogleButtonComponent {}

@@ -1,5 +1,6 @@
+import { Component, inject } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Output, type OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({

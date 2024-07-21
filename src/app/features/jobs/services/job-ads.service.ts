@@ -29,7 +29,7 @@ export class JobAdsService {
             .pipe(map((response) => response.data));
     }
 
-    savedJobAds(body: SavedJobAdsDto): Observable<any> {
+    savedJobAds(body: SavedJobAdsDto): Observable<unknown> {
         return this.http
             .post(`${this.endpoint}/seeker/saved-jobs`, body)
             .pipe(map((response) => response));

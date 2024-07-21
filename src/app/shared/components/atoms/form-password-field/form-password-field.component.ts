@@ -59,8 +59,6 @@ export class FormPasswordFieldComponent implements OnInit {
     }
 
     get classFilled(): { [key: string]: boolean } {
-        const control = this.formGroup.get(this.fieldName) as FormControl;
-        const isEmpty = control.value === '';
         return {
             valid: !this.isInvalid,
             invalid: this.isInvalid,

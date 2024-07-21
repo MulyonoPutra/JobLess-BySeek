@@ -7,6 +7,7 @@ import { FooterComponent } from '../../../shared/components/organisms/footer/foo
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavbarComponent } from '../../../shared/components/organisms/navbar/navbar.component';
 import { StorageService } from '../../services/storage.service';
+import { ToastService } from '../../../shared/services/toast.service';
 import { User } from '../../domain/entities/user';
 import { UserService } from '../../services/user.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -42,6 +43,7 @@ export class MainComponent implements OnInit {
         private readonly userService: UserService,
         private readonly storageService: StorageService,
         private readonly authService: AuthenticationService,
+        private readonly toastService: ToastService,
     ) {
         this.trackRouteChanges();
     }
@@ -65,10 +67,14 @@ export class MainComponent implements OnInit {
             .subscribe({
                 next: (user: User) => {
                     this.user = user;
-                    this.storageService.setSeekerIdentity(this.user.seeker?.id!);
+                    if (this.user.seeker) {
+                        this.storageService.setSeekerIdentity(this.user.seeker.id);
+                    } else {
+                        console.warn('Seeker information is not available.');
+                    }
                 },
                 error: (error: HttpErrorResponse) => {
-                    console.error(error.message);
+                    this.toastService.showErrorToast('Error', error.message);
                 },
                 complete: () => {},
             });
@@ -82,10 +88,10 @@ export class MainComponent implements OnInit {
         const token = this.storageService.getAccessToken();
         this.authService.logout(token).subscribe({
             next: () => {
-                // TODO: Show success message toast here
+                this.toastService.showSuccessToast('Success', 'Logout Successfully!');
             },
             error: (error: HttpErrorResponse) => {
-                console.error(error.message);
+                this.toastService.showErrorToast('Error', error.message);
             },
             complete: () => {
                 this.router.navigateByUrl('/auth/login').then(() => window.location.reload());

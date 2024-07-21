@@ -22,7 +22,12 @@
             </button>
         </div>
     </div>
-    <div class="p-4 md:p-5" (click)="onDetails(job.id)">
+    <div
+        class="p-4 md:p-5"
+        (click)="onDetails(job.id)"
+        (keydown.enter)="onDetails(job.id)"
+        (keydown.space)="onDetails(job.id)"
+        tabindex="0">
         <div class="flex items-center">
             <img
                 [src]="job.employer.company?.logo"

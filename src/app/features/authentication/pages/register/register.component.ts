@@ -19,7 +19,6 @@ import { ClientListComponent } from '../../../../shared/components/molecules/cli
 import { ValidationService } from '../../../../shared/services/validation.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
 

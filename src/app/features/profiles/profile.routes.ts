@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { seekerGuard } from '../../core/guards/seeker.guard';
 
 export const PROFILE_ROUTES: Routes = [
     {

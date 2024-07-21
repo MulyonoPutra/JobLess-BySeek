@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -13,7 +14,7 @@ import { RouterModule } from '@angular/router';
 })
 export class DropdownHeaderComponent {
     @Input() title!: string;
-    @Input() menu!: any;
+    @Input() menu!: any[];
     @Input() isMenuItems = false;
 
     @Output() logout = new EventEmitter<void>();

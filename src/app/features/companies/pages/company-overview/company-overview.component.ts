@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, type OnInit } from '@angular/core';
 import { CompanyService } from '../../services/company.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { StorageService } from '../../../../core/services/storage.service';
+import { ActivatedRoute } from '@angular/router';
 import { Company } from '../../../../core/domain/entities/company';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 

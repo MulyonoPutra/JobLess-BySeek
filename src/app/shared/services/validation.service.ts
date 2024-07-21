@@ -89,9 +89,9 @@ export class ValidationService {
     }
 
     combinedPasswordValidator(): ValidatorFn {
-        return (control: AbstractControl): { [key: string]: any } | null => {
+        return (control: AbstractControl): { [key: string]: unknown } | null => {
             const value = control.value;
-            const errors: { [key: string]: any } = {};
+            const errors: { [key: string]: unknown } = {};
 
             if (!/[a-z]/.test(value)) {
                 errors['hasLowerCase'] = true;

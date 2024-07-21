@@ -4,7 +4,6 @@ import { Application } from '../../../core/domain/entities/application';
 import { HttpClient } from '@angular/common/http';
 import { HttpResponseEntity } from '../../../core/domain/entities/http-response-entity';
 import { Injectable } from '@angular/core';
-import { JobAds } from '../../../core/domain/entities/job-ads';
 import { RemoveSavedJobsResponseEntity } from '../../../core/domain/entities/remove-saved-jobs.response-entity';
 import { SavedJobs } from '../../../core/domain/entities/saved-jobs';
 import { environment } from '../../../../environments/environment.development';

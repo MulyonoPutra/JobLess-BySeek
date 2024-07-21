@@ -1,7 +1,6 @@
 import { PageNotFoundComponent } from './core/layout/page-not-found/page-not-found.component';
 import { Routes } from '@angular/router';
 import { authenticationGuard } from './core/guards/authentication.guard';
-import { seekerGuard } from './core/guards/seeker.guard';
 
 export const routes: Routes = [
     {
