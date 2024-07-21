@@ -1,25 +1,19 @@
-<button
-  type="button"
-  (click)="onClick()"
-  [disabled]="isDisabled"
-  [ngClass]="getButtonClass()">
-  @if (isLoading) {
-  <svg-icon
-    src="../../../../../assets/icons/loading.svg"
-    svgClass="inline w-4 h-4 me-1 text-white animate-spin">
-  </svg-icon>
-  Loading... } @else {
-  <div class="flex space-x-1">
-    <span>{{ label }}</span>
-    @if (withIcon) {
-    <div>
-      <svg-icon
-        src="../../../../../assets/icons/edit-circle.svg"
-        svgClass="mt-[2px]">
-      </svg-icon>
-    </div>
+<button type="button" (click)="onClick()" [disabled]="isDisabled" [ngClass]="getButtonClass()">
+    @if (isLoading) {
+        <svg-icon
+            src="../../../../../assets/icons/loading.svg"
+            svgClass="inline w-4 h-4 me-1 text-white animate-spin">
+        </svg-icon>
+        Loading...
+    } @else {
+        <div class="flex space-x-1">
+            <span>{{ label }}</span>
+            @if (withIcon) {
+                <div>
+                    <svg-icon src="../../../../../assets/icons/edit-circle.svg" svgClass="mt-[2px]">
+                    </svg-icon>
+                </div>
+            }
+        </div>
     }
-  </div>
-
-  }
 </button>

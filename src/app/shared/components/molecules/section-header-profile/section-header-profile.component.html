@@ -1,19 +1,21 @@
 <div class="flex justify-between py-4">
-  <div>
-    <h1 class="text-3xl font-semibold text-elephant-950 dark:text-white">
-      {{ title }}
-    </h1>
-  </div>
-  <div></div>
-  @if (!seekerId) {
-  <div class="mt-3 hs-tooltip">
-    <button (click)="onClick()" class="inline-flex items-center justify-center ml-2 text-sm font-semibold border border-transparent rounded-full text-elephant-500 hs-tooltip-toggle size-8 gap-x-2 hover:bg-elephant-100 disabled:opacity-50 disabled:pointer-events-none">
-      <svg-icon src="../../../../../assets/icons/add.svg" svgClass="icon-hover" />
-      <span
-        class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity rounded shadow-sm opacity-0 bg-elephant-900 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible">
-        Add {{ title }}
-      </span>
-    </button>
-  </div>
-  }
+    <div>
+        <h1 class="text-3xl font-semibold text-elephant-950 dark:text-white">
+            {{ title }}
+        </h1>
+    </div>
+    <div></div>
+    @if (!seekerId) {
+        <div class="mt-3 hs-tooltip">
+            <button
+                (click)="onClick()"
+                class="inline-flex items-center justify-center ml-2 text-sm font-semibold border border-transparent rounded-full text-elephant-500 hs-tooltip-toggle size-8 gap-x-2 hover:bg-elephant-100 disabled:opacity-50 disabled:pointer-events-none">
+                <svg-icon src="../../../../../assets/icons/add.svg" svgClass="icon-hover" />
+                <span
+                    class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity rounded shadow-sm opacity-0 bg-elephant-900 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible">
+                    Add {{ title }}
+                </span>
+            </button>
+        </div>
+    }
 </div>

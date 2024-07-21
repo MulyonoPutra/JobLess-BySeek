@@ -1,89 +1,94 @@
 @if (seeker) {
-<div>
-  <app-overlay-image-container [overlayImage]="overlayImage">
-    @if (user) {
-    <div class="md:p-5 text-start">
-      <h3 class="text-4xl font-bold text-stark-200"> {{ user.name }}</h3>
-      <div class="flex flex-col space-y-2">
-        <div class="flex space-x-1">
-          <div>
-            <svg-icon src="../../../../../assets/icons/mail.svg" svgClass="mt-1" />
-          </div>
-          <div>
-            <p class="text-stark-200">{{ user.email }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="flex mt-4 space-x-1">
-        <div>
-          <button type="button" class="edit-btn" (click)="openProfileDialog(user)">
-            Edit
-          </button>
-        </div>
-      </div>
+    <div>
+        <app-overlay-image-container [overlayImage]="overlayImage">
+            @if (user) {
+                <div class="md:p-5 text-start">
+                    <h3 class="text-4xl font-bold text-stark-200">{{ user.name }}</h3>
+                    <div class="flex flex-col space-y-2">
+                        <div class="flex space-x-1">
+                            <div>
+                                <svg-icon
+                                    src="../../../../../assets/icons/mail.svg"
+                                    svgClass="mt-1" />
+                            </div>
+                            <div>
+                                <p class="text-stark-200">{{ user.email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex mt-4 space-x-1">
+                        <div>
+                            <button
+                                type="button"
+                                class="edit-btn"
+                                (click)="openProfileDialog(user)">
+                                Edit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </app-overlay-image-container>
     </div>
-    }
-  </app-overlay-image-container>
-</div>
 
-<div class="mx-auto pt-4 pb-10 px-4 sm:px-6 lg:px-8 md:pt-10 max-w-[55rem]">
-  <ng-container>
-    <app-section-header-profile (created)="openSummaryDialog()" [title]="'Personal Summary'" />
-    <app-card-summary [summary]="seeker.summary" (edited)="openSummaryDialog(seeker)" />
-  </ng-container>
+    <div class="mx-auto pt-4 pb-10 px-4 sm:px-6 lg:px-8 md:pt-10 max-w-[55rem]">
+        <ng-container>
+            <app-section-header-profile
+                (created)="openSummaryDialog()"
+                [title]="'Personal Summary'" />
+            <app-card-summary [summary]="seeker.summary" (edited)="openSummaryDialog(seeker)" />
+        </ng-container>
 
-  <!-- Work History Section -->
-  <ng-container>
-    <app-section-header-profile (created)="openWorkHistoryDialog()" [title]="'Career History'" />
-      @if (seeker.experience.length > 0) {
-        @for (exp of seeker.experience; track $index) {
-          <app-card-profile
-            [title]="exp.position"
-            [name]="exp.companyName"
-            [duration]="duration(exp.startDate, exp.endDate)"
-            [description]="exp.responsibilities"
-            [maxHeight]="18"
-            (edited)="openWorkHistoryDialog(exp.id)"
-            (removed)="removeConfirmation(exp.id)"
-            />
+        <!-- Work History Section -->
+        <ng-container>
+            <app-section-header-profile
+                (created)="openWorkHistoryDialog()"
+                [title]="'Career History'" />
+            @if (seeker.experience.length > 0) {
+                @for (exp of seeker.experience; track $index) {
+                    <app-card-profile
+                        [title]="exp.position"
+                        [name]="exp.companyName"
+                        [duration]="duration(exp.startDate, exp.endDate)"
+                        [description]="exp.responsibilities"
+                        [maxHeight]="18"
+                        (edited)="openWorkHistoryDialog(exp.id)"
+                        (removed)="removeConfirmation(exp.id)" />
+                }
+            } @else {
+                <app-empty-state />
+            }
+        </ng-container>
+        <!-- Work History Section -->
 
-        }
-      } @else {
-       <app-empty-state />
-      }
-  </ng-container>
-  <!-- Work History Section -->
+        <ng-container>
+            <app-section-header-profile (created)="openEducationDialog()" [title]="'Education'" />
+            @if (seeker.education.length > 0) {
+                @for (item of seeker.education; track $index) {
+                    <app-card-profile
+                        [isEducation]="true"
+                        [title]="item.title"
+                        [name]="item.institution"
+                        [duration]="duration(item.startDate, item.endDate)"
+                        [additional]="item.GPA"
+                        [maxHeight]="10"
+                        (edited)="openEducationDialog(item.id)"
+                        (removed)="removeEducationConfirm(item.id!)" />
+                }
+            } @else {
+                <app-empty-state />
+            }
+        </ng-container>
 
-  <ng-container>
-    <app-section-header-profile (created)="openEducationDialog()" [title]="'Education'" />
-    @if (seeker.education.length > 0) {
-      @for (item of seeker.education; track $index) {
-        <app-card-profile
-          [isEducation]="true"
-          [title]="item.title"
-          [name]="item.institution"
-          [duration]="duration(item.startDate, item.endDate)"
-          [additional]="item.GPA"
-          [maxHeight]="10"
-          (edited)="openEducationDialog(item.id)"
-          (removed)="removeEducationConfirm(item.id!)"
-          />
-      }
-    } @else {
-       <app-empty-state />
-    }
-
-  </ng-container>
-
-  <ng-container>
-    <app-section-header-profile (created)="openSkillsDialog()" [title]="'Skills'" />
-    @if (seeker.skills.length > 0) {
-      <app-card-skills [skills]="skills" (edited)="openSkillsDialog(skills)" />
-    } @else {
-       <app-empty-state />
-    }
-  </ng-container>
-</div>
+        <ng-container>
+            <app-section-header-profile (created)="openSkillsDialog()" [title]="'Skills'" />
+            @if (seeker.skills.length > 0) {
+                <app-card-skills [skills]="skills" (edited)="openSkillsDialog(skills)" />
+            } @else {
+                <app-empty-state />
+            }
+        </ng-container>
+    </div>
 }
 
 <p-confirmDialog />

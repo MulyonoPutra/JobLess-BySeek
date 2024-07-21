@@ -1,18 +1,23 @@
 <form class="flex items-center max-w-lg mx-auto">
-  <label for="voice-search" class="sr-only">Search</label>
-  <div class="relative w-full">
-    <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
-      <svg-icon src="../../../../../assets/icons/paint.svg" svgClass="w-4 h-4 text-gray-500 dark:text-gray-400" />
+    <label for="voice-search" class="sr-only">Search</label>
+    <div class="relative w-full">
+        <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
+            <svg-icon
+                src="../../../../../assets/icons/paint.svg"
+                svgClass="w-4 h-4 text-gray-500 dark:text-gray-400" />
+        </div>
+        <input
+            type="search"
+            class="border border-elephant-300 bg-elephant-50 text-elephant-900 text-sm rounded-lg focus:ring-elephant-950 focus:border-elephant-950 block w-full ps-10 p-2.5"
+            placeholder="Search By Company Name ..."
+            [(ngModel)]="query"
+            [ngModelOptions]="{ standalone: true }"
+            required />
     </div>
-    <input type="search"
-      class="border border-elephant-300 bg-elephant-50 text-elephant-900 text-sm
-      rounded-lg focus:ring-elephant-950 focus:border-elephant-950 block w-full ps-10 p-2.5"
-      placeholder="Search By Company Name ..." [(ngModel)]="query" [ngModelOptions]="{standalone: true}" required />
-  </div>
-  <button (click)="search()"
-    class="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-stark-500 bg-transparent rounded-lg
-    border border-stark-900 focus:ring-4 focus:outline-none focus:ring-blue-300">
+    <button
+        (click)="search()"
+        class="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-stark-500 bg-transparent rounded-lg border border-stark-900 focus:ring-4 focus:outline-none focus:ring-blue-300">
         <svg-icon src="../../../../../assets/icons/search.svg" svgClass="w-4 h-4 me-2" />
-    Search
-  </button>
+        Search
+    </button>
 </form>

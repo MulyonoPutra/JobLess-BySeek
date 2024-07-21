@@ -1,84 +1,73 @@
-<div
-  class="hover-animation mb-4 min-h-[180px] flex flex-col bg-white border shadow-sm rounded-xl"
->
-  <div
-    class="flex items-center justify-between px-4 py-3 rounded-t-xl md:px-5 dark:border-neutral-700"
-  >
-    <div>
-      <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
-        {{ title }}
-      </h3>
+<div class="hover-animation mb-4 min-h-[180px] flex flex-col bg-white border shadow-sm rounded-xl">
+    <div
+        class="flex items-center justify-between px-4 py-3 rounded-t-xl md:px-5 dark:border-neutral-700">
+        <div>
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+                {{ title }}
+            </h3>
+        </div>
+        <div class="flex space-x-1">
+            <div class="inline-block hs-tooltip">
+                <button
+                    type="button"
+                    (click)="onEdited()"
+                    class="inline-flex items-center justify-center text-sm font-semibold border border-transparent rounded-full text-elephant-500 hs-tooltip-toggle size-8 gap-x-2 hover:bg-elephant-100 disabled:opacity-50 disabled:pointer-events-none">
+                    <svg-icon src="../../../../../assets/icons/edit-box.svg" />
+                    <span
+                        class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible"
+                        role="tooltip">
+                        Edit
+                    </span>
+                </button>
+            </div>
+            <div class="inline-block hs-tooltip">
+                <button
+                    type="button"
+                    (click)="onRemoved()"
+                    class="inline-flex items-center justify-center text-sm font-semibold border border-transparent rounded-full text-elephant-500 hs-tooltip-toggle size-8 gap-x-2 hover:bg-elephant-100 disabled:opacity-50 disabled:pointer-events-none">
+                    <svg-icon src="../../../../../assets/icons/close-elephant.svg" />
+                    <span
+                        class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible"
+                        role="tooltip">
+                        Delete
+                    </span>
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="flex space-x-1">
-      <div class="inline-block hs-tooltip">
-        <button
-          type="button"
-          (click)="onEdited()"
-          class="inline-flex items-center justify-center text-sm font-semibold border border-transparent rounded-full text-elephant-500 hs-tooltip-toggle size-8 gap-x-2 hover:bg-elephant-100 disabled:opacity-50 disabled:pointer-events-none"
-        >
-          <svg-icon src="../../../../../assets/icons/edit-box.svg" />
-          <span
-            class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible"
-            role="tooltip"
-          >
-            Edit
-          </span>
-        </button>
-      </div>
-      <div class="inline-block hs-tooltip">
-        <button
-          type="button"
-          (click)="onRemoved()"
-          class="inline-flex items-center justify-center text-sm font-semibold border border-transparent rounded-full text-elephant-500 hs-tooltip-toggle size-8 gap-x-2 hover:bg-elephant-100 disabled:opacity-50 disabled:pointer-events-none"
-        >
-          <svg-icon src="../../../../../assets/icons/close-elephant.svg" />
-          <span
-            class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible"
-            role="tooltip"
-          >
-            Delete
-          </span>
-        </button>
-      </div>
-    </div>
-  </div>
 
-  <div class="px-5 pb-1 font-semibold text-bayoux-700">{{ name }}</div>
-  <div class="px-5 pb-1 font-medium text-bayoux-700">
-    {{ duration }}
-  </div>
-  @if(isEducation){
-  <div class="px-5 pb-1 text-sm text-bayoux-700">
-    {{ additional }}
-  </div>
-  }
-  <div
-    class="px-5 pb-4 mb-2 text-sm text-bayoux-700"
-    [innerHTML]="description"
-    [class.collapsed]="isCollapsed"
-    [style.height]="isCollapsed ? maxHeight + 'px' : 'auto'"
-  ></div>
-  @if (isCollapsable && maxHeight >= 20) {
-  <button type="button" (click)="isCollapsed = !isCollapsed" class="p-4">
-    <div class="flex space-x-2">
-      <div class="text-sm font-semibold text-elephant-950">
-        Read {{ isCollapsed ? "More" : "Less" }}
-      </div>
-      <div>
-        @if (isCollapsed) {
-        <svg-icon
-          src="../../../../../assets/icons/arrow-down.svg"
-          svgClass="size-4 blink mt-1 arrow"
-        ></svg-icon>
-        } @else {
-        <svg-icon
-          src="../../../../../assets/icons/arrow-up.svg"
-          svgClass="size-4 blink mt-1 arrow"
-        ></svg-icon>
-        }
-      </div>
+    <div class="px-5 pb-1 font-semibold text-bayoux-700">{{ name }}</div>
+    <div class="px-5 pb-1 font-medium text-bayoux-700">
+        {{ duration }}
     </div>
-  </button>
-
-  }
+    @if (isEducation) {
+        <div class="px-5 pb-1 text-sm text-bayoux-700">
+            {{ additional }}
+        </div>
+    }
+    <div
+        class="px-5 pb-4 mb-2 text-sm text-bayoux-700"
+        [innerHTML]="description"
+        [class.collapsed]="isCollapsed"
+        [style.height]="isCollapsed ? maxHeight + 'px' : 'auto'"></div>
+    @if (isCollapsable && maxHeight >= 20) {
+        <button type="button" (click)="isCollapsed = !isCollapsed" class="p-4">
+            <div class="flex space-x-2">
+                <div class="text-sm font-semibold text-elephant-950">
+                    Read {{ isCollapsed ? 'More' : 'Less' }}
+                </div>
+                <div>
+                    @if (isCollapsed) {
+                        <svg-icon
+                            src="../../../../../assets/icons/arrow-down.svg"
+                            svgClass="size-4 blink mt-1 arrow"></svg-icon>
+                    } @else {
+                        <svg-icon
+                            src="../../../../../assets/icons/arrow-up.svg"
+                            svgClass="size-4 blink mt-1 arrow"></svg-icon>
+                    }
+                </div>
+            </div>
+        </button>
+    }
 </div>

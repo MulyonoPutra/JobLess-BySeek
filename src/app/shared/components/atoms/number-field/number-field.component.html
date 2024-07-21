@@ -1,18 +1,18 @@
 <div class="relative py-3 mb-1" [formGroup]="formGroup">
-  <p-floatLabel>
-  <p-inputNumber
-    [id]="fieldName"
-    [name]="fieldName"
-    class="w-full"
-    [style]="{'width':'100%'}"
-    [ngClass]="classFilled"
-    inputId="integeronly"
-    [formControlName]="fieldName" />
-    <label [for]="fieldName" [ngClass]="classLabel">{{ label }}</label>
-  </p-floatLabel>
-  @if (isInvalid) {
-  <div class="errors-message">{{ errorMessage }}</div>
-  } @else {
-    <div class="message">Only number allowed</div>
-  }
+    <p-floatLabel>
+        <p-inputNumber
+            [id]="fieldName"
+            [name]="fieldName"
+            class="w-full"
+            [style]="{ width: '100%' }"
+            [ngClass]="classFilled"
+            inputId="integeronly"
+            [formControlName]="fieldName" />
+        <label [for]="fieldName" [ngClass]="classLabel">{{ label }}</label>
+    </p-floatLabel>
+    @if (isInvalid) {
+        <div class="errors-message">{{ errorMessage }}</div>
+    } @else {
+        <div class="message">Only number allowed</div>
+    }
 </div>

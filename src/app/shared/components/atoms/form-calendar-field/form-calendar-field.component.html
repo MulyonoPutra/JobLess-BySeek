@@ -1,18 +1,18 @@
 <div class="relative py-3" [formGroup]="formGroup">
-  <p-floatLabel>
-  <p-calendar
-    class="custom-calendar"
-    [showIcon]="true"
-    dateFormat="mm/yy"
-    [showOnFocus]="false"
-    inputId="buttondisplay"
-    [style]="{'width':'100%'}"
-    view="month"
-    [formControlName]="fieldName"
-    inputId="calendar" />
-    <label for="calendar" [ngClass]="classLabel">{{label}}</label>
-  </p-floatLabel>
-  @if (isInvalid) {
-  <div class="errors-message">{{ errorMessage }}</div>
-  }
+    <p-floatLabel>
+        <p-calendar
+            class="custom-calendar"
+            [showIcon]="true"
+            dateFormat="mm/yy"
+            [showOnFocus]="false"
+            inputId="buttondisplay"
+            [style]="{ width: '100%' }"
+            view="month"
+            [formControlName]="fieldName"
+            inputId="calendar" />
+        <label for="calendar" [ngClass]="classLabel">{{ label }}</label>
+    </p-floatLabel>
+    @if (isInvalid) {
+        <div class="errors-message">{{ errorMessage }}</div>
+    }
 </div>

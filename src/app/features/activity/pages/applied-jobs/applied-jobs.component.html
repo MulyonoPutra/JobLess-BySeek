@@ -1,10 +1,10 @@
 @if (applications && applications.length > 0) {
-  @for (application of applications; track $index) {
-  <app-card-application
-    [data]="application"
-    [isLoading]="isLoading"
-    [borderColor]="'border-t-4 border-t-bayoux-700'" />
-  }
+    @for (application of applications; track $index) {
+        <app-card-application
+            [data]="application"
+            [isLoading]="isLoading"
+            [borderColor]="'border-t-4 border-t-bayoux-700'" />
+    }
 } @else {
-<app-empty-state />
+    <app-empty-state />
 }

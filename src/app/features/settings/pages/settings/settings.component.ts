@@ -15,87 +15,89 @@ import { UserService } from '../../../../core/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-settings',
-  standalone: true,
-  imports: [CommonModule, AngularSvgIconModule, CardSettingsComponent, DynamicDialogModule,
-    ConfirmDialogModule,],
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss'],
-  providers: [ProfileService, DialogService, ConfirmationService],
+    selector: 'app-settings',
+    standalone: true,
+    imports: [
+        CommonModule,
+        AngularSvgIconModule,
+        CardSettingsComponent,
+        DynamicDialogModule,
+        ConfirmDialogModule,
+    ],
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.scss'],
+    providers: [ProfileService, DialogService, ConfirmationService],
 })
 export class SettingsComponent implements OnInit {
+    seekerId!: string;
+    email!: string;
+    userId!: string;
+    ref: DynamicDialogRef | undefined;
 
-  seekerId!: string;
-  email!: string;
-  userId!: string;
-  ref: DynamicDialogRef | undefined;
+    constructor(
+        private readonly router: Router,
+        private readonly destroyRef: DestroyRef,
+        private readonly userService: UserService,
+        private readonly storageService: StorageService,
+        private readonly toastService: ToastService,
+        public dialogService: DialogService,
+        private readonly confirmationService: ConfirmationService,
+    ) {
+        this.seekerId = this.storageService.getSeekerIdentity();
+    }
 
-  constructor(
-    private readonly router: Router,
-    private readonly destroyRef: DestroyRef,
-    private readonly userService: UserService,
-    private readonly storageService: StorageService,
-    private readonly toastService: ToastService,
-    public dialogService: DialogService,
-    private readonly confirmationService: ConfirmationService,
-  ) {
-    this.seekerId = this.storageService.getSeekerIdentity();
-  }
+    ngOnInit(): void {
+        this.findUser();
+    }
 
+    findUser(): void {
+        this.userService.findUser().subscribe({
+            next: (user) => {
+                this.email = user.email;
+                this.userId = user.id;
+            },
+            error: (error: HttpErrorResponse) => {
+                this.toastService.showErrorToast('Error', error.message);
+            },
+            complete: () => {},
+        });
+    }
 
-  ngOnInit(): void {
-    this.findUser()
-  }
+    openChangePasswordDialog(): void {
+        this.ref = this.dialogService.open(ChangePasswordDialogComponent, {
+            width: '50vw',
+            modal: true,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw',
+            },
+        });
+    }
 
-  findUser(): void {
-    this.userService.findUser()
-      .subscribe({
-        next: (user) => {
-          this.email = user.email;
-          this.userId = user.id;
-        },
-        error: (error: HttpErrorResponse) => {
-          this.toastService.showErrorToast('Error', error.message);
-        },
-        complete: () => { },
-      });
-  }
+    openChangeEmailDialog(): void {
+        this.ref = this.dialogService.open(ChangeEmailDialogComponent, {
+            width: '50vw',
+            modal: true,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw',
+            },
+            data: {
+                id: this.userId,
+            },
+        });
+    }
 
-  openChangePasswordDialog(): void {
-    this.ref = this.dialogService.open(ChangePasswordDialogComponent, {
-      width: '50vw',
-      modal: true,
-      breakpoints: {
-        '960px': '75vw',
-        '640px': '90vw',
-      },
-    });
-  }
-
-  openChangeEmailDialog(): void {
-    this.ref = this.dialogService.open(ChangeEmailDialogComponent, {
-      width: '50vw',
-      modal: true,
-      breakpoints: {
-        '960px': '75vw',
-        '640px': '90vw',
-      },
-      data: {
-        id: this.userId,
-      },
-    });
-  }
-
-  deleteConfirmation(): void {
-    this.confirmationService.confirm({
-      header: 'Remove Work History',
-      message: 'Are you sure want to remove this work history?',
-      accept: () => {
-        this.toastService.showSuccessToast('Unfortunately', 'Removed Account...');
-      },
-      reject: () => {
-        console.log('cancelled!')
-      }
-    });
-  }
+    deleteConfirmation(): void {
+        this.confirmationService.confirm({
+            header: 'Remove Work History',
+            message: 'Are you sure want to remove this work history?',
+            accept: () => {
+                this.toastService.showSuccessToast('Unfortunately', 'Removed Account...');
+            },
+            reject: () => {
+                console.log('cancelled!');
+            },
+        });
+    }
 }

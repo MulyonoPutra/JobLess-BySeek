@@ -1,40 +1,48 @@
-<div class="flex flex-col w-full bg-white border border-t-4 shadow-sm border-t-elephant-900 rounded-xl">
-  <div class="p-4 md:p-5">
-    <h1 class="text-2xl font-semibold text-elephant-950">Edit Skills</h1>
-    <p class="mt-2 text-sm text-elephant-700">
-      Help employers find you by showcasing all of your skills.
-    </p>
-  </div>
-  <div>
-    <app-input-skill-form (clicked)="search($event)" />
+<div
+    class="flex flex-col w-full bg-white border border-t-4 shadow-sm border-t-elephant-900 rounded-xl">
     <div class="p-4 md:p-5">
-      @if (skillInput.length > 0) {
-      <p class="mt-2 text-sm font-semibold text-elephant-700">
-        Added Skills
-      </p>
-      }
-      <div class="mt-4">
-        <div class="flex flex-wrap gap-2 skills">
-          @for (skill of skillInput; track $index) {
-          <p-chip [label]="skill.name" [removable]="true" (remove)="removeSkill(skill)" />
-          }
-        </div>
-      </div>
-    </div>
-    @if(skills) {
-      <div class="p-4 md:p-5">
-        <p class="my-2 text-sm font-semibold text-elephant-700">
-          Existing Skills
+        <h1 class="text-2xl font-semibold text-elephant-950">Edit Skills</h1>
+        <p class="mt-2 text-sm text-elephant-700">
+            Help employers find you by showcasing all of your skills.
         </p>
-        <div class="flex flex-wrap gap-2 input">
-          @for (skill of skills; track $index) {
-          <p-chip class="skills" [label]="skill.name" [removable]="true" (onRemove)="removeSkillById(skill.id!)" />
-          }
+    </div>
+    <div>
+        <app-input-skill-form (clicked)="search($event)" />
+        <div class="p-4 md:p-5">
+            @if (skillInput.length > 0) {
+                <p class="mt-2 text-sm font-semibold text-elephant-700">Added Skills</p>
+            }
+            <div class="mt-4">
+                <div class="flex flex-wrap gap-2 skills">
+                    @for (skill of skillInput; track $index) {
+                        <p-chip
+                            [label]="skill.name"
+                            [removable]="true"
+                            (remove)="removeSkill(skill)" />
+                    }
+                </div>
+            </div>
         </div>
-      </div>
-    }
-  </div>
-  <div class="flex p-4 mt-4 space-x-4">
-    <app-button [isLoading]="isLoading" [label]="'Save'" (clicked)="onSubmitToServer()" [type]="'save'" />
-  </div>
+        @if (skills) {
+            <div class="p-4 md:p-5">
+                <p class="my-2 text-sm font-semibold text-elephant-700">Existing Skills</p>
+                <div class="flex flex-wrap gap-2 input">
+                    @for (skill of skills; track $index) {
+                        <p-chip
+                            class="skills"
+                            [label]="skill.name"
+                            [removable]="true"
+                            (onRemove)="removeSkillById(skill.id!)" />
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <div class="flex p-4 mt-4 space-x-4">
+        <app-button
+            [isLoading]="isLoading"
+            [label]="'Save'"
+            (clicked)="onSubmitToServer()"
+            [type]="'save'" />
+    </div>
 </div>

@@ -1,44 +1,39 @@
 <div
-  [ngClass]="height"
-  class="flex flex-col mb-4 bg-white border shadow-sm hover-animation rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70"
->
-  <div
-    class="flex items-center justify-between px-4 pt-3 rounded-t-xl md:px-5 dark:border-neutral-700"
-  >
-    <div>
-      <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
-        {{ title }}
-      </h3>
+    [ngClass]="height"
+    class="flex flex-col mb-4 bg-white border shadow-sm hover-animation rounded-xl dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70">
+    <div
+        class="flex items-center justify-between px-4 pt-3 rounded-t-xl md:px-5 dark:border-neutral-700">
+        <div>
+            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+                {{ title }}
+            </h3>
+        </div>
+        <div class="flex items-center gap-x-1">
+            <div class="inline-block hs-tooltip">
+                @if (isDeleted) {
+                    <button
+                        (click)="onDelete()"
+                        type="button"
+                        class="inline-flex items-center px-4 py-3 text-sm font-semibold text-red-500 border border-red-500 rounded-lg gap-x-2 hover:border-red-400 hover:text-red-400 disabled:opacity-50 disabled:pointer-events-none">
+                        Delete
+                    </button>
+                } @else {
+                    <button
+                        (click)="onEdited()"
+                        type="button"
+                        class="inline-flex items-center justify-center text-sm font-semibold text-gray-500 border border-transparent rounded-full hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:bg-neutral-700">
+                        <svg-icon src="../../../../../assets/icons/edit-box.svg" svgClass="">
+                        </svg-icon>
+                        <span
+                            class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible dark:bg-neutral-700"
+                            role="tooltip">
+                            Edit
+                        </span>
+                    </button>
+                }
+            </div>
+        </div>
     </div>
-    <div class="flex items-center gap-x-1">
-      <div class="inline-block hs-tooltip">
-        @if (isDeleted) {
-        <button
-          (click)="onDelete()"
-          type="button"
-          class="inline-flex items-center px-4 py-3 text-sm font-semibold text-red-500 border border-red-500 rounded-lg gap-x-2 hover:border-red-400 hover:text-red-400 disabled:opacity-50 disabled:pointer-events-none"
-        >
-          Delete
-        </button>
-        } @else {
-        <button
-          (click)="onEdited()"
-          type="button"
-          class="inline-flex items-center justify-center text-sm font-semibold text-gray-500 border border-transparent rounded-full hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:bg-neutral-700"
-        >
-          <svg-icon src="../../../../../assets/icons/edit-box.svg" svgClass="">
-          </svg-icon>
-          <span
-            class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible dark:bg-neutral-700"
-            role="tooltip"
-          >
-            Edit
-          </span>
-        </button>
-        }
-      </div>
-    </div>
-  </div>
 
-  <div class="px-5 pb-1 font-semibold text-bayoux-700">{{ value }}</div>
+    <div class="px-5 pb-1 font-semibold text-bayoux-700">{{ value }}</div>
 </div>

@@ -1,115 +1,162 @@
 @if (form) {
-<ng-container>
-  <div class="p-1">
-    @if(!experienceId){
-    <form [formGroup]="form">
-      <div formArrayName="experience">
-        @for (forms of experienceFormArray.controls; track $index) {
-        <div class="w-full p-1 overflow-hidden bg-white">
-          <div class="flex items-center justify-between px-4 rounded-lg bg-stark-50">
-            @if ($index === 0) {
-              <p class="text-xl font-semibold text-elephant-800">Experience Form</p>
+    <ng-container>
+        <div class="p-1">
+            @if (!experienceId) {
+                <form [formGroup]="form">
+                    <div formArrayName="experience">
+                        @for (forms of experienceFormArray.controls; track $index) {
+                            <div class="w-full p-1 overflow-hidden bg-white">
+                                <div
+                                    class="flex items-center justify-between px-4 rounded-lg bg-stark-50">
+                                    @if ($index === 0) {
+                                        <p class="text-xl font-semibold text-elephant-800">
+                                            Experience Form
+                                        </p>
+                                    } @else {
+                                        <p class="text-xl font-semibold text-elephant-800">
+                                            Experience Form {{ $index + 1 }}
+                                        </p>
+                                    }
+
+                                    <div class="flex p-4 space-x-1">
+                                        <div class="inline-block hs-tooltip">
+                                            <button
+                                                type="button"
+                                                (click)="addNewForms()"
+                                                class="inline-flex items-center justify-center text-sm font-semibold text-gray-500 border border-transparent rounded-full hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
+                                                <svg-icon
+                                                    src="../../../../../assets/icons/add.svg"
+                                                    svgClass="icon-primary-1" />
+                                                <span
+                                                    class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible"
+                                                    role="tooltip">
+                                                    Edit
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <div class="inline-block hs-tooltip">
+                                            @if ($index > 0) {
+                                                <button
+                                                    type="button"
+                                                    (click)="removeForms($index)"
+                                                    class="inline-flex items-center justify-center text-sm font-semibold text-gray-500 border border-transparent rounded-full hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
+                                                    <svg-icon
+                                                        src="../../../../../assets/icons/trash.svg"
+                                                        svgClass="icon-primary-1" />
+                                                    <span
+                                                        class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible"
+                                                        role="tooltip">
+                                                        Edit
+                                                    </span>
+                                                </button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div [formGroupName]="$index" class="p-4">
+                                    <div class="flex flex-col space-y-2">
+                                        <div class="flex space-x-4">
+                                            <div class="w-full">
+                                                <app-form-calendar-field
+                                                    [formGroup]="experienceFormGroupIndex($index)"
+                                                    [label]="'Start Date'"
+                                                    fieldName="startDate" />
+                                            </div>
+                                            <div class="w-full">
+                                                <app-form-calendar-field
+                                                    [formGroup]="experienceFormGroupIndex($index)"
+                                                    [label]="'End Date'"
+                                                    fieldName="endDate" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <app-form-input-field
+                                                [formGroup]="experienceFormGroupIndex($index)"
+                                                [label]="'Position'"
+                                                fieldName="position" />
+                                        </div>
+                                        <div>
+                                            <app-form-input-field
+                                                [formGroup]="experienceFormGroupIndex($index)"
+                                                [label]="'Company'"
+                                                fieldName="companyName" />
+                                        </div>
+                                        <div>
+                                            <app-form-input-field
+                                                [formGroup]="experienceFormGroupIndex($index)"
+                                                [label]="'Location'"
+                                                fieldName="location" />
+                                        </div>
+                                        <div>
+                                            <app-text-area-field
+                                                [formGroup]="experienceFormGroupIndex($index)"
+                                                [label]="'Responsibilities'"
+                                                fieldName="responsibilities" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </form>
             } @else {
-              <p class="text-xl font-semibold text-elephant-800">Experience Form {{ $index + 1 }}</p>
+                <div class="p-3">
+                    <form [formGroup]="updateForm">
+                        <div class="flex flex-col space-y-2">
+                            <div class="flex space-x-4">
+                                <div class="w-full">
+                                    <app-form-calendar-field
+                                        [formGroup]="updateForm"
+                                        [label]="'Start Date'"
+                                        fieldName="startDate" />
+                                </div>
+                                <div class="w-full">
+                                    <app-form-calendar-field
+                                        [formGroup]="updateForm"
+                                        [label]="'End Date'"
+                                        fieldName="endDate" />
+                                </div>
+                            </div>
+                            <div>
+                                <app-form-input-field
+                                    [formGroup]="updateForm"
+                                    [label]="'Position'"
+                                    fieldName="position" />
+                            </div>
+                            <div>
+                                <app-form-input-field
+                                    [formGroup]="updateForm"
+                                    [label]="'Location'"
+                                    fieldName="location" />
+                            </div>
+                            <div>
+                                <app-form-input-field
+                                    [formGroup]="updateForm"
+                                    [label]="'Company'"
+                                    fieldName="companyName" />
+                            </div>
+                            <div class="w-full">
+                                <app-text-area-field
+                                    [formGroup]="updateForm"
+                                    [label]="'Responsibilities'"
+                                    fieldName="responsibilities" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
             }
-
-            <div class="flex p-4 space-x-1">
-              <div class="inline-block hs-tooltip">
-                <button type="button" (click)="addNewForms()"
-                  class="inline-flex items-center justify-center text-sm font-semibold text-gray-500 border border-transparent rounded-full hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
-                  <svg-icon src="../../../../../assets/icons/add.svg" svgClass="icon-primary-1" />
-                  <span
-                    class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible"
-                    role="tooltip">
-                    Edit
-                  </span>
-                </button>
-              </div>
-              <div class="inline-block hs-tooltip">
-                @if ($index > 0) {
-                <button type="button" (click)="removeForms($index)"
-                  class="inline-flex items-center justify-center text-sm font-semibold text-gray-500 border border-transparent rounded-full hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none">
-                  <svg-icon src="../../../../../assets/icons/trash.svg" svgClass="icon-primary-1" />
-                  <span
-                    class="absolute z-10 invisible inline-block px-2 py-1 text-xs font-medium text-white transition-opacity bg-gray-900 rounded shadow-sm opacity-0 hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible"
-                    role="tooltip">
-                    Edit
-                  </span>
-                </button>
-                }
-              </div>
-            </div>
-          </div>
-
-          <div [formGroupName]="$index" class="p-4">
-            <div class="flex flex-col space-y-2">
-              <div class="flex space-x-4">
-                <div class="w-full">
-                  <app-form-calendar-field [formGroup]="experienceFormGroupIndex($index)" [label]="'Start Date'"
-                    fieldName="startDate" />
+            <div class="w-full p-2 mb-4 overflow-hidden bg-white">
+                <div class="p-2 text-right rounded-b-lg">
+                    <div class="flex space-x-4">
+                        <app-button
+                            [isLoading]="isLoading"
+                            [label]="label"
+                            (clicked)="onSubmit()"
+                            [type]="'save'" />
+                    </div>
                 </div>
-                <div class="w-full">
-                  <app-form-calendar-field [formGroup]="experienceFormGroupIndex($index)" [label]="'End Date'"
-                    fieldName="endDate" />
-                </div>
-              </div>
-              <div>
-                <app-form-input-field [formGroup]="experienceFormGroupIndex($index)" [label]="'Position'"
-                  fieldName="position" />
-              </div>
-              <div>
-                <app-form-input-field [formGroup]="experienceFormGroupIndex($index)" [label]="'Company'"
-                  fieldName="companyName" />
-              </div>
-              <div>
-                <app-form-input-field [formGroup]="experienceFormGroupIndex($index)" [label]="'Location'"
-                  fieldName="location" />
-              </div>
-              <div>
-                <app-text-area-field [formGroup]="experienceFormGroupIndex($index)" [label]="'Responsibilities'"
-                  fieldName="responsibilities" />
-              </div>
             </div>
-          </div>
         </div>
-        }
-      </div>
-    </form>
-    } @else {
-    <div class="p-3">
-      <form [formGroup]="updateForm">
-        <div class="flex flex-col space-y-2">
-          <div class="flex space-x-4">
-            <div class="w-full">
-              <app-form-calendar-field [formGroup]="updateForm" [label]="'Start Date'" fieldName="startDate" />
-            </div>
-            <div class="w-full">
-              <app-form-calendar-field [formGroup]="updateForm" [label]="'End Date'" fieldName="endDate" />
-            </div>
-          </div>
-          <div>
-            <app-form-input-field [formGroup]="updateForm" [label]="'Position'" fieldName="position" />
-          </div>
-          <div>
-            <app-form-input-field [formGroup]="updateForm" [label]="'Location'" fieldName="location" />
-          </div>
-          <div>
-            <app-form-input-field [formGroup]="updateForm" [label]="'Company'" fieldName="companyName" />
-          </div>
-          <div class="w-full">
-            <app-text-area-field [formGroup]="updateForm" [label]="'Responsibilities'" fieldName="responsibilities" />
-          </div>
-        </div>
-      </form>
-    </div>
-    }
-    <div class="w-full p-2 mb-4 overflow-hidden bg-white">
-      <div class="p-2 text-right rounded-b-lg">
-        <div class="flex space-x-4">
-          <app-button [isLoading]="isLoading" [label]="label" (clicked)="onSubmit()" [type]="'save'" />
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-container>
+    </ng-container>
 }

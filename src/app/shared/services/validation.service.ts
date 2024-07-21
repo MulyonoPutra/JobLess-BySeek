@@ -35,27 +35,27 @@ export class ValidationService {
         }
     }
 
-  changePasswordValidators(formGroup: FormGroup) {
-    const newPassword = formGroup.get('newPassword')!;
-    const confirmPassword = formGroup.get('confirmPassword')!;
+    changePasswordValidators(formGroup: FormGroup) {
+        const newPassword = formGroup.get('newPassword')!;
+        const confirmPassword = formGroup.get('confirmPassword')!;
 
-    if (newPassword.value !== confirmPassword.value) {
-      confirmPassword.setErrors({ passwordMismatch: true });
-    } else {
-      confirmPassword.setErrors(null);
+        if (newPassword.value !== confirmPassword.value) {
+            confirmPassword.setErrors({ passwordMismatch: true });
+        } else {
+            confirmPassword.setErrors(null);
+        }
     }
-  }
 
-  changeEmailValidators(formGroup: FormGroup) {
-    const email = formGroup.get('email')!;
-    const confirmEmail = formGroup.get('confirmEmail')!;
+    changeEmailValidators(formGroup: FormGroup) {
+        const email = formGroup.get('email')!;
+        const confirmEmail = formGroup.get('confirmEmail')!;
 
-    if (email.value !== confirmEmail.value) {
-      confirmEmail.setErrors({ emailMismatch: true });
-    } else {
-      confirmEmail.setErrors(null);
+        if (email.value !== confirmEmail.value) {
+            confirmEmail.setErrors({ emailMismatch: true });
+        } else {
+            confirmEmail.setErrors(null);
+        }
     }
-  }
 
     lowerCaseValidator(): ValidatorFn {
         return (control: AbstractControl): { [key: string]: unknown } | null => {
@@ -136,7 +136,7 @@ export class ValidationService {
             return 'Passwords do not match.';
         }
         if (control.errors?.['emailMismatch']) {
-          return 'The email does not match.';
+            return 'The email does not match.';
         }
         if (control.errors?.['invalidPhoneNumber']) {
             return 'Invalid phone number format.';

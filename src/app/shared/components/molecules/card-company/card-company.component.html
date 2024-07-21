@@ -1,39 +1,33 @@
 @if (company) {
-  <div
-  class="flex flex-col bg-white border shadow-sm cursor-pointer group rounded-xl hover-animation dark:bg-neutral-900 dark:border-neutral-800"
-  (click)="onClick(company.id)"
->
-  <div class="p-4 md:p-5">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center">
-        <img
-          class="size-[38px] rounded-full"
-          src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-          alt="Image Description"
-          loading="lazy"
-        />
-        <div class="ms-3">
-          <h3
-            class="font-semibold group-hover:text-bayoux-700 text-elephant-950 dark:group-hover:text-neutral-400 dark:text-neutral-200"
-          >
-            {{ company.name }}
-          </h3>
-          <p
-            class="text-sm font-medium group-hover:text-bayoux-700 text-bayoux-700 dark:group-hover:text-neutral-400 dark:text-neutral-200"
-          >
-            {{company.employer?.jobAds?.length}} Job Positions
-          </p>
+    <div
+        class="flex flex-col bg-white border shadow-sm cursor-pointer group rounded-xl hover-animation dark:bg-neutral-900 dark:border-neutral-800"
+        (click)="onClick(company.id)">
+        <div class="p-4 md:p-5">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img
+                        class="size-[38px] rounded-full"
+                        src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
+                        alt="Image Description"
+                        loading="lazy" />
+                    <div class="ms-3">
+                        <h3
+                            class="font-semibold group-hover:text-bayoux-700 text-elephant-950 dark:group-hover:text-neutral-400 dark:text-neutral-200">
+                            {{ company.name }}
+                        </h3>
+                        <p
+                            class="text-sm font-medium group-hover:text-bayoux-700 text-bayoux-700 dark:group-hover:text-neutral-400 dark:text-neutral-200">
+                            {{ company.employer?.jobAds?.length }} Job Positions
+                        </p>
+                    </div>
+                </div>
+                <div class="ps-3">
+                    <svg-icon
+                        src="../../../../../assets/icons/arrow-single-right.svg"
+                        svgClass="flex-shrink-0 size-5">
+                    </svg-icon>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="ps-3">
-        <svg-icon
-          src="../../../../../assets/icons/arrow-single-right.svg"
-          svgClass="flex-shrink-0 size-5"
-        >
-        </svg-icon>
-      </div>
     </div>
-  </div>
-</div>
-
 }

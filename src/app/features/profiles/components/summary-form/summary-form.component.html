@@ -1,25 +1,28 @@
-<div class="flex flex-col w-full bg-white border border-t-4 shadow-sm border-t-elephant-900 rounded-xl">
-  <div class="p-4 md:p-5">
-    <h1 class="text-2xl font-semibold text-elephant-950">Summary</h1>
-    <p class="mt-2 text-sm text-elephant-700">
-      Highlight your unique experiences, ambitions and strengths.
-    </p>
-    <form [formGroup]="form">
-      <div class="w-full space-y-3">
-        <textarea
-          class="block w-full px-4 py-3 mt-4 text-sm border-gray-200 rounded-lg focus:border-elephant-900 focus:ring-elepborder-elephant-900 disabled:opacity-50 disabled:pointer-events-none"
-          rows="3" formControlName="summary" placeholder="This is a textarea placeholder"></textarea>
-      </div>
-    </form>
-  </div>
-  <div class="flex p-4 space-x-2">
-    <app-button
-      [isLoading]="isLoading"
-      (clicked)="onUpdate()"
-      [label]="'Save'"
-      [isCancel]="false"
-      [isLarge]="false"
-      [isDisabled]="form.invalid!"
-      [type]="'save'" />
-  </div>
+<div
+    class="flex flex-col w-full bg-white border border-t-4 shadow-sm border-t-elephant-900 rounded-xl">
+    <div class="p-4 md:p-5">
+        <h1 class="text-2xl font-semibold text-elephant-950">Summary</h1>
+        <p class="mt-2 text-sm text-elephant-700">
+            Highlight your unique experiences, ambitions and strengths.
+        </p>
+        <form [formGroup]="form">
+            <div class="w-full space-y-3">
+                <textarea
+                    class="block w-full px-4 py-3 mt-4 text-sm border-gray-200 rounded-lg focus:border-elephant-900 focus:ring-elepborder-elephant-900 disabled:opacity-50 disabled:pointer-events-none"
+                    rows="3"
+                    formControlName="summary"
+                    placeholder="This is a textarea placeholder"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="flex p-4 space-x-2">
+        <app-button
+            [isLoading]="isLoading"
+            (clicked)="onUpdate()"
+            [label]="'Save'"
+            [isCancel]="false"
+            [isLarge]="false"
+            [isDisabled]="form.invalid!"
+            [type]="'save'" />
+    </div>
 </div>

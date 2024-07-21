@@ -1,3 +1,3 @@
 export interface ChangeEmailDto {
-  email: string;
+    email: string;
 }
