@@ -46,6 +46,17 @@ export class ValidationService {
     }
   }
 
+  changeEmailValidators(formGroup: FormGroup) {
+    const email = formGroup.get('email')!;
+    const confirmEmail = formGroup.get('confirmEmail')!;
+
+    if (email.value !== confirmEmail.value) {
+      confirmEmail.setErrors({ emailMismatch: true });
+    } else {
+      confirmEmail.setErrors(null);
+    }
+  }
+
     lowerCaseValidator(): ValidatorFn {
         return (control: AbstractControl): { [key: string]: unknown } | null => {
             const value = control.value;
@@ -123,6 +134,9 @@ export class ValidationService {
         }
         if (control.errors?.['passwordMismatch']) {
             return 'Passwords do not match.';
+        }
+        if (control.errors?.['emailMismatch']) {
+          return 'The email does not match.';
         }
         if (control.errors?.['invalidPhoneNumber']) {
             return 'Invalid phone number format.';

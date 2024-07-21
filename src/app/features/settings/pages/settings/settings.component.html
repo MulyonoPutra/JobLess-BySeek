@@ -3,22 +3,24 @@
     Settings
   </h1>
   <app-card-settings
+    (edited)="openChangeEmailDialog()"
     [title]="'Email'"
-    [value]="'mulyonoputra&#64;gmail.com'"
+    [value]="email"
     [height]="'min-h-[90px]'"
-  ></app-card-settings>
+   />
+
   <app-card-settings
     (edited)="openChangePasswordDialog()"
     [title]="'Password'"
     [value]="'*********'"
     [height]="'min-h-[90px]'"
-  ></app-card-settings>
+  />
   <app-card-settings
     (deleted)="deleteConfirmation()"
     [title]="'Delete Account'"
     [isDeleted]="true"
     [height]="'min-h-[70px]'"
-  ></app-card-settings>
+  />
 </div>
 
 <p-confirmDialog />

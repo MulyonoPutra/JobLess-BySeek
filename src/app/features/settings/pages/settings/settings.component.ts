@@ -10,6 +10,9 @@ import { ToastService } from '../../../../shared/services/toast.service';
 import { ProfileService } from '../../../profiles/services/profile.service';
 import { ChangePasswordDialogComponent } from '../../components/change-password-dialog/change-password-dialog.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ChangeEmailDialogComponent } from '../../components/change-email-dialog/change-email-dialog.component';
+import { UserService } from '../../../../core/services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-settings',
@@ -23,12 +26,14 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 export class SettingsComponent implements OnInit {
 
   seekerId!: string;
+  email!: string;
+  userId!: string;
   ref: DynamicDialogRef | undefined;
 
   constructor(
     private readonly router: Router,
     private readonly destroyRef: DestroyRef,
-    private readonly profileService: ProfileService,
+    private readonly userService: UserService,
     private readonly storageService: StorageService,
     private readonly toastService: ToastService,
     public dialogService: DialogService,
@@ -38,7 +43,23 @@ export class SettingsComponent implements OnInit {
   }
 
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.findUser()
+  }
+
+  findUser(): void {
+    this.userService.findUser()
+      .subscribe({
+        next: (user) => {
+          this.email = user.email;
+          this.userId = user.id;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.toastService.showErrorToast('Error', error.message);
+        },
+        complete: () => { },
+      });
+  }
 
   openChangePasswordDialog(): void {
     this.ref = this.dialogService.open(ChangePasswordDialogComponent, {
@@ -47,6 +68,20 @@ export class SettingsComponent implements OnInit {
       breakpoints: {
         '960px': '75vw',
         '640px': '90vw',
+      },
+    });
+  }
+
+  openChangeEmailDialog(): void {
+    this.ref = this.dialogService.open(ChangeEmailDialogComponent, {
+      width: '50vw',
+      modal: true,
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw',
+      },
+      data: {
+        id: this.userId,
       },
     });
   }
