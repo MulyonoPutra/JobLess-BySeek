@@ -16,14 +16,14 @@ export class CardSettingsComponent {
     @Input({ required: false }) isDeleted?: boolean;
     @Input({ required: false }) height?: string;
 
-    @Output() edited = new EventEmitter<string>();
-    @Output() deleted = new EventEmitter<string>();
+    @Output() edited = new EventEmitter<void>();
+    @Output() deleted = new EventEmitter<void>();
 
-    onEdited(id: string): void {
-        this.edited.emit(id);
+    onEdited(): void {
+        this.edited.emit();
     }
 
-    onDelete(id: string): void {
-        this.deleted.emit(id);
+    onDelete(): void {
+        this.deleted.emit();
     }
 }

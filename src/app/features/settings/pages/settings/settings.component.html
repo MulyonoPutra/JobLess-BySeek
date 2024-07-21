@@ -1,5 +1,5 @@
 <div>
-  <h1 class="text-4xl font-semibold text-elephant-950 dark:text-white py-4">
+  <h1 class="py-4 text-4xl font-semibold text-elephant-950 dark:text-white">
     Settings
   </h1>
   <app-card-settings
@@ -8,13 +8,17 @@
     [height]="'min-h-[90px]'"
   ></app-card-settings>
   <app-card-settings
+    (edited)="openChangePasswordDialog()"
     [title]="'Password'"
     [value]="'*********'"
     [height]="'min-h-[90px]'"
   ></app-card-settings>
   <app-card-settings
+    (deleted)="deleteConfirmation()"
     [title]="'Delete Account'"
     [isDeleted]="true"
     [height]="'min-h-[70px]'"
   ></app-card-settings>
 </div>
+
+<p-confirmDialog />

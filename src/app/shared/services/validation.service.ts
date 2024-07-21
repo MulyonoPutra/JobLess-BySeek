@@ -35,6 +35,17 @@ export class ValidationService {
         }
     }
 
+  changePasswordValidators(formGroup: FormGroup) {
+    const newPassword = formGroup.get('newPassword')!;
+    const confirmPassword = formGroup.get('confirmPassword')!;
+
+    if (newPassword.value !== confirmPassword.value) {
+      confirmPassword.setErrors({ passwordMismatch: true });
+    } else {
+      confirmPassword.setErrors(null);
+    }
+  }
+
     lowerCaseValidator(): ValidatorFn {
         return (control: AbstractControl): { [key: string]: unknown } | null => {
             const value = control.value;
