@@ -61,14 +61,14 @@
 
         <h2 class="mb-2 font-medium text-md text-elephant-950">Responsibilities:</h2>
         <ul class="mb-4 list-disc list-inside">
-            <li class="text-sm font-medium text-bayoux-700">
-                {{ jobAds.description }}
-            </li>
+            <div class="text-sm font-medium text-bayoux-700" [innerHTML]="jobAds.description"></div>
         </ul>
 
         <h2 class="mb-2 font-medium text-md text-elephant-950">Qualifications:</h2>
         <ul class="mb-4 list-disc list-inside">
-            <li class="text-sm font-medium text-bayoux-700">{{ jobAds.requirements }}</li>
+            <div
+                class="text-sm font-medium text-bayoux-700"
+                [innerHTML]="jobAds.requirements"></div>
         </ul>
     </div>
 }

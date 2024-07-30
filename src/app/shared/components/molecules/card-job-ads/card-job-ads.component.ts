@@ -4,12 +4,13 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { CommonModule } from '@angular/common';
 import { JobAds } from '../../../../core/domain/entities/job-ads';
 import { RupiahPipe } from '../../../pipes/rupiah.pipe';
+import { TextOverflowPipe } from '../../../pipes/text-overflow.pipe';
 import { TimeAgoPipe } from '../../../pipes/time-ago.pipe';
 
 @Component({
     selector: 'app-card-job-ads',
     standalone: true,
-    imports: [CommonModule, AngularSvgIconModule, TimeAgoPipe, RupiahPipe],
+    imports: [CommonModule, AngularSvgIconModule, TimeAgoPipe, RupiahPipe, TextOverflowPipe],
     templateUrl: './card-job-ads.component.html',
     styleUrls: ['./card-job-ads.component.scss'],
 })
