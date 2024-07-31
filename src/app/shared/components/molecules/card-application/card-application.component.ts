@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { Application } from '../../../../core/domain/entities/application';
@@ -13,12 +14,20 @@ import { TimeAgoPipe } from '../../../pipes/time-ago.pipe';
     templateUrl: './card-application.component.html',
     styleUrls: ['./card-application.component.scss'],
 })
-export class CardApplicationComponent {
+export class CardApplicationComponent implements OnInit {
     @Input() isLoading!: boolean;
     @Input() borderColor!: string;
     @Input({ required: false }) data!: Application;
     @Output() clicked = new EventEmitter<void>();
     @Output() removed = new EventEmitter<string>();
+
+    sanitized!: SafeHtml;
+
+    constructor(private sanitizer: DomSanitizer) {}
+
+    ngOnInit(): void {
+        this.sanitized = this.sanitizer.bypassSecurityTrustHtml(this.data?.jobAds?.description);
+    }
 
     onClick(): void {
         this.clicked.emit();
