@@ -16,8 +16,6 @@
             {{ data.jobAds.createdAt | timeAgo }}
         </p>
         <p class="mt-2 text-bayoux-700">{{ data.jobAds.employer.company?.location }}</p>
-        <p class="mb-4 text-bayoux-700">
-            {{ data.jobAds.requirements }}
-        </p>
+        <p class="mt-4 mb-4 text-sm text-bayoux-700" [innerHTML]="data.jobAds.description"></p>
     </div>
 </div>
