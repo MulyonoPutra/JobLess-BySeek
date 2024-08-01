@@ -2,9 +2,8 @@
     display: block;
 
     ::ng-deep {
-      .p-button {
-          @apply bg-elephant text-white;
-      }
+        .p-button {
+            @apply bg-elephant text-white;
+        }
     }
 }
-
