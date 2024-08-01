@@ -6,13 +6,7 @@
             Highlight your unique experiences, ambitions and strengths.
         </p>
         <form [formGroup]="form">
-            <div class="w-full space-y-3">
-                <textarea
-                    class="block w-full px-4 py-3 mt-4 text-sm border-gray-200 rounded-lg focus:border-elephant-900 focus:ring-elepborder-elephant-900 disabled:opacity-50 disabled:pointer-events-none"
-                    rows="3"
-                    formControlName="summary"
-                    placeholder="This is a textarea placeholder"></textarea>
-            </div>
+            <app-editor [formGroup]="form" label="Summary" fieldName="summary" />
         </form>
     </div>
     <div class="flex p-4 space-x-2">

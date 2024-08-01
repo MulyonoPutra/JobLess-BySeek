@@ -24,6 +24,7 @@ import { EducationDto } from '../../../../core/domain/dto/create-education.dto';
 import { take, timer } from 'rxjs';
 import { NumberFieldComponent } from '../../../../shared/components/atoms/number-field/number-field.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EditorComponent } from '../../../../shared/components/atoms/editor/editor.component';
 
 @Component({
     selector: 'app-education-form',
@@ -38,6 +39,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         FormCalendarFieldComponent,
         TextAreaFieldComponent,
         NumberFieldComponent,
+        EditorComponent,
     ],
     templateUrl: './education-form.component.html',
     styleUrls: ['./education-form.component.scss'],

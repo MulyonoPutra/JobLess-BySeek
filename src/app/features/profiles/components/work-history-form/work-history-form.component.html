@@ -89,9 +89,9 @@
                                                 fieldName="location" />
                                         </div>
                                         <div>
-                                            <app-text-area-field
+                                            <app-editor
                                                 [formGroup]="experienceFormGroupIndex($index)"
-                                                [label]="'Responsibilities'"
+                                                label="Responsibilities"
                                                 fieldName="responsibilities" />
                                         </div>
                                     </div>
@@ -137,7 +137,7 @@
                                     fieldName="companyName" />
                             </div>
                             <div class="w-full">
-                                <app-text-area-field
+                                <app-editor
                                     [formGroup]="updateForm"
                                     [label]="'Responsibilities'"
                                     fieldName="responsibilities" />

@@ -41,16 +41,14 @@
         {{ duration }}
     </div>
     @if (isEducation) {
-        <div class="px-5 pb-1 text-sm text-bayoux-700">
-            {{ additional }}
-        </div>
+        <div class="px-5 pb-1 text-sm text-bayoux-700">{{ title }} with GPA {{ additional }}</div>
     }
     <div
-        class="px-5 pb-4 mb-2 text-sm text-bayoux-700"
+        class="px-5 pb-1 text-sm text-bayoux-700"
         [innerHTML]="description"
         [class.collapsed]="isCollapsed"
         [style.height]="isCollapsed ? maxHeight + 'px' : 'auto'"></div>
-    @if (isCollapsable && maxHeight >= 20) {
+    @if (isCollapsable && maxHeight >= 15) {
         <button type="button" (click)="isCollapsed = !isCollapsed" class="p-4">
             <div class="flex space-x-2">
                 <div class="text-sm font-semibold text-elephant-950">

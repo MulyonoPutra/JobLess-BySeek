@@ -27,10 +27,17 @@ export class CardProfileComponent implements AfterViewInit {
     @Input({ required: false }) description?: string;
     @Input({ required: false }) isEducation?: boolean;
 
-    @Input() maxHeight: number = 10;
+    @Input() maxHeight: number = 100;
 
     @Output() edited = new EventEmitter<string>();
     @Output() removed = new EventEmitter<string>();
+
+    textLimit: number = 50;
+    isExpanded: boolean = false;
+
+    toggleReadMore() {
+        this.isExpanded = !this.isExpanded;
+    }
 
     public isCollapsed: boolean = false;
     public isCollapsable: boolean = false;

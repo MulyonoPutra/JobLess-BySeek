@@ -1,0 +1,26 @@
+:host ::ng-deep {
+    .p-inputtext.ng-dirty.ng-invalid {
+        border: 2px solid red;
+    }
+
+    .p-inputtext {
+        border-radius: 15px;
+    }
+
+    .p-invalid .ql-container {
+        border: 3px solid red;
+        animation: blinker 1s linear infinite;
+    }
+
+    .p-editor-container .p-editor-toolbar {
+        @apply bg-violet-50;
+    }
+
+    .p-editor-container .p-editor-toolbar.ql-snow {
+        @apply border border-dashed border-violet-200;
+    }
+
+        .p-editor-container .p-editor-content .ql-editor {
+          @apply text-xs text-elephant-900 italic;
+        }
+}

@@ -23,6 +23,7 @@ import { StorageService } from '../../../../core/services/storage.service';
 import { FormCalendarFieldComponent } from '../../../../shared/components/atoms/form-calendar-field/form-calendar-field.component';
 import { TextAreaFieldComponent } from '../../../../shared/components/atoms/text-area-field/text-area-field.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { EditorComponent } from '../../../../shared/components/atoms/editor/editor.component';
 
 @Component({
     selector: 'app-work-history-form',
@@ -36,6 +37,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         FormInputFieldComponent,
         FormCalendarFieldComponent,
         TextAreaFieldComponent,
+        EditorComponent,
     ],
     templateUrl: './work-history-form.component.html',
     styleUrls: ['./work-history-form.component.scss'],

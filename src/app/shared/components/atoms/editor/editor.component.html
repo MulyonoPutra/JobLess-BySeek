@@ -1,0 +1,12 @@
+<div [formGroup]="formGroup" class="py-2">
+    <span class="flex justify-start mb-2 ml-2 text-xs font-medium text-start text-elephant-950">{{
+        label
+    }}</span>
+    <p-editor
+        [style]="{ height: '320px' }"
+        [formControlName]="fieldName"
+        class="w-full"
+        [ngClass]="{ 'p-invalid': isInvalid }">
+    </p-editor>
+    <div *ngIf="isInvalid" class="error-message">{{ getErrorMessage }}</div>
+</div>

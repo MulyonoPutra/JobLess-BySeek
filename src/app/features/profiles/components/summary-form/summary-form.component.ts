@@ -18,6 +18,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { StorageService } from '../../../../core/services/storage.service';
+import { EditorComponent } from '../../../../shared/components/atoms/editor/editor.component';
 
 @Component({
     selector: 'app-summary-form',
@@ -28,6 +29,7 @@ import { StorageService } from '../../../../core/services/storage.service';
         FormsModule,
         ReactiveFormsModule,
         ButtonComponent,
+        EditorComponent,
     ],
     templateUrl: './summary-form.component.html',
     styleUrls: ['./summary-form.component.scss'],
