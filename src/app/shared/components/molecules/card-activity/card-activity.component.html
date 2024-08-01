@@ -13,7 +13,7 @@
                     <button
                         (click)="onRemove()"
                         type="button"
-                        class="inline-flex items-center justify-center text-sm font-semibold text-gray-500 border border-transparent rounded-full hs-tooltip-toggle size-8 gap-x-2 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-neutral-700">
+                        class="inline-flex items-center justify-center text-sm font-semibold border border-transparent rounded-full text-elephant-900 hs-tooltip-toggle size-8 gap-x-2 hover:bg-elephant-100 disabled:opacity-50 disabled:pointer-events-none">
                         <svg-icon
                             src="../../../../../assets/icons/close.svg"
                             svgClass="flex-shrink-0 size-4">
@@ -35,10 +35,11 @@
                 class="mt-2 text-xs font-light border border-transparent rounded-lg text-bayoux-700 gap-x-1">
                 {{ data.jobAds.createdAt | timeAgo }}
             </p>
-            <p class="mt-2 text-bayoux-700">{{ data.jobAds.employer.company?.location }}</p>
-            <p class="mb-4 text-bayoux-700">
-                {{ data.jobAds.requirements }}
-            </p>
+            <p class="mt-2 text-sm text-bayoux-700">{{ data.jobAds.employer.company?.location }}</p>
+            <div
+                class="py-4 text-sm font-medium text-bayoux-700"
+                [innerHTML]="data.jobAds.requirements"></div>
+
             @if (isButtonHidden) {
                 <app-button
                     [withIcon]="true"

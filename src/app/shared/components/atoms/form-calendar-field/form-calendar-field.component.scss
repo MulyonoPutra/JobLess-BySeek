@@ -1,62 +1,68 @@
 :host {
-    display: block;
+  display: block;
 
-    ::ng-deep {
-        .p-inputtext {
-            @apply text-xs text-elephant-900 italic;
-        }
+  ::ng-deep {
+    .p-inputtext {
+      @apply text-xs text-elephant-900 italic;
     }
+
+    .p-button {
+      @apply bg-elephant text-white;
+    }
+  }
+
+
 }
 
 .errors {
-    &-message {
-        @apply blink absolute left-0 text-xs font-semibold text-red-700;
-    }
+  &-message {
+    @apply blink absolute left-0 text-xs font-semibold text-red-700;
+  }
 }
 
 .label-valid {
-    @apply flex justify-center text-start text-xs font-medium text-elephant-950;
+  @apply flex justify-center text-start text-xs font-medium text-elephant-950;
 }
 
 .label-invalid {
-    @apply flex justify-center text-start text-xs font-medium text-red-700;
+  @apply flex justify-center text-start text-xs font-medium text-red-700;
 }
 
 .blink {
-    animation: blinker 1s linear infinite;
+  animation: blinker 1s linear infinite;
 }
 
 @keyframes blinker {
-    50% {
-        opacity: 0;
-    }
+  50% {
+    opacity: 0;
+  }
 }
 
 ::ng-deep {
-    .p-calendar .p-datepicker {
-        min-width: 40%;
-        font-size: 12px !important;
-    }
+  .p-calendar .p-datepicker {
+    min-width: 40%;
+    font-size: 12px !important;
+  }
 
-    .p-datepicker table td.p-datepicker-today > span {
-        @apply bg-elephant-600 text-white;
-    }
+  .p-datepicker table td.p-datepicker-today>span {
+    @apply bg-elephant-600 text-white;
+  }
 
-    .p-datepicker table th,
-    .p-datepicker table td {
-        padding: 1px;
-        font-size: 12px !important;
-        border-radius: 10px;
-    }
+  .p-datepicker table th,
+  .p-datepicker table td {
+    padding: 1px;
+    font-size: 12px !important;
+    border-radius: 10px;
+  }
 
-    .p-float-label label {
-        font-size: 12px !important;
-        font-weight: 600;
-    }
+  .p-float-label label {
+    font-size: 12px !important;
+    font-weight: 600;
+  }
 
-    .p-component {
-        font-size: 12px;
-        font-weight: 700;
-        @apply border-elephant-200 rounded-lg;
-    }
+  .p-component {
+    font-size: 12px;
+    font-weight: 700;
+    @apply border-elephant-200 rounded-lg;
+  }
 }

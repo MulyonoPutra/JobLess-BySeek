@@ -45,15 +45,15 @@
                 <div class="flex space-x-2">
                     <svg-icon
                         src="../../../../../assets/icons/map-pin-line.svg"
-                        svgClass="mt-3 icon-primary-4" />
-                    <p class="mt-2 text-stonewall-400">{{ job.employer.company!.location }}</p>
+                        svgClass="mt-3 icon-primary-2" />
+                    <p class="mt-2 text-sm text-bayoux-600">{{ job.employer.company!.location }}</p>
                 </div>
 
                 <div class="flex mt-2 space-x-2">
                     <svg-icon
                         src="../../../../../assets/icons/building-line.svg"
-                        svgClass="mt-3 icon-primary-4" />
-                    <p class="mt-2 text-sm text-stonewall-400">
+                        svgClass="mt-3 icon-primary-2" />
+                    <p class="mt-2 text-sm text-bayoux-600">
                         {{ job.employer.company!.industry }}
                     </p>
                 </div>
@@ -61,12 +61,12 @@
                 <div class="flex mt-2 space-x-2">
                     <svg-icon
                         src="../../../../../assets/icons/money.svg"
-                        svgClass="mt-2 icon-primary-4" />
-                    <p class="mt-2 text-sm text-stonewall-400">{{ job.salary | rupiah }}</p>
+                        svgClass="mt-2 icon-primary-2" />
+                    <p class="mt-2 text-sm text-bayoux-600">{{ job.salary | rupiah }}</p>
                 </div>
 
                 <span
-                    class="inline-flex items-center mt-3 text-xs font-light border border-transparent rounded-lg gap-x-1 text-stark-400">
+                    class="inline-flex items-center mt-3 text-xs font-light border border-transparent rounded-lg gap-x-1 text-bayoux-400">
                     {{ job.createdAt | timeAgo }}
                 </span>
             </div>

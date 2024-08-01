@@ -1,23 +1,25 @@
-import { CommonModule } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, DestroyRef, Input, type OnInit } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AngularSvgIconModule } from 'angular-svg-icon';
-import { ConfirmationService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { DialogModule } from 'primeng/dialog';
+import { Component, DestroyRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { take, timer } from 'rxjs';
+
+import { AngularSvgIconModule } from 'angular-svg-icon';
+import { ButtonComponent } from '../../atoms/button/button.component';
+import { CommonModule } from '@angular/common';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 import { CreateApplicationDto } from '../../../../core/domain/dto/create-application.dto';
-import { SavedJobAdsDto } from '../../../../core/domain/dto/saved-job-ads.dto';
+import { DialogModule } from 'primeng/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
 import { JobAds } from '../../../../core/domain/entities/job-ads';
-import { StorageService } from '../../../../core/services/storage.service';
 import { JobAdsService } from '../../../../features/jobs/services/job-ads.service';
+import { ProfilePromptComponent } from '../../molecules/profile-prompt/profile-prompt.component';
 import { RupiahPipe } from '../../../pipes/rupiah.pipe';
+import { SavedJobAdsDto } from '../../../../core/domain/dto/saved-job-ads.dto';
+import { StorageService } from '../../../../core/services/storage.service';
 import { TimeAgoPipe } from '../../../pipes/time-ago.pipe';
 import { ToastService } from '../../../services/toast.service';
-import { ProfilePromptComponent } from '../../molecules/profile-prompt/profile-prompt.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-job-view-details',
@@ -32,12 +34,13 @@ import { ProfilePromptComponent } from '../../molecules/profile-prompt/profile-p
         ProfilePromptComponent,
         DynamicDialogModule,
         ConfirmDialogModule,
+        ButtonComponent,
     ],
     templateUrl: './job-view-details.component.html',
     styleUrls: ['./job-view-details.component.scss'],
     providers: [JobAdsService, DialogService, ConfirmationService],
 })
-export class JobViewDetailsComponent implements OnInit {
+export class JobViewDetailsComponent implements OnChanges {
     @Input() jobAdsId!: string;
     companyId!: string;
     jobAds!: JobAds;
@@ -61,8 +64,10 @@ export class JobViewDetailsComponent implements OnInit {
         this.seekerId = this.storageService.getSeekerIdentity();
     }
 
-    ngOnInit(): void {
-        this.findById();
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['jobAdsId']) {
+            this.findById();
+        }
     }
 
     showDialog() {
@@ -102,6 +107,7 @@ export class JobViewDetailsComponent implements OnInit {
             .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: () => {
+                    this.setLoading();
                     this.toastService.showSuccessToast('Success', 'Applied!');
                 },
                 error: (error: HttpErrorResponse) => {
@@ -148,6 +154,7 @@ export class JobViewDetailsComponent implements OnInit {
     }
 
     findById(): void {
+        this.isLoading = true;
         this.jobAdsService
             .findById(this.jobAdsId)
             .pipe(takeUntilDestroyed(this.destroyRef))

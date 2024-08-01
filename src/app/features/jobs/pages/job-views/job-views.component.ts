@@ -30,7 +30,7 @@ import { ToastService } from '../../../../shared/services/toast.service';
 })
 export class JobViewsComponent implements OnInit {
     jobAds!: JobAds[];
-    jobAdsId!: string;
+    jobAdsId!: string | null;
     companyId!: string;
     routerState!: string;
 
@@ -59,7 +59,11 @@ export class JobViewsComponent implements OnInit {
     }
 
     onDetails(id: string): void {
-        this.jobAdsId = id;
+        if (this.jobAdsId === id) {
+            this.jobAdsId = null;
+        } else {
+            this.jobAdsId = id;
+        }
     }
 
     onBookmark(): void {

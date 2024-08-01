@@ -3,16 +3,26 @@
         <app-overlay-image-container [overlayImage]="overlayImage">
             @if (user) {
                 <div class="md:p-5 text-start">
-                    <h3 class="text-4xl font-bold text-stark-200">{{ user.name }}</h3>
+                    <h3 class="text-4xl font-bold capitalize text-stark-200">{{ user.name }}</h3>
                     <div class="flex flex-col space-y-2">
-                        <div class="flex space-x-1">
+                        <div class="flex space-x-3">
                             <div>
                                 <svg-icon
-                                    src="../../../../../assets/icons/mail.svg"
-                                    svgClass="mt-1" />
+                                    src="../../../../../assets/icons/mail-send.svg"
+                                    svgClass="mt-1 w-5 h-5 icon-primary-4" />
                             </div>
                             <div>
                                 <p class="text-stark-200">{{ user.email }}</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-3">
+                            <div>
+                                <svg-icon
+                                    src="../../../../../assets/icons/phone.svg"
+                                    svgClass="mt-1 icon-primary-4 w-5 h-5" />
+                            </div>
+                            <div>
+                                <p class="text-stark-200">{{ user.phone }}</p>
                             </div>
                         </div>
                     </div>
@@ -22,7 +32,7 @@
                                 type="button"
                                 class="edit-btn"
                                 (click)="openProfileDialog(user)">
-                                Edit
+                                Update
                             </button>
                         </div>
                     </div>

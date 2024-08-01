@@ -15,3 +15,7 @@
 .blink {
     animation: blink 1s step-start 0s infinite;
 }
+
+.active {
+  @apply text-stark-400 font-semibold;
+}
