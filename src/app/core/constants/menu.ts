@@ -21,20 +21,12 @@ export const MENU_ITEM: Menu = {
             route: '/profile',
         },
         {
-            label: 'Saved Searches',
-            route: '/saved-search',
-        },
-        {
             label: 'Saved Jobs',
             route: '/activity/saved-jobs',
         },
         {
             label: 'Applied Jobs',
             route: '/activity/applied-jobs',
-        },
-        {
-            label: 'Recommended Jobs',
-            route: '/recommended-jobs',
         },
         {
             label: 'Settings',
