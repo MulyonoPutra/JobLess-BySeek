@@ -17,9 +17,9 @@ export class SearchFieldComponent {
     query!: string;
     router = inject(Router);
 
-    @Output() clicked = new EventEmitter<string>();
+    @Output() queries = new EventEmitter<string>();
 
     search(): void {
-        this.clicked.emit(this.query);
+        this.queries.emit(this.query);
     }
 }

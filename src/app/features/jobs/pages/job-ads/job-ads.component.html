@@ -6,7 +6,7 @@
                 Search for the perfect role and take the next step in your career.
             </h4>
             <div class="mt-4">
-                <app-search-field></app-search-field>
+                <app-search-field (queries)="receive($event)"></app-search-field>
             </div>
         </div>
     </app-overlay-image-container>

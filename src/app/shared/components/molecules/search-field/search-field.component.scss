@@ -1,6 +1,4 @@
 :host {
-    display: block;
-
     ::placeholder {
         @apply text-sm text-stark-200;
     }
@@ -8,4 +6,16 @@
 
 .colors {
     color: #e7e2db;
+}
+
+.search {
+  &-input {
+    @apply block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-stark-500 focus:border-stark-900 rounded-lg;
+  }
+
+  &-btn {
+    @apply absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-stark-200 bg-stark-700
+    rounded-e-lg border border-stark-700 hover:bg-elephant-800 focus:ring-4
+    focus:outline-none rounded-r-lg focus:ring-stark-300;
+  }
 }

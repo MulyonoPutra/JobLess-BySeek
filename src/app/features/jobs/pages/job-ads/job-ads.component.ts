@@ -71,4 +71,8 @@ export class JobAdsComponent implements OnInit {
         this.localStorageService.removeItem('bookmark');
         this.localStorageService.setItem('bookmark', this.isBookmark);
     }
+
+    receive(data: string) {
+        console.log('Data received from child:', data);
+    }
 }

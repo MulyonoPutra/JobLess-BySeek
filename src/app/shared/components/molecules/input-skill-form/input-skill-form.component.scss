@@ -1,3 +1,7 @@
 :host {
     display: block;
 }
+
+.add-btn {
+  @apply inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-stark-500 bg-elephant-950 rounded-lg border border-stark-900 hover:bg-elephant-800 focus:ring-4 focus:outline-none focus:ring-blue-300;
+}
