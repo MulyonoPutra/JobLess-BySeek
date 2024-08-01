@@ -72,7 +72,9 @@ export class JobAdsComponent implements OnInit {
         this.localStorageService.setItem('bookmark', this.isBookmark);
     }
 
-    receive(data: string) {
-        console.log('Data received from child:', data);
+    search(query: string) {
+        if (query?.trim()) {
+            this.router.navigate(['/jobs/search-result'], { queryParams: { query: query } });
+        }
     }
 }

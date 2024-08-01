@@ -7,7 +7,7 @@ export const JOBS_ROUTES: Routes = [
             import('./pages/job-ads/job-ads.component').then((a) => a.JobAdsComponent),
     },
     {
-        path: 'results',
+        path: 'search-result',
         loadComponent: () =>
             import('./pages/job-search-result/job-search-result.component').then(
                 (a) => a.JobSearchResultComponent,

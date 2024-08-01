@@ -23,6 +23,12 @@ export class JobAdsService {
             .pipe(map((response) => response.data));
     }
 
+    search(query: string): Observable<JobAds[]> {
+        return this.http
+            .get<HttpResponseEntity<JobAds[]>>(`${this.endpoint}/job-ads?query=${query}`)
+            .pipe(map((response) => response.data));
+    }
+
     findById(id: string): Observable<JobAds> {
         return this.http
             .get<HttpResponseEntity<JobAds>>(`${this.endpoint}/job-ads/${id}`)
