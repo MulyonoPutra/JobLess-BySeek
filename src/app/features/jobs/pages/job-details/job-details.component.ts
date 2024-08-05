@@ -126,10 +126,6 @@ export class JobDetailsComponent implements OnInit {
                 next: () => {
                     this.toastService.showSuccessToast('Success', 'Applied!');
                 },
-                error: (error: HttpErrorResponse) => {
-                    this.setLoading();
-                    this.toastService.showErrorToast('Error', error.message);
-                },
                 complete: () => {
                     this.navigateAfterSucceed('applied-jobs');
                 },
