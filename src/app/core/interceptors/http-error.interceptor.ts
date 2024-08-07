@@ -40,8 +40,6 @@ export const httpErrorInterceptor: HttpInterceptorFn = (
             }
 
             toast.showErrorToast('Error', errorMessage);
-
-            //
             return throwError(() => errorMessage);
         }),
     );
