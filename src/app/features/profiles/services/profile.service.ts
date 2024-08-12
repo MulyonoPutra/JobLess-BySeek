@@ -9,6 +9,7 @@ import { Experience } from '../../../core/domain/entities/experience';
 import { HttpClient } from '@angular/common/http';
 import { HttpResponseEntity } from '../../../core/domain/entities/http-response-entity';
 import { Injectable } from '@angular/core';
+import { License } from '../../../core/domain/entities/license';
 import { ProfileResponseEntity } from '../../../core/domain/entities/profile.response-entity';
 import { Seeker } from '../../../core/domain/entities/seeker';
 import { Skill } from '../../../core/domain/entities/skill';
@@ -122,6 +123,18 @@ export class ProfileService {
     removeSkillById(id: string): Observable<Skill> {
         return this.http
             .delete<HttpResponseEntity<Skill>>(`${this.endpoint}/seeker/skills/${id}`)
+            .pipe(map((response) => response.data));
+    }
+
+    createLicense(id: string, body: License[]): Observable<License[]> {
+        return this.http
+            .post<HttpResponseEntity<License[]>>(`${this.endpoint}/seeker/license/${id}`, body)
+            .pipe(map((response) => response.data));
+    }
+
+    findLicenseById(id: string): Observable<License> {
+        return this.http
+            .get<HttpResponseEntity<License>>(`${this.endpoint}/seeker/license/${id}`)
             .pipe(map((response) => response.data));
     }
 }
