@@ -22,6 +22,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../core/store/store';
 import * as LicenseActions from '../../../../core/store/actions/license.action';
 import { License } from '../../../../core/domain/entities/license';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-license-form',
@@ -100,6 +102,27 @@ export class LicenseFormComponent implements OnInit {
         this.store.dispatch(
             LicenseActions.addLicense({ seekerId: this.seekerId, licenses: [this.formCtrlValue] }),
         );
+    }
+
+    onCreate(): void {
+        this.profileService
+            .createLicense(this.seekerId, [this.formCtrlValue])
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe({
+                next: () => {
+                    this.toastService.showSuccessToast('Success', 'Created Skills...');
+                    setTimeout(() => {
+                        this.isLoading = false;
+                    }, 2000);
+                },
+                error: (error: HttpErrorResponse) => {
+                    this.isLoading = false;
+                    this.toastService.showErrorToast('Error', error.message);
+                },
+                complete: () => {
+                    this.navigateAfterSucceed();
+                },
+            });
     }
 
     onSubmit() {
