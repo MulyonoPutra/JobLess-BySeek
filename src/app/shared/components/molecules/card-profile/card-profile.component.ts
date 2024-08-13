@@ -25,6 +25,7 @@ export class CardProfileComponent implements AfterViewInit {
     @Input({ required: false }) duration?: string;
     @Input({ required: false }) additional?: string | number;
     @Input({ required: false }) description?: string;
+    @Input({ required: false }) organization?: string;
     @Input({ required: false }) isEducation?: boolean;
 
     @Input() maxHeight: number = 100;

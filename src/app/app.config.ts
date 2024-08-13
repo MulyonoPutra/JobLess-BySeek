@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, isDevMode } from '@angular/core';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { appEffects, appStore } from './core/store/store';
 import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
@@ -10,6 +10,7 @@ import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { provideEffects } from '@ngrx/effects';
 import { provideRouter } from '@angular/router';
 import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -25,5 +26,6 @@ export const appConfig: ApplicationConfig = {
         importProvidersFrom(BrowserAnimationsModule),
         provideRouter(routes),
         provideAngularSvgIcon(),
+        provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     ],
 };

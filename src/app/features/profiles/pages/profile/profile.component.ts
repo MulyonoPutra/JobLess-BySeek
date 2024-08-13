@@ -37,6 +37,7 @@ import { Store } from '@ngrx/store';
 import { licenseSelector } from '../../../../core/store/selectors/license.selector';
 import * as LicenseActions from '../../../../core/store/actions/license.action';
 import { License } from '../../../../core/domain/entities/license';
+import { LicenseFormComponent } from '../../components/license-form/license-form.component';
 
 type DialogConfig = {
     header: string;
@@ -205,6 +206,20 @@ export class ProfileComponent implements OnInit {
         });
     }
 
+    removeLicenseConfirm(id: string): void {
+        this.confirmationService.confirm({
+            header: 'Remove License',
+            message: 'Are you sure want to remove this license?',
+            accept: () => {
+                this.onRemoveLicense(id);
+            },
+        });
+    }
+
+    onRemoveLicense(id: string): void {
+        console.log(id);
+    }
+
     openWorkHistoryDialog(id?: string): void {
         const config: DialogConfig = {
             header: id ? 'Update Work History' : 'Add Work History',
@@ -266,6 +281,24 @@ export class ProfileComponent implements OnInit {
                 skills: skills,
             },
         });
+    }
+
+    openLicenseDialog(id?: string): void {
+        const config: DialogConfig = {
+            header: id ? 'Update Education' : 'Add Education',
+            width: '50vw',
+            modal: true,
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw',
+            },
+        };
+
+        if (id) {
+            config.data = { id };
+        }
+
+        this.ref = this.dialogService.open(LicenseFormComponent, config);
     }
 
     openEducationDialog(id?: string): void {
