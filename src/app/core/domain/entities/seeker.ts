@@ -1,6 +1,7 @@
 import { Application } from './application';
 import { Education } from './education';
 import { Experience } from './experience';
+import { License } from './license';
 import { SavedJobs } from './saved-jobs';
 import { Skill } from './skill';
 import { User } from './user';
@@ -15,4 +16,5 @@ export interface Seeker {
     user: User;
     savedJobs: SavedJobs[];
     application: Application[];
+    license: License[];
 }

@@ -22,11 +22,13 @@ export const licenseReducer = createReducer(
 
     on(LicenseActions.loadLicense, (state: any) => ({ ...state, loading: true })),
 
-    on(LicenseActions.loadLicenseSuccess, (state: any, { license }: any) => ({
-        ...state,
-        license,
-        loading: false,
-    })),
+    on(LicenseActions.loadLicenseSuccess, (state, { licenses }) => {
+        return {
+            ...state,
+            licenses,
+            loading: false,
+        };
+    }),
 
     on(LicenseActions.loadLicenseFailure, (state: any, { error }: any) => ({
         ...state,

@@ -16,3 +16,5 @@ export const addLicense = createAction(
     props<{ seekerId: string; licenses: License[] }>(),
 );
 export const deleteLicense = createAction('[License] Delete License', props<{ id: string }>());
+
+export const loadSeeker = createAction('[Seeker] Load Seeker', props<{ id: string }>());

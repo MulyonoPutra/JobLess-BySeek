@@ -7,7 +7,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { take, timer } from 'rxjs';
+import { Observable, take, timer } from 'rxjs';
 import { OVERLAY_IMAGES } from '../../../../core/constants/overlay-images';
 import { UpdateSummaryDto } from '../../../../core/domain/dto/update-summary.dto';
 import { WorkHistoryDto } from '../../../../core/domain/dto/work-history.dto';
@@ -32,6 +32,11 @@ import { SummaryFormComponent } from '../../components/summary-form/summary-form
 import { WorkHistoryFormComponent } from '../../components/work-history-form/work-history-form.component';
 import { ProfileService } from '../../services/profile.service';
 import { EducationFormComponent } from '../../components/education-form/education-form.component';
+import { AppState } from '../../../../core/store/store';
+import { Store } from '@ngrx/store';
+import { licenseSelector } from '../../../../core/store/selectors/license.selector';
+import * as LicenseActions from '../../../../core/store/actions/license.action';
+import { License } from '../../../../core/domain/entities/license';
 
 type DialogConfig = {
     header: string;
@@ -74,6 +79,7 @@ export class ProfileComponent implements OnInit {
     user!: User;
     skills!: Skill[];
     seekerId!: string;
+    license$!: Observable<License[]>;
 
     updateSummaryDto!: UpdateSummaryDto;
     updateWorkHistoryDto!: WorkHistoryDto;
@@ -91,13 +97,20 @@ export class ProfileComponent implements OnInit {
         private readonly toastService: ToastService,
         public dialogService: DialogService,
         private readonly confirmationService: ConfirmationService,
+        private readonly store: Store<AppState>,
     ) {
         this.seekerId = this.storageService.getSeekerIdentity();
+        this.license$ = this.store.select(licenseSelector);
     }
 
     ngOnInit(): void {
         this.findOne();
         this.findSkillsBySeekerId();
+        this.loadLicenses();
+    }
+
+    loadLicenses(): void {
+        this.store.dispatch(LicenseActions.loadSeeker({ id: this.seekerId }));
     }
 
     findOne(): void {
@@ -131,7 +144,6 @@ export class ProfileComponent implements OnInit {
                 error: (error: HttpErrorResponse) => {
                     this.toastService.showErrorToast('Error', error.message);
                 },
-                complete: () => {},
             });
     }
 

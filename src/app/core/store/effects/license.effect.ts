@@ -5,14 +5,10 @@ import { catchError, map, mergeMap, of } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { ProfileService } from '../../../features/profiles/services/profile.service';
+import { loadSeeker } from '../actions/license.action';
 
 @Injectable()
 export class LicenseEffects {
-    constructor(
-        private actions$: Actions,
-        private profileService: ProfileService,
-    ) {}
-
     addLicense$ = createEffect(
         () => {
             return this.actions$.pipe(
@@ -33,4 +29,23 @@ export class LicenseEffects {
         },
         { dispatch: false },
     );
+
+    findSeekerById$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(loadSeeker),
+            mergeMap((action) =>
+                this.profileService.findOne(action.id).pipe(
+                    map((seeker) => {
+                        return LicenseAction.loadLicenseSuccess({ licenses: seeker.license });
+                    }),
+                    catchError((error: string) => of(LicenseAction.loadLicenseFailure({ error }))),
+                ),
+            ),
+        ),
+    );
+
+    constructor(
+        private actions$: Actions,
+        private profileService: ProfileService,
+    ) {}
 }

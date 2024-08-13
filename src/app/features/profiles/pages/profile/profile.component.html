@@ -98,6 +98,23 @@
                 <app-empty-state />
             }
         </ng-container>
+
+        <ng-container>
+            <app-section-header-profile (created)="openSkillsDialog()" [title]="'License'" />
+            @for (license of license$ | async; track $index) {
+                <div class="flex flex-col bg-white border shadow-sm rounded-xl">
+                    <div class="p-4 md:p-5">
+                        <h3 class="text-lg font-bold text-elephant-950">{{ license.name }}</h3>
+                        <p class="mt-2 font-semibold text-elephant-800">
+                            {{ license.organization }}
+                        </p>
+                        <p class="mt-2 text-sm text-elephant-800">
+                            {{ license.description }}
+                        </p>
+                    </div>
+                </div>
+            }
+        </ng-container>
     </div>
 }
 
